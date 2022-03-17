@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms.profile_forms import ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, CreateProfileForm
 from app.models import db, Profile
-from route_utils import validation_errors_to_error_messages
+from .route_utils import validation_errors_to_error_messages
 
 profile_routes = Blueprint('profiles',__name__)
 
@@ -15,7 +15,7 @@ def get_profiles():
 
 @profile_routes.route('/location', methods=['POST'])
 @login_required
-def create_profile():
+def add_profile_location():
     form = ProfileLocationForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -25,7 +25,7 @@ def create_profile():
 
 @profile_routes.route('/about', methods=['POST'])
 @login_required
-def create_profile():
+def add_profile_about():
     form = ProfileAboutForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -35,7 +35,7 @@ def create_profile():
 
 @profile_routes.route('/picture', methods=['POST'])
 @login_required
-def create_profile():
+def add_profile_picture():
     form = ProfilePictureForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

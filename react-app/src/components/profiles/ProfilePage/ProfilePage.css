@@ -16,7 +16,13 @@
 .profile-page-user-image {
     width: 130px;
     height: 130px;
-    border-radius: 50%;
+    border-radius: 75px;
+    overflow: hidden;
+    /* display: flex;
+    justify-content: center; */
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .profile-page-user-no-image {

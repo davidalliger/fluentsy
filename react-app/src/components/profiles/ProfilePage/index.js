@@ -12,6 +12,7 @@ const ProfilePage = () => {
         return profileMatch;
     }, null);
     console.log(userProfile);
+    console.log(userProfile.imgUrl);
 
     return (
         <div id='profile-page'>
