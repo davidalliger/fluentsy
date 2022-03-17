@@ -14,7 +14,7 @@ const ProfileButton = () => {
     const profileState = useSelector(state => state.profiles);
     const profiles = Object.values(profileState);
     const userProfile = profiles.reduce((profileMatch,profile) => {
-        if (profile.user_id === user.id) profileMatch = profile;
+        if (profile.userId === user.id) profileMatch = profile;
         return profileMatch;
     }, null);
 

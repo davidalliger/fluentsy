@@ -1,0 +1,31 @@
+.profiles-feed-container {
+    border: 1px solid gray;
+    padding: 20px;
+    margin: 10px 80px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.profiles-feed-link {
+    text-decoration: none;
+    color: black;
+}
+
+.profiles-feed-user-image {
+    height: 100px;
+    width: 100px;
+}
+
+.profiles-feed-user-no-image {
+    font-size: 100px;
+    color: gray;
+}
+
+.profiles-feed-basic-info {
+    margin-left: 20px;
+}
+
+.profiles-feed-username h2 {
+    margin-top: 0;
+}
