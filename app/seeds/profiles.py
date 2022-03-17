@@ -4,11 +4,11 @@ from datetime import date
 # Adds a demo user, you can add other users here if you want
 def seed_profiles():
     demo_profile = Profile(
-        user_id=1, country='United States', state='California', timezone='PST (GMT-9:00)', about='Hello! I am a demo user!', birthday=date(1970, 7, 4))
+        user_id=1, country='United States', state='California', timezone='PST (GMT-9:00)', about='Hello! I am a demo user!', birthday=date(1970, 7, 4), display_age=True)
     marnie_profile = Profile(
-        user_id=2, country='France', timezone='ECT (GMT+1:00)', about='Hello! My name is Marnie!', birthday=date(1990, 12, 25))
+        user_id=2, country='France', timezone='ECT (GMT+1:00)', about='Hello! My name is Marnie!', birthday=date(1990, 12, 25), display_age=True)
     bobbie_profile = Profile(
-        user_id=3, country='Mexico', timezone='CST (GMT-6:00)', about='Hello! My name is Bobbie!', birthday=date(1985, 10, 31))
+        user_id=3, country='Mexico', timezone='CST (GMT-6:00)', about='Hello! My name is Bobbie!', birthday=date(1985, 10, 31), display_age=True)
 
     db.session.add(demo_profile)
     db.session.add(marnie_profile)

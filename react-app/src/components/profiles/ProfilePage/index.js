@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './ProfilePage.css'
 
@@ -10,6 +11,20 @@ const ProfilePage = () => {
         if (profile.user_id === +id) profileMatch = profile;
         return profileMatch;
     }, null);
+    const [showAge, setShowAge] = useState(false);
+
+    const getAge = (date) => {
+        const today = new Date();
+        const birthday = new Date(date);
+        birthday.setDate(birthday.getUTCDate());
+        const year = 1000 * 60 * 60 * 24 * 365;
+        const age = Math.floor((today - birthday)/year);
+        return age;
+    }
+
+    // if (userProfile.birthday && userProfile.displayAge) {
+    //     setShowAge(true);
+    // }
 
     return (
         <div id='profile-page'>
@@ -37,6 +52,11 @@ const ProfilePage = () => {
                     <div id='profile-page-timezone'>
                         {/* {userProfile.timezone} */}
                     </div>
+                    {(userProfile.birthday && userProfile.displayAge) && (
+                        <div id='profile-page-timezone'>
+                            {getAge(userProfile.birthday)} years old
+                        </div>
+                    )}
                 </div>
             </div>
             <div id='profile-page-lower'>

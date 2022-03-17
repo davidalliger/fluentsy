@@ -11,7 +11,7 @@ class Profile(db.Model):
     timezone = db.Column(db.String)
     about = db.Column(db.String)
     birthday = db.Column(db.Date)
-    displayAge = db.Column(db.Boolean)
+    display_age = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
     updated_at = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.current_timestamp)
 
@@ -27,5 +27,6 @@ class Profile(db.Model):
             'state': self.state,
             'timezone': self.timezone,
             'about': self.about,
-            'birthday': self.birthday
+            'birthday': self.birthday,
+            'displayAge': self.display_age
         }
