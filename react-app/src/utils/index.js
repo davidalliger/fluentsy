@@ -295,7 +295,7 @@ export const timezones = [
     'Central African Time (GMT-1:00)'
 ]
 
-export const countriesDefaultTimeZones = {
+export const countriesDefaultTimezones = {
     'United States': 'Pacific Standard Time (GMT-8:00)',
     'Canada': 'Pacific Standard Time (GMT-8:00)',
     'United Kingdom': 'Greenwich Mean Time (GMT)',
@@ -494,7 +494,7 @@ export const countriesDefaultTimeZones = {
     'Zimbabwe': 'Eastern European Time (GMT+2:00)'
 }
 
-export const statesDefaultTimeZones = {
+export const statesDefaultTimezones = {
     'Alabama':'Central Standard Time (GMT-6:00)',
     'Alaska': 'Alaska Standard Time (GMT-9:00)',
     'Arizona': 'Mountain Standard Time (GMT-7:00)',

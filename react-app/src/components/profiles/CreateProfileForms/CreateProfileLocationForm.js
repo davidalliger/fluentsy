@@ -1,16 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addProfileLocation } from "../../../store/profiles";
 import { states, countries, timezones, statesDefaultTimezones, countriesDefaultTimezones } from '../../../utils';
 
-const CreateProfileLocationForm = ({setShowLocationForm, setShowAboutForm}) => {
-    const [country, setCountry] = useState('');
-    const [state, setState] = useState('');
-    const [timezone, setTimezone] = useState('');
+const CreateProfileLocationForm = ({country, setCountry, state, setState, timezone, setTimezone, setShowModal, setShowLocationForm, setShowAboutForm}) => {
     const [errors, setErrors] = useState([]);
+    const [showState, setShowState] = useState(false);
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    const history = useHistory();
 
     useEffect(() => {
         if (country === 'United States') {
@@ -18,17 +15,25 @@ const CreateProfileLocationForm = ({setShowLocationForm, setShowAboutForm}) => {
         } else {
             setShowState(false);
         }
-
+        if (countriesDefaultTimezones[country]) {
+            setTimezone(countriesDefaultTimezones[country])
+        }
         return () => {
             setShowState(false);
         }
     }, [country]);
 
+    useEffect(() => {
+        if (statesDefaultTimezones[state]) {
+            setTimezone(statesDefaultTimezones[state])
+        }
+    }, [state]);
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         const location = {
             country,
-            state,
+            state: (country === 'United States') ? state : null,
             timezone
         };
         const data = await dispatch(addProfileLocation(location));
@@ -37,14 +42,21 @@ const CreateProfileLocationForm = ({setShowLocationForm, setShowAboutForm}) => {
         } else if (data.success) {
             setShowLocationForm(false);
             setShowAboutForm(true);
+        } else {
+            setErrors(data);
         }
     }
 
     return (
         <div>
-            <h2>Hello, {user.username}!</h2>
-            <p>Where are you located?</p>
             <form onSubmit={handleSubmit}>
+                <div>
+                    {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
+                </div>
+                <h2>Hello, {user.username}!</h2>
+                <p>Where are you located?</p>
                 <div className='form-field'>
                     <label htmlFor='country'>
                         Country:
@@ -102,9 +114,9 @@ const CreateProfileLocationForm = ({setShowLocationForm, setShowAboutForm}) => {
                     type='button'
                     className='form-button'
                     id='back'
-                    onClick={history.goBack}
+                    onClick={() => setShowModal(false)}
                 >
-                    Back
+                    Cancel
                 </button>
                 <button
                     type='submit'

@@ -15,6 +15,14 @@
 .profiles-feed-user-image {
     height: 100px;
     width: 100px;
+    border-radius: 50px;
+    overflow: hidden;
+    /* display: flex;
+    justify-content: center; */
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-clip: border-box;
 }
 
 .profiles-feed-user-no-image {
