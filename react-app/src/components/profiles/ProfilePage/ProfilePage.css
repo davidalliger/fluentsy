@@ -1,0 +1,29 @@
+#profile-page {
+    padding: 0 80px;
+}
+
+#profile-page-heading {
+    display: flex;
+}
+#profile-page-heading-info {
+    margin-left: 50px;
+}
+
+#profile-page-heading-info h2 {
+    margin-top: 15px;
+}
+
+.profile-page-user-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.profile-page-user-no-image {
+    font-size: 100px;
+    color: gray;
+}
+
+#profile-page-lower {
+    margin-top: 50px;
+}

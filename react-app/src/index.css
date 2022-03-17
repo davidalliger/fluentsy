@@ -1,1 +1,26 @@
 /* TODO Add site wide styles */
+html {
+    padding: 100px 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+html,
+body,
+#root {
+    margin: 0;
+    height: 100%;
+}
+
+.nav-button {
+    background-color: white;
+    color: rgb(224, 54, 54);
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 5px;
+    width: 70px;
+}
+
+.nav-button:hover {
+ background-color: rgb(255, 233, 223);
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../../store/session';
+import { login } from '../../../../store/session';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -11,6 +11,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
+    console.log("in onLogin");
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {

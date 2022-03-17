@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import { useDispatch, useSelector } from 'react-redux';
+import LoginForm from './components/auth/login/LoginForm';
+import SignUpForm from './components/auth/signup/SignUpForm';
+import NavBar from './components/navigation/NavBar';
+import LandingPage from './components/home/LandingPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
-import User from './components/User';
 import { authenticate } from './store/session';
+import { getProfiles } from './store/profiles';
+import ProfilePage from './components/profiles/ProfilePage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,6 +23,18 @@ function App() {
       setLoaded(true);
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log('in second useEffect, loaded is ', loaded);
+    console.log('in second useEffect, user is ', user);
+    (async() => {
+      if (loaded && user) {
+        await dispatch(getProfiles())
+      }
+    })();
+  }, [dispatch, loaded, user]);
+
+
 
   if (!loaded) {
     return null;
@@ -37,12 +53,12 @@ function App() {
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
+        <ProtectedRoute path='/users/:id' exact={true} >
+          <ProfilePage />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
+        <Route path='/' exact={true} >
+          <LandingPage />
+        </Route>
       </Switch>
     </BrowserRouter>
   );

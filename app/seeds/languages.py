@@ -1,41 +1,26 @@
 from app.models import db, Language
 
-
 # Adds a demo user, you can add other users here if you want
 def seed_languages():
-    english = Language(name='English')
-    spanish = Language(name='Spanish')
-    french = Language(name='French')
-    japanese = Language(name='Japanese')
-    german = Language(name='German')
-    mandarin = Language(name='Mandarin')
-    cantonese = Language(name='Cantonese')
-    vietnamese = Language(name='Vietnamese')
-    greek = Language(name='Greek')
-    swedish = Language(name='Swedish')
-    norwegian = Language(name='Norwegian')
-    russian = Language(name='Russian')
-    arabic= Language(name='Arabic')
-    hindi= Language(name='Hindi')
-    farsi= Language(name='Farsi')
-    klingon= Language(name='Klingon')
+    demo_english = Language(
+        name='English', user_id=1, level='Native', native=True, primary=True)
+    marnie_french = Language(
+        name='French', user_id=2, level='Native', native=True, primary=True)
+    bobbie_spanish = Language(
+        name='Spanish', user_id=3, level='Native', native=True, primary=True)
+    demo_spanish = Language(
+        name='Spanish', user_id=1, level='A1: Beginner', native=False, primary=True)
+    marnie_japanese = Language(
+        name='Japanese', user_id=2, level='A2: Elementary', native=False, primary=True)
+    bobbie_klingon = Language(
+        name='Klingon', user_id=3, level='C1: Advanced', native=False, primary=True)
 
-    db.session.add(english)
-    db.session.add(spanish)
-    db.session.add(french)
-    db.session.add(japanese)
-    db.session.add(german)
-    db.session.add(mandarin)
-    db.session.add(cantonese)
-    db.session.add(vietnamese)
-    db.session.add(greek)
-    db.session.add(swedish)
-    db.session.add(norwegian)
-    db.session.add(russian)
-    db.session.add(arabic)
-    db.session.add(hindi)
-    db.session.add(farsi)
-    db.session.add(klingon)
+    db.session.add(demo_english)
+    db.session.add(marnie_french)
+    db.session.add(bobbie_spanish)
+    db.session.add(demo_spanish)
+    db.session.add(marnie_japanese)
+    db.session.add(bobbie_klingon)
 
     db.session.commit()
 
