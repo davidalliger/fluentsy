@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());
-      setLoaded(true);
+      setAuthenticated(true);
     })();
   }, [dispatch]);
 
@@ -28,11 +28,12 @@ function App() {
     console.log('in second useEffect, loaded is ', loaded);
     console.log('in second useEffect, user is ', user);
     (async() => {
-      if (loaded && user) {
+      if (user) {
         await dispatch(getProfiles())
       }
+      setLoaded(true);
     })();
-  }, [dispatch, loaded, user]);
+  }, [dispatch, authenticated]);
 
 
 
