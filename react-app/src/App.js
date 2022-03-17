@@ -6,7 +6,7 @@ import SignUpForm from './components/auth/signup/SignUpForm';
 import NavBar from './components/navigation/NavBar';
 import LandingPage from './components/home/LandingPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
+import ProfilesFeed from './components/profiles/ProfilesFeed';
 import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
 import ProfilePage from './components/profiles/ProfilePage';
@@ -33,7 +33,7 @@ function App() {
       }
       setLoaded(true);
     })();
-  }, [dispatch, authenticated]);
+  }, [dispatch, authenticated, user]);
 
 
 
@@ -52,7 +52,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <ProfilesFeed />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:id' exact={true} >
           <ProfilePage />

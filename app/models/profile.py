@@ -21,7 +21,7 @@ class Profile(db.Model):
         return {
             'id': self.id,
             'username': self.user.username,
-            'user_id': self.user_id,
+            'userId': self.user_id,
             'imgUrl': self.img_url,
             'country': self.country,
             'state': self.state,

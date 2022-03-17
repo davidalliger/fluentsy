@@ -1,30 +1,17 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import './ProfilePage.css'
+import { getAge } from '../../../utils';
 
 const ProfilePage = () => {
     const { id } = useParams();
     const profileState = useSelector(state => state.profiles);
     const profiles = Object.values(profileState);
     const userProfile = profiles.reduce((profileMatch,profile) => {
-        if (profile.user_id === +id) profileMatch = profile;
+        if (profile.userId === +id) profileMatch = profile;
         return profileMatch;
     }, null);
-    const [showAge, setShowAge] = useState(false);
-
-    const getAge = (date) => {
-        const today = new Date();
-        const birthday = new Date(date);
-        birthday.setDate(birthday.getUTCDate());
-        const year = 1000 * 60 * 60 * 24 * 365;
-        const age = Math.floor((today - birthday)/year);
-        return age;
-    }
-
-    // if (userProfile.birthday && userProfile.displayAge) {
-    //     setShowAge(true);
-    // }
+    console.log(userProfile);
 
     return (
         <div id='profile-page'>
