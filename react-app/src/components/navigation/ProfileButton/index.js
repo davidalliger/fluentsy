@@ -26,9 +26,16 @@ const ProfileButton = () => {
         }
     }
 
+    const openMenu = (e) => {
+        if (showMenu) return;
+        // e.currentTarget.classList.add('profile-button-active');
+        setShowMenu(true);
+    };
+
     useEffect(() => {
         const closeMenu = () => {
             setShowMenu(false);
+            // document.getElementById('profile-button').classList.remove('profile-button-active');
         }
         if (showMenu) {
             document.addEventListener('click', closeMenu);
@@ -38,8 +45,8 @@ const ProfileButton = () => {
 
     return (
         <>
-            <div id="profile-button" onClick={() => setShowMenu(true)}>
-                <i className="fa-solid fa-circle-user"></i>
+            <div onClick={openMenu}>
+                <i id='profile-button' className="fa-solid fa-circle-user"></i>
             </div>
             {showMenu && (
                 <div id='menu'>

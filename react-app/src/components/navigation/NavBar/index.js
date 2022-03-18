@@ -41,17 +41,22 @@ const NavBar = () => {
 
   return (
     <nav id="nav-bar">
-      <div>
-          <NavLink className='nav-link' to='/' exact={true} activeClassName='active'>
+      <div id='nav-title-column'>
+          <NavLink className='nav-link' id='app-title-nav' to='/' exact={true} activeClassName='active'>
+            <div id='app-logo-nav' >
+              <i class="fa-regular fa-comment"></i>
+            </div>
             Fluentsy
           </NavLink>
       </div>
-      <div>
-          <NavLink className='nav-link' to='/users' exact={true} activeClassName='active'>
+      <div id='nav-center-column'>
+          <NavLink className='nav-link' id='find-conversation-partners' to='/users' exact={true} activeClassName='active'>
             Find Conversation Partners
           </NavLink>
       </div>
-      {sessionLinks}
+      <div id='nav-right-column'>
+        {sessionLinks}
+      </div>
     </nav>
   );
 }

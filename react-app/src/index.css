@@ -1,19 +1,25 @@
 /* TODO Add site wide styles */
 html {
-    padding: 100px 0;
+    /* padding: 100px 0; */
     box-sizing: border-box;
     margin: 0;
+    background-color: #F5F6F9;
 }
 html,
 body,
 #root {
     margin: 0;
     height: 100%;
+
+}
+
+.landing-page-root {
+    background-color: white;
 }
 
 .nav-button {
     background-color: white;
-    color: rgb(224, 54, 54);
+    color: #e93329;
     padding: 5px 10px;
     cursor: pointer;
     border: 0;
@@ -22,5 +28,5 @@ body,
 }
 
 .nav-button:hover {
- background-color: rgb(255, 233, 223);
+    background-color: #ffeaea;
 }

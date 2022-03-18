@@ -1,9 +1,10 @@
 #nav-bar {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     justify-content: space-between;
-    background-color: rgb(224, 54, 54);
-    color: white;
-    height: 60px;
+    background-color: #FF4338;
+    color: black;
+    height: 73px;
     font-size: 18px;
     font-weight: bold;
     font-family: sans-serif;
@@ -11,13 +12,48 @@
     top: 0;
     width: 100%;
     align-items: center;
-    padding: 0 80px;
+    padding: 0 40px;
     box-sizing: border-box;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+#nav-title-column {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#nav-center-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#nav-right-column {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#app-title-nav {
+    font-size:25px;
+    /* font-weight: bolder; */
+    color: white;
+    font-family: 'Roboto Slab', sans-serif;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+}
+
+#app-logo-nav {
+    margin-right: 8px;
+    font-size:23px;
+    margin-top: 2px;
 }
 
 .nav-link {
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 #session-links {
@@ -33,20 +69,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    color: white;
+    /* background-color: rgb(200, 200, 200); */
+    border-radius: 60%;
+    font-size: 42px;
     cursor: pointer;
+}
+
+#profile-button:hover {
+    /* background-color: rgb(228, 228, 228); */
+    color: #ffeaea
+    /* border-radius: 50%; */
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
+}
+
+#find-conversation-partners {
+    /* font-weight: normal; */
+    font-size: 14px;
+    color: white;
+}
+
+#find-conversation-partners:hover {
+    color: #ffeaea
 }
 
 #menu {
     position: absolute;
-    top: 50px;
-    right: 80px;
+    top: 83px;
+    right: 40px;
     display: flex;
+    width: 280px;
     flex-direction: column;
     align-items: center;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
     background-color: white;
     font-size: 14px;
 }

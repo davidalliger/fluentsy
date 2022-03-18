@@ -8,7 +8,7 @@ const ProfilesFeed = () => {
     const profiles = Object.values(profileState).reverse();
 
     return (
-        <div>
+        <div id='profiles-feed-page'>
             {profiles.map(profile => (
                 <Link  className='profiles-feed-link' key={profile.id} to={`/users/${profile.userId}`}>
                     <div className='profiles-feed-container'>
