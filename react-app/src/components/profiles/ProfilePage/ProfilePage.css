@@ -1,22 +1,33 @@
 #profile-page {
-    padding: 0 80px;
+    padding: 100px 175px;
+}
+
+#profile-page-card {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 #profile-page-heading {
     display: flex;
-}
-#profile-page-heading-info {
-    margin-left: 50px;
+    align-items: center;
+    width: 600px;
 }
 
 #profile-page-heading-info h1 {
-    margin-top: 0;
+    margin: 0;
+    margin-top: 20px;
+}
+#profile-page-location p {
+    margin: 0;
+    margin-top: 20px;
 }
 
 .profile-page-user-image {
-    width: 130px;
-    height: 130px;
-    border-radius: 75px;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
     overflow: hidden;
     /* display: flex;
     justify-content: center; */
@@ -32,4 +43,30 @@
 
 #profile-page-lower {
     margin-top: 50px;
+}
+
+.profile-page-edit-button {
+    position: absolute;
+    right: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    color: lightgray;
+}
+
+.profile-page-edit-button:hover {
+    color: gray;
+}
+
+#profile-page-heading-info-containter {
+    margin-left: 30px;
+    position: relative;
+    border: 1px solid lightgray;
+    padding: 0px 20px;
+    height: 200px;
+}
+
+#profile-page-about-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
