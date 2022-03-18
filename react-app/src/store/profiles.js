@@ -1,8 +1,10 @@
 const LOAD = 'profiles/LOAD';
 const ADD = 'profiles/ADD';
+const REMOVE = 'profiles/REMOVE';
 
 const loadProfiles = profiles => ({type: LOAD, profiles});
 const addProfile = new_profile => ({type: ADD, new_profile});
+const removeProfile = id => ({type: REMOVE, id});
 
 export const getProfiles = () => async dispatch => {
     const response = await fetch('/api/profiles/');
@@ -100,6 +102,24 @@ export const createProfile = (payload) => async dispatch => {
     }
 }
 
+export const deleteProfile = (id) => async dispatch => {
+    const response = await fetch(`/api/profiles/${id}`, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(removeProfile(id))
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return ['An error occured. Please try again.'];
+    }
+}
+
 const profilesReducer = (state= {}, action) => {
     let newState = {...state};
     switch(action.type) {
@@ -109,6 +129,9 @@ const profilesReducer = (state= {}, action) => {
         case ADD:
             newState[action.new_profile.id] = action.new_profile;
             return newState;
+        case REMOVE:
+            delete newState[action.id];
+            return newState
         default:
             return newState;
 

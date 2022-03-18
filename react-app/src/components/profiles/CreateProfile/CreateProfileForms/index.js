@@ -4,7 +4,7 @@ import CreateProfileAboutForm from './CreateProfileAboutForm';
 import CreateProfilePictureForm from './CreateProfilePictureForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createProfile } from '../../../store/profiles';
+import { createProfile } from '../../../../store/profiles';
 
 const CreateProfileForms = ({setShowModal}) => {
     const [showLocationForm, setShowLocationForm] = useState(true);

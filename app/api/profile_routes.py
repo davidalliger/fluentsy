@@ -58,3 +58,12 @@ def create_profile():
         return new_profile.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+@profile_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_profile(id):
+    delete_profile = Profile.query.get(id)
+
+    db.session.delete(delete_profile)
+    db.session.commit()
+    return {'success': 'success'}

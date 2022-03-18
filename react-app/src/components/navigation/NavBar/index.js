@@ -44,7 +44,7 @@ const NavBar = () => {
       <div id='nav-title-column'>
           <NavLink className='nav-link' id='app-title-nav' to='/' exact={true} activeClassName='active'>
             <div id='app-logo-nav' >
-              <i class="fa-regular fa-comment"></i>
+              <i className="fa-regular fa-comment"></i>
             </div>
             Fluentsy
           </NavLink>

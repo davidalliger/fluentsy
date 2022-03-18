@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import SignUpModal from "../../auth/signup/SignUpModal";
 import ProfilesFeed from "../../profiles/ProfilesFeed";
@@ -8,17 +8,13 @@ const LandingPage = () => {
     const [showModal, setShowModal] = useState(false);
     const user = useSelector(state => state.session.user);
 
-    // useEffect (() => {
-    //     document.getElementById('root').classList.add('landing-page-root');
-    // }, [])
-
     if (user) {
         return (
             <ProfilesFeed />
         )
     }
 
-    const landingPageImg = '../../../../images/landing-page.jpg';
+    const landingPageImg = '/images/landing-page.jpg';
 
     return (
         <div id='landing-page'>

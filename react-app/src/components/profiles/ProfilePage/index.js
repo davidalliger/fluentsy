@@ -1,8 +1,9 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './ProfilePage.css'
 import { getAge } from '../../../utils';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import DeleteProfileModal from '../DeleteProfile/DeleteProfileModal';
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -13,14 +14,16 @@ const ProfilePage = () => {
         if (profile.userId === +id) profileMatch = profile;
         return profileMatch;
     }, null);
-    const [isUser, setIsUser] = useState(false);
-    console.log(userProfile);
-    console.log(userProfile.imgUrl);
-    useEffect(() => {
-        if (user.id === +id) {
-            setIsUser(true);
-        }
-    }, [user])
+    // const history = useHistory();
+    const [showModal, setShowModal] = useState(false)
+
+    const handleDelete = () => {
+        setShowModal(true);
+    }
+    console.log(user.profileId);
+    if (!userProfile) {
+        return <Redirect to='/users'/>
+    }
 
     return (
         <div id='profile-page'>
@@ -35,9 +38,9 @@ const ProfilePage = () => {
                         )}
                     </div>
                     <div id='profile-page-heading-info-containter'>
-                        {(user.id === +id) && (
+                        {/* {(user.id === +id) && (
                             <div className='profile-page-edit-button'><i class="fa-solid fa-pen-to-square"></i></div>
-                        )}
+                        )} */}
                         <div id='profile-page-heading-info'>
                             <div id='profile-page-username'>
                                 <h1>{userProfile.username}</h1>
@@ -67,12 +70,16 @@ const ProfilePage = () => {
                             <h3>About Me</h3>
                             {userProfile.about}
                         </div>
-                        {(user.id === +id) && (
+                        {/* {(user.id === +id) && (
                             <button className='profile-page-edit-button'>Edit</button>
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>
+            {(user.id === +id) && (
+                <button className='profile-page-delete-button' onClick={handleDelete}>Delete Profile</button>
+            )}
+            <DeleteProfileModal showModal={showModal} setShowModal={setShowModal} id={userProfile?.id}/>
         </div>
     )
 }

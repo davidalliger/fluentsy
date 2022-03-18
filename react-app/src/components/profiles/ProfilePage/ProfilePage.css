@@ -59,7 +59,7 @@
 
 #profile-page-heading-info-containter {
     margin-left: 30px;
-    position: relative;
+    /* position: relative; */
     border: 1px solid lightgray;
     padding: 0px 20px;
     height: 200px;

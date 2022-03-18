@@ -33,7 +33,7 @@ function App() {
       }
       setLoaded(true);
     })();
-  }, [dispatch, authenticated, user]);
+  }, [dispatch, user]);
 
 
 
