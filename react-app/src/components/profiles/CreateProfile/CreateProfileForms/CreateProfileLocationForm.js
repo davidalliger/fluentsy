@@ -14,6 +14,7 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
             setShowState(true);
         } else {
             setShowState(false);
+            setState('');
         }
         if (countriesDefaultTimezones[country]) {
             setTimezone(countriesDefaultTimezones[country])

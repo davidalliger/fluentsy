@@ -9,30 +9,19 @@ export const getAge = (date) => {
     return age;
 }
 
-export const convertBirthday = (date) => {
-    const year = findYear(date);
-    const month = findMonth(date);
-    const day = findDay(date);
-    const birthday = new Date(year, month, day);
-    return birthday;
-}
-
 export const findYear = (date) => {
-    const birthday = new Date(date);
-    birthday.setDate(birthday.getUTCDate());
-    return birthday.getFullYear();
+    const birthday = date.split(", ");
+    return birthday[0];
 }
 
 export const findMonth = (date) => {
-    const birthday = new Date(date);
-    birthday.setDate(birthday.getUTCDate());
-    return birthday.getMonth() + 1;
+    const birthday = date.split(", ");
+    return birthday[1];
 }
 
 export const findDay = (date) => {
-    const birthday = new Date(date);
-    birthday.setDate(birthday.getUTCDate());
-    return birthday.getDate();
+    const birthday = date.split(", ");
+    return birthday[2];
 }
 
 export const countries = [
