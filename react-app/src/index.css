@@ -4,6 +4,8 @@ html {
     box-sizing: border-box;
     margin: 0;
     background-color: #F5F6F9;
+    color: #313140;
+    font-family: 'Noto Sans', sans-serif;
 }
 html,
 body,
