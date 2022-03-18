@@ -1,4 +1,5 @@
 from .db import db
+from datetime import datetime
 
 class Profile(db.Model):
     __tablename__ = 'profiles'
@@ -10,10 +11,10 @@ class Profile(db.Model):
     state = db.Column(db.String)
     timezone = db.Column(db.String)
     about = db.Column(db.String)
-    birthday = db.Column(db.Date)
+    birthday = db.Column(db.String)
     display_age = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
-    updated_at = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.current_timestamp)
+    updated_at = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=datetime.now)
 
     user = db.relationship('User', back_populates='profile')
 
@@ -28,5 +29,5 @@ class Profile(db.Model):
             'timezone': self.timezone,
             'about': self.about,
             'birthday': self.birthday,
-            'displayAge': self.display_age
+            'displayAge': self.display_age,
         }

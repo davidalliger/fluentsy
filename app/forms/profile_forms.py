@@ -30,7 +30,7 @@ class ProfileAboutForm(FlaskForm):
 class ProfilePictureForm(FlaskForm):
     img_url = StringField('Image')
 
-class CreateProfileForm(FlaskForm):
+class ProfileForm(FlaskForm):
     country = StringField('Country', validators=[DataRequired()])
     state = StringField('State')
     timezone = StringField('Time Zone', validators=[DataRequired()])

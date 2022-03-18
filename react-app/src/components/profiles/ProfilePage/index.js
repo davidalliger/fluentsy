@@ -2,8 +2,9 @@ import { useParams, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './ProfilePage.css'
 import { getAge } from '../../../utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DeleteProfileModal from '../DeleteProfile/DeleteProfileModal';
+import EditProfileAboutModal from '../EditProfile/EditProfileModals/EditProfileAboutModal';
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -14,14 +15,17 @@ const ProfilePage = () => {
         if (profile.userId === +id) profileMatch = profile;
         return profileMatch;
     }, null);
-    const [showModal, setShowModal] = useState(false);
+    const [showEditAboutModal, setShowEditAboutModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleDelete = () => {
-        setShowModal(true);
+        setShowDeleteModal(true);
     }
 
     if (!userProfile) {
         return <Redirect to='/users'/>
     }
+
+
 
 
     return (
@@ -39,10 +43,12 @@ const ProfilePage = () => {
                             <i className="fa-solid fa-circle-user profile-page-user-no-image"></i>
                         )}
                     </div>
-                    <div id='profile-page-edit-picture'>
-                        <i className="fa-solid fa-camera"></i>
-                        <p id='profile-page-edit-picture-text'>Update Image</p>
-                    </div>
+                    {(user.id === +id) && (
+                        <div id='profile-page-edit-picture'>
+                            <i className="fa-solid fa-camera"></i>
+                            <p id='profile-page-edit-picture-text'>Update Image</p>
+                        </div>
+                    )}
                     <div id='profile-page-heading-info-containter'>
                         <div id='profile-page-heading-info'>
                             <div id='profile-page-username'>
@@ -66,7 +72,7 @@ const ProfilePage = () => {
                             )}
                         </div>
                         {(user.id === +id) && (
-                            <div className='profile-page-edit-button'><i class="fa-solid fa-pen-to-square"></i></div>
+                            <div className='profile-page-edit-button'><i className="fa-solid fa-pen-to-square"></i></div>
                         )}
                     </div>
                 </div>
@@ -77,15 +83,23 @@ const ProfilePage = () => {
                             {userProfile.about}
                         </div>
                         {(user.id === +id) && (
-                            <div className='profile-page-edit-button'><i class="fa-solid fa-pen-to-square"></i></div>
+                            <div
+                                className='profile-page-edit-button'
+                                onClick={() => setShowEditAboutModal(true)}
+                            >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                            </div>
                         )}
+                        <EditProfileAboutModal showEditAboutModal={showEditAboutModal} setShowEditAboutModal={setShowEditAboutModal} userProfile={userProfile}/>
                     </div>
                 </div>
             </div>
             {(user.id === +id) && (
-                <button className='profile-page-delete-button' onClick={handleDelete}>Delete Profile</button>
+                <div id='profile-page-delete-div'>
+                    <button className='profile-page-delete-button' onClick={handleDelete}>Delete Profile</button>
+                </div>
             )}
-            <DeleteProfileModal showModal={showModal} setShowModal={setShowModal} id={userProfile?.id}/>
+            <DeleteProfileModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={userProfile?.id}/>
         </div>
     )
 }

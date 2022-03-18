@@ -28,7 +28,8 @@ const CreateProfileForms = ({setShowModal}) => {
     useEffect(() => {
         (async()=> {
                 if (allStepsCompleted) {
-                    const birthday = new Date(year, (month - 1), day);
+                    const birthday = `${year}, ${month}, ${day}`;
+                    console.log(birthday);
 
                     const new_profile = {
                         user_id: user.id,
@@ -37,7 +38,7 @@ const CreateProfileForms = ({setShowModal}) => {
                         state,
                         timezone,
                         about: about ? about : 'Hi! I\'m a new user!',
-                        birthday,
+                        birthday: birthday,
                         display_age: displayAge
                     }
 

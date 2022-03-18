@@ -53,6 +53,7 @@ const NavBar = () => {
           <NavLink className='nav-link' id='find-conversation-partners' to='/users' exact={true} activeClassName='active'>
             Find Conversation Partners
           </NavLink>
+          <SignUpModal showModal={showSignUpModal} setShowModal={setShowSignUpModal} />
       </div>
       <div id='nav-right-column'>
         {sessionLinks}
