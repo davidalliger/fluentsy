@@ -2,9 +2,10 @@ import { useParams, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './ProfilePage.css'
 import { getAge } from '../../../utils';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DeleteProfileModal from '../DeleteProfile/DeleteProfileModal';
 import EditProfileAboutModal from '../EditProfile/EditProfileModals/EditProfileAboutModal';
+import EditProfileHeaderModal from '../EditProfile/EditProfileModals/EditProfileHeaderModal';
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -16,10 +17,12 @@ const ProfilePage = () => {
         return profileMatch;
     }, null);
     const [showEditAboutModal, setShowEditAboutModal] = useState(false);
+    const [showEditHeaderModal, setShowEditHeaderModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleDelete = () => {
         setShowDeleteModal(true);
     }
+    console.log('userProfile ', userProfile);
 
     if (!userProfile) {
         return <Redirect to='/users'/>
@@ -72,8 +75,14 @@ const ProfilePage = () => {
                             )}
                         </div>
                         {(user.id === +id) && (
-                            <div className='profile-page-edit-button'><i className="fa-solid fa-pen-to-square"></i></div>
+                            <div
+                                className='profile-page-edit-button'
+                                onClick={() => setShowEditHeaderModal(true)}
+                            >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                            </div>
                         )}
+                        <EditProfileHeaderModal showEditHeaderModal={showEditHeaderModal} setShowEditHeaderModal={setShowEditHeaderModal} userProfile={userProfile}/>
                     </div>
                 </div>
                 <div id='profile-page-lower'>

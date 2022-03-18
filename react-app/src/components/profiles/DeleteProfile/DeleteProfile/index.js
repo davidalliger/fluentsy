@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { deleteProfile } from "../../../../store/profiles";
 
 const DeleteProfileForm = ({setShowModal, id}) => {
-    const history = useHistory();
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const handleSubmit = async(e) => {
@@ -14,7 +12,6 @@ const DeleteProfileForm = ({setShowModal, id}) => {
             setErrors(data.errors);
         } else if (data.success) {
             setShowModal(false);
-            // history.push('/');
         } else {
             setErrors(data);
         }

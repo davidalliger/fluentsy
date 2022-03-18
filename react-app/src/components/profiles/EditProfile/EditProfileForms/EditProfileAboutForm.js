@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../../../store/profiles";
-import { convertBirthday } from '../../../../utils';
 
 const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
     const {about, id, username, userId, imgUrl, country, state, timezone, birthday, displayAge} = userProfile;
