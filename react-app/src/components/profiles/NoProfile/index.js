@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CreateProfileForms from '../CreateProfileForms';
+import CreateProfileForms from '../CreateProfile/CreateProfileForms';
 
 const NoProfile = ({setShowModal}) => {
     const [showNoProfile, setShowNoProfile] = useState(true);

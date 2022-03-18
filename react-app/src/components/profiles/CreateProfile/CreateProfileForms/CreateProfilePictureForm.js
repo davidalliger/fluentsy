@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { addProfilePicture } from "../../../store/profiles";
+import { addProfilePicture } from "../../../../store/profiles";
 
 const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl, setImgUrl, setAllStepsCompleted}) => {
     const [errors, setErrors] = useState([]);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addProfileLocation } from "../../../store/profiles";
-import { states, countries, timezones, statesDefaultTimezones, countriesDefaultTimezones } from '../../../utils';
+import { addProfileLocation } from "../../../../store/profiles";
+import { states, countries, timezones, statesDefaultTimezones, countriesDefaultTimezones } from '../../../../utils';
 
 const CreateProfileLocationForm = ({country, setCountry, state, setState, timezone, setTimezone, setShowModal, setShowLocationForm, setShowAboutForm}) => {
     const [errors, setErrors] = useState([]);
@@ -21,13 +21,13 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
         return () => {
             setShowState(false);
         }
-    }, [country]);
+    }, [country, setTimezone]);
 
     useEffect(() => {
         if (statesDefaultTimezones[state]) {
             setTimezone(statesDefaultTimezones[state])
         }
-    }, [state]);
+    }, [state, setTimezone]);
 
     const handleSubmit = async(e) => {
         e.preventDefault();

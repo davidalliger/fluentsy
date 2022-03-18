@@ -7,7 +7,7 @@
     height: 73px;
     font-size: 18px;
     font-weight: bold;
-    font-family: sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     position: fixed;
     top: 0;
     width: 100%;
@@ -15,6 +15,8 @@
     padding: 0 40px;
     box-sizing: border-box;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+    /* position: relative; */
+    /* overflow: visible; */
 }
 
 #nav-title-column {
@@ -33,6 +35,9 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    /* position: relative;
+    z-index: 1000;
+    overflow: visible; */
 }
 
 #app-title-nav {
@@ -95,6 +100,7 @@
 
 #menu {
     position: absolute;
+    z-index: 2000;
     top: 83px;
     right: 40px;
     display: flex;
@@ -106,6 +112,7 @@
     box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
     background-color: white;
     font-size: 14px;
+    /* overflow: show; */
 }
 
 .menu-item {

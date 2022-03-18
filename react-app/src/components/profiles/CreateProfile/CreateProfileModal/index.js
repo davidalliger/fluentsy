@@ -1,7 +1,7 @@
 import Modal from '../../../other/Modal';
-import CreateProfileForms from '../CreateProfileForms';
+import CreateProfileForms from '../CreateProfileForms'
 
-const LoginModal = ({showModal, setShowModal}) => {
+const CreateProfileModal = ({showModal, setShowModal}) => {
 
     return (
         <>
@@ -14,4 +14,4 @@ const LoginModal = ({showModal, setShowModal}) => {
     )
 }
 
-export default LoginModal;
+export default CreateProfileModal;

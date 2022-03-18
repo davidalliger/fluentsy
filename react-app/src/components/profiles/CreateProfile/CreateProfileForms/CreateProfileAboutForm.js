@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { addProfileAbout } from "../../../store/profiles";
+import { addProfileAbout } from "../../../../store/profiles";
 
 const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, displayAge, setDisplayAge, about, setAbout, setShowLocationForm, setShowAboutForm, setShowPictureForm}) => {
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
 
-    useEffect(()=> {
-        if (!displayAge) {
-            setDisplayAge(false)
-        } else {
-            setDisplayAge(true)
-        }
-    }, [displayAge])
+    // useEffect(()=> {
+    //     if (!displayAge) {
+    //         setDisplayAge(false)
+    //     } else {
+    //         setDisplayAge(true)
+    //     }
+    // }, [displayAge])
 
     const handleSubmit = async(e) => {
         e.preventDefault();
