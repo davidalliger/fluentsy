@@ -6,7 +6,7 @@ import { useState } from 'react';
 import DeleteProfileModal from '../DeleteProfile/DeleteProfileModal';
 import EditProfileAboutModal from '../EditProfile/EditProfileModals/EditProfileAboutModal';
 import EditProfileHeaderModal from '../EditProfile/EditProfileModals/EditProfileHeaderModal';
-
+import EditProfilePictureModal from '../EditProfile/EditProfileModals/EditProfilePictureModal'
 const ProfilePage = () => {
     const { id } = useParams();
     const user = useSelector(state => state.session.user)
@@ -18,6 +18,7 @@ const ProfilePage = () => {
     }, null);
     const [showEditAboutModal, setShowEditAboutModal] = useState(false);
     const [showEditHeaderModal, setShowEditHeaderModal] = useState(false);
+    const [showEditPictureModal, setShowEditPictureModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleDelete = () => {
         setShowDeleteModal(true);
@@ -47,11 +48,15 @@ const ProfilePage = () => {
                         )}
                     </div>
                     {(user.id === +id) && (
-                        <div id='profile-page-edit-picture'>
+                        <div
+                            id='profile-page-edit-picture'
+                            onClick={()=>setShowEditPictureModal(true)}
+                        >
                             <i className="fa-solid fa-camera"></i>
                             <p id='profile-page-edit-picture-text'>Update Image</p>
                         </div>
                     )}
+                    <EditProfilePictureModal showEditPictureModal={showEditPictureModal} setShowEditPictureModal={setShowEditPictureModal} userProfile={userProfile}/>
                     <div id='profile-page-heading-info-containter'>
                         <div id='profile-page-heading-info'>
                             <div id='profile-page-username'>
