@@ -6,14 +6,6 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
     const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
 
-    // useEffect(()=> {
-    //     if (!displayAge) {
-    //         setDisplayAge(false)
-    //     } else {
-    //         setDisplayAge(true)
-    //     }
-    // }, [displayAge])
-
     const handleSubmit = async(e) => {
         e.preventDefault();
         const aboutInfo = {

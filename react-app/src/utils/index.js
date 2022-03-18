@@ -2,9 +2,37 @@ export const getAge = (date) => {
     const today = new Date();
     const birthday = new Date(date);
     birthday.setDate(birthday.getUTCDate());
+    birthday.setMonth(birthday.getMonth() - 1);
+    console.log(birthday);
     const year = 1000 * 60 * 60 * 24 * 365;
     const age = Math.floor((today - birthday)/year);
     return age;
+}
+
+export const convertBirthday = (date) => {
+    const year = findYear(date);
+    const month = findMonth(date);
+    const day = findDay(date);
+    const birthday = new Date(year, month, day);
+    return birthday;
+}
+
+export const findYear = (date) => {
+    const birthday = new Date(date);
+    birthday.setDate(birthday.getUTCDate());
+    return birthday.getFullYear();
+}
+
+export const findMonth = (date) => {
+    const birthday = new Date(date);
+    birthday.setDate(birthday.getUTCDate());
+    return birthday.getMonth() + 1;
+}
+
+export const findDay = (date) => {
+    const birthday = new Date(date);
+    birthday.setDate(birthday.getUTCDate());
+    return birthday.getDate();
 }
 
 export const countries = [

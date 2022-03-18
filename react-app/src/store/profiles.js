@@ -1,9 +1,11 @@
 const LOAD = 'profiles/LOAD';
 const ADD = 'profiles/ADD';
+const EDIT = 'profiles/EDIT';
 const REMOVE = 'profiles/REMOVE';
 
 const loadProfiles = profiles => ({type: LOAD, profiles});
 const addProfile = new_profile => ({type: ADD, new_profile});
+const editProfile = edit_profile => ({type: EDIT, edit_profile});
 const removeProfile = id => ({type: REMOVE, id});
 
 export const getProfiles = () => async dispatch => {
@@ -102,6 +104,29 @@ export const createProfile = (payload) => async dispatch => {
     }
 }
 
+export const updateProfile = (payload) => async dispatch => {
+    const response = await fetch(`/api/profiles/${payload.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editProfile(data))
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return ['An error occured. Please try again.'];
+    }
+
+}
+
 export const deleteProfile = (id) => async dispatch => {
     const response = await fetch(`/api/profiles/${id}`, {
         method: 'DELETE'
@@ -128,6 +153,9 @@ const profilesReducer = (state= {}, action) => {
             return newState;
         case ADD:
             newState[action.new_profile.id] = action.new_profile;
+            return newState;
+        case EDIT:
+            newState[action.edit_profile.id] = action.edit_profile;
             return newState;
         case REMOVE:
             delete newState[action.id];

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.forms.profile_forms import ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, CreateProfileForm
+from app.forms.profile_forms import ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, ProfileForm
 from app.models import db, Profile
 from .route_utils import validation_errors_to_error_messages
 
@@ -46,7 +46,7 @@ def add_profile_picture():
 @profile_routes.route('/', methods=['POST'])
 @login_required
 def create_profile():
-    form = CreateProfileForm()
+    form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_profile = Profile()
@@ -58,6 +58,21 @@ def create_profile():
         return new_profile.to_dict()
     else:
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
+@profile_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_profile(id):
+    form = ProfileForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        edit_profile = Profile.query.get(id)
+        form.populate_obj(edit_profile)
+        db.session.commit()
+        return edit_profile.to_dict()
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
 
 @profile_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
