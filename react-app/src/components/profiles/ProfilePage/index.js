@@ -1,4 +1,4 @@
-import { useParams, Redirect, useHistory } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './ProfilePage.css'
 import { getAge } from '../../../utils';
@@ -14,7 +14,7 @@ const ProfilePage = () => {
     const { id } = useParams();
     const user = useSelector(state => state.session.user)
     const profileState = useSelector(state => state.profiles);
-    console.log(id);
+    console.log("id is now ", id);
     const profiles = Object.values(profileState);
     console.log(profiles);
     const userProfile = profiles?.reduce((profileMatch, profile) => {
@@ -27,7 +27,7 @@ const ProfilePage = () => {
     const [showEditPictureModal, setShowEditPictureModal] = useState(false);
     const [showMessageModal, setShowMessageModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const history = useHistory();
+    // const history = useHistory();
     const handleDelete = () => {
         setShowDeleteModal(true);
     }
@@ -38,13 +38,13 @@ const ProfilePage = () => {
     // }
 
     // const handleMessage = () => {
-    //     // history.push(`/messages/${userProfile.userId}`)
-    //     setShowMessageModal(true);
+    //     history.push(`/messages/${userProfile.userId}`)
+    //     // setShowMessageModal(true);
     // }
 
 
     return (
-        <div id>
+        <div>
             {!userProfile && (
                 <Loading />
             )}
@@ -95,14 +95,13 @@ const ProfilePage = () => {
                                         </div>
                                     )}
                                     {(user.id !== +id) && (
-                                        <button
-                                            id='profile-page-message-button'
-                                            // onClick={() => setShowMessageModal(true)}
-                                            onClick={handleMessage}
-
-                                        >
-                                            Message
-                                        </button>
+                                        <Link to={{pathname: '/messages', state:{currentCorrespondent: userProfile.username, currentCorrespondentId: userProfile.userId}}}>
+                                            <button
+                                                id='profile-page-message-button'
+                                            >
+                                                Message
+                                            </button>
+                                        </Link>
                                     )}
                                     <SendMessageModal showMessageModal={showMessageModal} setShowMessageModal={setShowMessageModal} userProfile={userProfile} user={user}/>
                                 </div>

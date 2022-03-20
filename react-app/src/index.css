@@ -34,3 +34,8 @@ body,
 .nav-button:hover {
     background-color: #ffeaea;
 }
+
+input:focus,
+textarea:focus {
+    outline: none;
+}

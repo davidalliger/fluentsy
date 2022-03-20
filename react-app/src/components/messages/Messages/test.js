@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector, useDispatch } from 'react-redux';
-import './MessagesWindow.css';
+import './Messages.css';
 import { useParams } from 'react-router-dom';
 import { recordMessage, getMessages } from '../../../store/messages';
 import Loading from '../../other/Loading';

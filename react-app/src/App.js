@@ -9,11 +9,15 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import ProfilesFeed from './components/profiles/ProfilesFeed';
 import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
-import { getMessages } from './store/messages';
+import { getMessages, addMessage } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
 import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
-import MessagesWindow from './components/messages/MessagesWindow/test.js';
+import Messages from './components/messages/Messages';
+import {io} from 'socket.io-client';
+// import { useSocket } from './context/Socket.js'
+
+let socket;
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -22,6 +26,7 @@ function App() {
   const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  // const {setSocket} = useSocket();
 
   useEffect(() => {
     (async() => {
@@ -35,9 +40,17 @@ function App() {
       if (user) {
         await dispatch(getProfiles());
         await dispatch(getMessages(+user.id));
+        socket = io();
+        socket.emit('join', {room_id: +user.id});
+        socket.on('chat', chat => {
+          dispatch(addMessage(chat, +user.id));
+        })
+        // setSocket(socket);
       }
       setLoaded(true);
-
+      return (() => {
+        socket.disconnect()
+    })
     })();
   }, [dispatch, user]);
 
@@ -71,8 +84,8 @@ function App() {
             <Route path='/chat' exact={true} >
               <Chat />
             </Route>
-            <Route path='/messages/:recipient' exact={true} >
-              <MessagesWindow />
+            <Route path='/messages' exact={true} >
+              <Messages />
             </Route>
             <Route path='/' exact={true} >
               <LandingPage />
