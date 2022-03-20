@@ -14,8 +14,13 @@ export const getProfiles = () => async dispatch => {
         const profiles = await response.json();
         dispatch(loadProfiles(profiles))
         return profiles;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
     } else {
-        return false;
+        return ['An error occured. Please try again.'];
     }
 }
 

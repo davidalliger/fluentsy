@@ -137,3 +137,8 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+#profile-page-message-button {
+    background-color: green;
+    color: white;
+}

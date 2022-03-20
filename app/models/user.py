@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     profile = db.relationship('Profile', back_populates='user', uselist=False)
     languages = db.relationship('Language', back_populates='speaker')
 
+
     @property
     def password(self):
         return self.hashed_password
