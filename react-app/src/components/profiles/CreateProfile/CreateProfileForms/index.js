@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import CreateProfileLanguagesForm from '../../../languages/AddLanguage/CreateProfileLanguagesForm';
 import CreateProfileLocationForm from './CreateProfileLocationForm';
 import CreateProfileAboutForm from './CreateProfileAboutForm';
 import CreateProfilePictureForm from './CreateProfilePictureForm';
@@ -7,7 +8,8 @@ import { useHistory } from 'react-router-dom';
 import { createProfile } from '../../../../store/profiles';
 
 const CreateProfileForms = ({setShowModal}) => {
-    const [showLocationForm, setShowLocationForm] = useState(true);
+    const [showLanguageForm, setShowLanguageForm] = useState(true);
+    const [showLocationForm, setShowLocationForm] = useState(false);
     const [showAboutForm, setShowAboutForm] = useState(false);
     const [showPictureForm, setShowPictureForm] = useState(false);
     const [country, setCountry] = useState('');
@@ -62,8 +64,11 @@ const CreateProfileForms = ({setShowModal}) => {
                     <div key={ind}>{error}</div>
                 ))}
             </div>
+            {showLanguageForm && (
+                <CreateProfileLanguagesForm user={user} setShowLocationForm={setShowLocationForm} setShowLanguageForm={setShowLanguageForm} setShowModal={setShowModal} />
+            )}
             {showLocationForm && (
-                <CreateProfileLocationForm setShowLocationForm={setShowLocationForm} setShowAboutForm={setShowAboutForm} country={country} setCountry={setCountry} state={state} setState={setState} timezone={timezone} setTimezone={setTimezone} setShowModal={setShowModal}/>
+                <CreateProfileLocationForm setShowLanguageForm={setShowLanguageForm} setShowLocationForm={setShowLocationForm} setShowAboutForm={setShowAboutForm} country={country} setCountry={setCountry} state={state} setState={setState} timezone={timezone} setTimezone={setTimezone} />
             )}
             {showAboutForm && (
                 <CreateProfileAboutForm setShowLocationForm={setShowLocationForm} setShowAboutForm={setShowAboutForm} setShowPictureForm={setShowPictureForm} month={month} setMonth={setMonth} day={day} setDay={setDay} year={year} setYear={setYear} displayAge={displayAge} setDisplayAge={setDisplayAge} about={about} setAbout={setAbout}/>

@@ -15,7 +15,7 @@ import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
 import Messages from './components/messages/Messages';
 import {io} from 'socket.io-client';
-// import { useSocket } from './context/Socket.js'
+import { getLanguages } from './store/languages';
 
 let socket;
 
@@ -26,7 +26,6 @@ function App() {
   const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
-  // const {setSocket} = useSocket();
 
   useEffect(() => {
     (async() => {
@@ -40,6 +39,7 @@ function App() {
       if (user) {
         await dispatch(getProfiles());
         await dispatch(getMessages(+user.id));
+        await dispatch(getLanguages());
         socket = io();
         socket.emit('join', {room_id: +user.id});
         console.log('app level socket connected.')
@@ -52,7 +52,6 @@ function App() {
         socket.on('delete_chat', payload => {
             dispatch(removeMessage(payload, +user.id));
         })
-        // setSocket(socket);
       } else {
         dispatch(clearMessages());
       }

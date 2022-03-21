@@ -1,6 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from flask import jsonify
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -30,4 +31,5 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
+            # 'languages': [language.to_dict() for language in self.languages]
         }

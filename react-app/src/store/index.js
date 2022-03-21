@@ -2,12 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import messagesReducer from './messages';
 import profilesReducer from './profiles';
+import languagesReducer from './languages';
 import session from './session'
 
 const rootReducer = combineReducers({
   session,
   profiles: profilesReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  languages: languagesReducer
 });
 
 

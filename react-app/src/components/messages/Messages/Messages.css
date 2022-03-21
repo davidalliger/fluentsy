@@ -166,3 +166,7 @@
 .message-display-title {
     margin: 10px auto;
 }
+
+#message-input::placeholder {
+    color: rgb(187, 187, 187)
+}

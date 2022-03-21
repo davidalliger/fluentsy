@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: space-between;
-    background-color: #FF4338;
+    background-color: #F14052;
     color: black;
     height: 73px;
     font-size: 18px;

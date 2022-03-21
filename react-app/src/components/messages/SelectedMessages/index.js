@@ -217,6 +217,7 @@ const SelectedMessages = ({selected, user, profiles}) => {
                     <form id='message-form'onSubmit={sendChat}>
                         <textarea
                             id='message-input'
+                            placeholder='Type your message here'
                             value={chatInput}
                             onChange={updateChatInput}
                         />

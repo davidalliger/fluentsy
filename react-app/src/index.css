@@ -39,3 +39,8 @@ input:focus,
 textarea:focus {
     outline: none;
 }
+
+select,
+option {
+    max-width: 100px;
+}

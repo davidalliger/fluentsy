@@ -12,3 +12,14 @@ class Language(db.Model):
     primary= db.Column(db.Boolean, nullable=False)
 
     speaker = db.relationship('User', back_populates='languages')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'speaker': self.speaker.username,
+            'name': self.name,
+            'userId': self.user_id,
+            'level': self.level,
+            'native': self.native,
+            'primary': self.primary,
+        }

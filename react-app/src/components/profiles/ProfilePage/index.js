@@ -1,27 +1,25 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './ProfilePage.css'
 import { getAge } from '../../../utils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DeleteProfileModal from '../DeleteProfile/DeleteProfileModal';
 import EditProfileAboutModal from '../EditProfile/EditProfileModals/EditProfileAboutModal';
 import EditProfileHeaderModal from '../EditProfile/EditProfileModals/EditProfileHeaderModal';
 import EditProfilePictureModal from '../EditProfile/EditProfileModals/EditProfilePictureModal';
 import SendMessageModal from '../../messages/SendMessage/SendMessageModal';
 import Loading from '../../other/Loading';
+import Languages from '../../languages/Languages';
 
 const ProfilePage = () => {
     const { id } = useParams();
     const user = useSelector(state => state.session.user)
     const profileState = useSelector(state => state.profiles);
-
     const profiles = Object.values(profileState);
-
     const userProfile = profiles?.reduce((profileMatch, profile) => {
         if (profile.userId === +id) profileMatch = profile;
         return profileMatch;
     }, null);
-
     const [showEditAboutModal, setShowEditAboutModal] = useState(false);
     const [showEditHeaderModal, setShowEditHeaderModal] = useState(false);
     const [showEditPictureModal, setShowEditPictureModal] = useState(false);
@@ -32,9 +30,12 @@ const ProfilePage = () => {
         setShowDeleteModal(true);
     }
 
-    // if (!userProfile) {
-    //     return <Redirect to='/users'/>
-    // }
+
+    useEffect(() => {
+        if (!userProfile) {
+            return <Redirect to='/users'/>
+        }
+    }, [profileState])
 
     // const handleMessage = () => {
     //     history.push(`/messages/${userProfile.userId}`)
@@ -115,10 +116,11 @@ const ProfilePage = () => {
                                 <EditProfileHeaderModal showEditHeaderModal={showEditHeaderModal} setShowEditHeaderModal={setShowEditHeaderModal} userProfile={userProfile}/>
                             </div>
                         </div>
+                        <Languages userProfile={userProfile} user={user} id={id} />
                         <div id='profile-page-lower'>
                             <div id='profile-page-about-container'>
                                 <div id='profile-page-about'>
-                                    <h3>About Me</h3>
+                                    <h3 className='profile-section-heading'>About Me</h3>
                                     {userProfile.about}
                                 </div>
                                 {(user.id === +id) && (

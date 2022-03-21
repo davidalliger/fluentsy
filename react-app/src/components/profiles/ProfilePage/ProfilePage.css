@@ -58,12 +58,12 @@
     margin-top: 10px;
     margin-right: 10px;
     cursor: pointer;
-    font-size: 20px;
-    color: lightgray;
+    font-size: 25px;
+    color: rgb(150, 150, 150);
 }
 
 .profile-page-edit-button:hover {
-    color: gray;
+    color: rgb(100, 100, 100);
 }
 
 #profile-page-heading-image {
@@ -141,4 +141,9 @@
 #profile-page-message-button {
     background-color: green;
     color: white;
+}
+
+.profile-section-heading {
+    margin-top: 0;
+    margin-bottom: 20px;
 }
