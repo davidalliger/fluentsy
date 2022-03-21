@@ -13,11 +13,11 @@ const Messages = () => {
     const [selected, setSelected] = useState(currentCorrespondentId);
     // const [selectedName, setSelectedName] = useState(currentCorrespondent);
 
-    useEffect(() => {
-        if (!user) {
-            return <Redirect to='/' />
-        }
-    }, [user])
+    // useEffect(() => {
+    if (!user) {
+        return <Redirect to='/' />
+    }
+    // }, [user])
 
     // const handleSelect = (e) => {
     //     const { correspondent, correspondentId } = e.target.value;
@@ -26,7 +26,6 @@ const Messages = () => {
     //     setSelectedName(correspondent);
     //     console.log(selectedName)
     // }
-    console.log('selected is ', selected);
 
     return (
         <div id='messages-page'>

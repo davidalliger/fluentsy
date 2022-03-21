@@ -62,6 +62,19 @@ def handle_chat(data):
     emit('chat', response, to=room)
     emit('chat', response, to=self)
 
+
+@socketio.on('edit_chat')
+def edit_chat(data):
+    message_id = data['id']
+    edit_message = Message.query.get(message_id)
+    edit_message.content = data['content']
+    db.session.commit()
+    response = {'id': edit_message.id, 'recipient_id': edit_message.recipient_id, 'content': edit_message.content}
+    self = data['sender_id']
+    response_dict = dict(response)
+    emit('edit_chat', response_dict, to=self)
+
+
 @socketio.on('delete_chat')
 def delete_chat(data):
     message_id = data['id']
@@ -71,6 +84,7 @@ def delete_chat(data):
     db.session.commit()
     self = data['sender_id']
     emit('delete_chat', response, to=self)
+
 
 
 

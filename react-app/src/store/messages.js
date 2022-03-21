@@ -5,8 +5,8 @@ const REMOVE = 'messages/REMOVE';
 
 const loadMessages = (messages, id) => ({type: LOAD, messages, id});
 export const addMessage = (new_message, id) => ({type: ADD, new_message, id});
-const editMessage = edit_message => ({type: EDIT, edit_message});
-export const removeMessage = id => ({type: REMOVE, id});
+export const editMessage = payload => ({type: EDIT, payload});
+export const removeMessage = payload => ({type: REMOVE, payload});
 
 export const getMessages = (id) => async dispatch => {
     const response = await fetch(`/api/users/${id}/messages`);
@@ -46,28 +46,28 @@ export const getMessages = (id) => async dispatch => {
 //     }
 // }
 
-export const updateMessage = (payload) => async dispatch => {
-    const response = await fetch(`/api/messages/${payload.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    });
-    if (response.ok) {
-        const edit_message = await response.json();
-        dispatch(editMessage(edit_message))
-        return edit_message;
-    } else if (response.status < 500) {
-        const data = await response.json();
-        if (data.errors) {
-            return data;
-        }
-    } else {
-        return ['An error occured. Please try again.'];
-    }
+// export const updateMessage = (payload) => async dispatch => {
+//     const response = await fetch(`/api/messages/${payload.id}`, {
+//         method: 'PUT',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(payload)
+//     });
+//     if (response.ok) {
+//         const edit_message = await response.json();
+//         dispatch(editMessage(edit_message))
+//         return edit_message;
+//     } else if (response.status < 500) {
+//         const data = await response.json();
+//         if (data.errors) {
+//             return data;
+//         }
+//     } else {
+//         return ['An error occured. Please try again.'];
+//     }
 
-}
+// }
 
 // export const deleteMessage = (id) => async dispatch => {
 //     const response = await fetch(`/api/messages/${id}`, {
@@ -127,10 +127,10 @@ const messagesReducer = (state= {}, action) => {
             }
             return newState;
         case EDIT:
-            newState[action.edit_message.id] = action.edit_message;
+            newState[action.payload.recipient_id][action.payload.id].content = action.payload.content;
             return newState;
         case REMOVE:
-            delete newState[action.id];
+            delete newState[action.payload.recipient_id][action.payload.id];
             return newState
         default:
             return newState;

@@ -14,14 +14,14 @@ const ProfilePage = () => {
     const { id } = useParams();
     const user = useSelector(state => state.session.user)
     const profileState = useSelector(state => state.profiles);
-    console.log("id is now ", id);
+
     const profiles = Object.values(profileState);
-    console.log(profiles);
+
     const userProfile = profiles?.reduce((profileMatch, profile) => {
         if (profile.userId === +id) profileMatch = profile;
         return profileMatch;
     }, null);
-    console.log(userProfile);
+
     const [showEditAboutModal, setShowEditAboutModal] = useState(false);
     const [showEditHeaderModal, setShowEditHeaderModal] = useState(false);
     const [showEditPictureModal, setShowEditPictureModal] = useState(false);
@@ -31,7 +31,6 @@ const ProfilePage = () => {
     const handleDelete = () => {
         setShowDeleteModal(true);
     }
-    console.log('userProfile ', userProfile);
 
     // if (!userProfile) {
     //     return <Redirect to='/users'/>

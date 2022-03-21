@@ -29,15 +29,12 @@ const MessagesWindow = () => {
             socket.on('join', chat => {
                 setMessageHistory(chat)
 
-                console.log(chat);
+
             })
             socket.emit('join', {sender_id: user.id, recipient_id: +recipient})
-            console.log(user.id)
-            console.log(recipient)
+
 
             socket.on('chat', chat => {
-                console.log(chat.sender_id);
-                console.log(+recipient);
                 if (chat.sender_id === +recipient) {
                     setMessages(messages => [...messages, chat]);
                 }
@@ -68,8 +65,6 @@ const MessagesWindow = () => {
             // console.log(recipient2)
 
             socket2.on('chat', chat => {
-                console.log(chat.sender_id);
-                console.log(recipient2);
                 if (chat.sender_id === +recipient2) {
                     setMessages2(messages2 => [...messages2, chat]);
                 }
@@ -97,7 +92,6 @@ const MessagesWindow = () => {
             recipient_id: +recipient
         }
         setMessages(messages => [...messages, payload]);
-        console.log(payload)
         socket.emit('chat', payload);
         // const data = await dispatch(recordMessage(payload));
         // if (data.errors) {

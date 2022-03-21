@@ -29,7 +29,6 @@ const CreateProfileForms = ({setShowModal}) => {
         (async()=> {
                 if (allStepsCompleted) {
                     const birthday = `${year}, ${month}, ${day}`;
-                    console.log(birthday);
 
                     const new_profile = {
                         user_id: user.id,
@@ -44,14 +43,11 @@ const CreateProfileForms = ({setShowModal}) => {
 
                     const data = await dispatch(createProfile(new_profile));
                     if (data.errors) {
-                        console.log("data.errors ", data.errors);
                         setErrors(data.errors);
                     } else if (data.userId) {
                         setShowModal(false);
-                        console.log(data.userId);
                         history.push(`/users/${data.userId}`);
                     } else {
-                        console.log("data ", data);
                         setErrors(data);
                     }
 

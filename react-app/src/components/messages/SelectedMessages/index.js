@@ -3,9 +3,10 @@ import { io } from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import '../Messages/Messages.css';
 // import { useParams } from 'react-router-dom';
-import { removeMessage } from '../../../store/messages';
+import { editMessage, removeMessage } from '../../../store/messages';
 import Loading from '../../other/Loading';
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
+// import { unstable_renderSubtreeIntoContainer } from 'react-dom';
+import EditMessageModal from '../EditMessage/EditMessageModal';
 // import {useSocket} from '../../../context/Socket';
 
 let messageSocket;
@@ -17,6 +18,9 @@ const SelectedMessages = ({selected, user}) => {
     // const user = useSelector(state => state.session.user);
     const messageState = useSelector(state=> state.messages);
     const [selectedName, setSelectedName] = useState('');
+    const [showEditMessageModal, setShowEditMessageModal] = useState('');
+    const [messageToEdit, setMessageToEdit] = useState(null);
+    const [editPayload, setEditPayload] = useState(null);
     const dispatch = useDispatch();
     // const {socket} = useSocket();
     // let messageHistory;
@@ -31,8 +35,11 @@ const SelectedMessages = ({selected, user}) => {
             // setSocket(socket);
         //   }
         //   setLoaded(true);
-        messageSocket.on('delete_chat', data => {
-            dispatch(removeMessage(data.id));
+        messageSocket.on('edit_chat', payload => {
+            dispatch(editMessage(payload));
+        })
+        messageSocket.on('delete_chat', payload => {
+            dispatch(removeMessage(payload));
         })
         return (() => {
             messageSocket.disconnect();
@@ -42,10 +49,7 @@ const SelectedMessages = ({selected, user}) => {
 
     useEffect(()=> {
         if (selected && messageState && Object.keys(messageState).length) {
-            console.log('in useEffect, selected is ', selected);
-            console.log('in useEffect, messageState is ', messageState);
             const selectedMessages = messageState[selected];
-            console.log('in useEffect, selectedMessages is ', selectedMessages);
             const previousMessages = Object.values(selectedMessages).reverse();
             let name;
             if (previousMessages[0].sender_id === user.id) {
@@ -88,6 +92,22 @@ const SelectedMessages = ({selected, user}) => {
         messageSocket.emit('delete_chat', payload);
     }
 
+    const openEditMessage = (e) => {
+        console.log('in EditMessage, messageState is ', messageState)
+        const selectedMessages = messageState[selected];
+        console.log('in EditMessage, selectedMessages is ', selectedMessages)
+        console.log('in EditMessage, editId is ', e.currentTarget.id)
+        const editId = (e.currentTarget.id).split('-')[0];
+        const message = selectedMessages[+editId];
+        console.log('in EditMessage, message is ', message)
+        setMessageToEdit(message);
+        setShowEditMessageModal(true);
+    }
+
+    const sendEditMessage = (editPayload) => {
+        messageSocket.emit('edit_chat', editPayload);
+    }
+
     return (
         <div id='selected-messages'>
             {!messageHistory && (
@@ -98,7 +118,6 @@ const SelectedMessages = ({selected, user}) => {
                     <div id='message-header'></div>
                     <div id='message-display'>
                         {messageHistory.map((message, ind) => {
-                            console.log(message)
                             if (message.sender_id === user.id) {
                                 return (
                                     <div className='message-bubble-area-right' key={ind}>
@@ -111,21 +130,24 @@ const SelectedMessages = ({selected, user}) => {
                                             </div>
                                         </div>
                                         <div className='message-icon-area'>
-                                            <span className='message-edit-delete-icon'>
-                                                <i class="fa-solid fa-pen"></i>
+                                            <span id={`${message.id}-edit`}
+                                                className='message-edit-delete-icon'
+                                                onClick={openEditMessage}
+                                            >
+                                                <i className="fa-solid fa-pen"></i>
                                             </span>
                                             <span id={message.id}
                                                 className='message-edit-delete-icon'
                                                 onClick={deleteMessage}
                                             >
-                                                <i class="fa-solid fa-trash-can"></i>
+                                                <i className="fa-solid fa-trash-can"></i>
                                             </span>
                                         </div>
                                     </div>
                                 )
                             } else {
                                 return (
-                                    <div className='message-bubble-area-leftt' key={ind}>
+                                    <div className='message-bubble-area-left' key={ind}>
                                         <div className='message-bubble'>
                                             <div className='message-bubble-sender'>
                                                 {message.sender}
@@ -166,6 +188,7 @@ const SelectedMessages = ({selected, user}) => {
                             <button id='message-button' type='submit'>Send</button>
                         </form>
                     </div>
+                    <EditMessageModal sendEditMessage={sendEditMessage} user={user} editPayload={editPayload} setEditPayload={setEditPayload} showEditMessageModal={showEditMessageModal} setShowEditMessageModal={setShowEditMessageModal} messageToEdit={messageToEdit} />
                 </div>
             )}
         </div>
