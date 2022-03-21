@@ -12,6 +12,9 @@ import EditMessageModal from '../EditMessage/EditMessageModal';
 let messageSocket;
 
 const SelectedMessages = ({selected, user, profiles}) => {
+    // console.log('in SelectedMessages, selected is ', selected);
+    // console.log('in SelectedMessages, user is ', user);
+    // console.log('in SelectedMessages, profiles is ', profiles);
     const [chatInput, setChatInput] = useState('');
     const [errors, setErrors] = useState([]);
     const [messageHistory, setMessageHistory] = useState(null);
@@ -48,23 +51,30 @@ const SelectedMessages = ({selected, user, profiles}) => {
     }, []);
 
     useEffect(()=> {
-        if (selected && messageState && Object.keys(messageState).length) {
-            const selectedMessages = messageState[selected];
-            if (selectedMessages) {
-                const previousMessages = Object.values(selectedMessages).reverse();
-                let name;
-                if (previousMessages.length) {
-                    if (previousMessages[0].sender_id === user.id) {
-                        name = previousMessages[0].recipient;
-                    } else {
-                        name = previousMessages[0].sender;
-                    }
-                    setSelectedName(name);
+        if (selected && profiles.length) {
+            console.log('in useEffect, selected is ', selected);
+            const userProfile = profiles?.reduce((profileMatch, profile) => {
+                if (profile.userId === +selected) profileMatch = profile;
+                return profileMatch;
+            }, null);
+            setSelectedName(userProfile.username);
+            console.log('in useEffect, selectedName is ', selectedName);
+            if (messageState && Object.keys(messageState).length) {
+
+                console.log('in useEffect, messageState is ', messageState);
+                const selectedMessages = messageState[selected];
+                console.log('in useEffect, selectedMessages is ', selectedMessages);
+                if (selectedMessages && Object.keys(selectedMessages).length) {
+                    const previousMessages = Object.values(selectedMessages).reverse();
                     setMessageHistory(previousMessages);
+                } else {
+                    setMessageHistory(null);
                 }
             }
+        } else {
+            setMessageHistory(null);
         }
-    }, [messageState, selected]);
+    }, [messageState, selected, profiles]);
 
     // useEffect(()=> {
     //     if (selected && messageState && Object.keys(messageState).length) {
@@ -99,6 +109,7 @@ const SelectedMessages = ({selected, user, profiles}) => {
             recipient: selectedName,
             sender: user.username
         }
+        console.log('in send chat, payload is ', payload)
         // dispatch(addMessage(payload, user.id))
         messageSocket.emit('chat', payload);
         // messageSocket.emit('self_chat', payload);
@@ -116,13 +127,13 @@ const SelectedMessages = ({selected, user, profiles}) => {
     }
 
     const openEditMessage = (e) => {
-        console.log('in EditMessage, messageState is ', messageState)
+        // console.log('in EditMessage, messageState is ', messageState)
         const selectedMessages = messageState[selected];
-        console.log('in EditMessage, selectedMessages is ', selectedMessages)
-        console.log('in EditMessage, editId is ', e.currentTarget.id)
+        // console.log('in EditMessage, selectedMessages is ', selectedMessages)
+        // console.log('in EditMessage, editId is ', e.currentTarget.id)
         const editId = (e.currentTarget.id).split('-')[0];
         const message = selectedMessages[+editId];
-        console.log('in EditMessage, message is ', message)
+        // console.log('in EditMessage, message is ', message)
         setMessageToEdit(message);
         setShowEditMessageModal(true);
     }

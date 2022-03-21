@@ -9,7 +9,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import ProfilesFeed from './components/profiles/ProfilesFeed';
 import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
-import { getMessages, addMessage } from './store/messages';
+import { getMessages, addMessage, clearMessages } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
 import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
@@ -42,14 +42,22 @@ function App() {
         await dispatch(getMessages(+user.id));
         socket = io();
         socket.emit('join', {room_id: +user.id});
+        console.log('app level socket connected.')
         socket.on('chat', chat => {
           dispatch(addMessage(chat, +user.id));
         })
         // setSocket(socket);
+      } else {
+        dispatch(clearMessages());
       }
       setLoaded(true);
+      if (socket && !user) {
+        socket.disconnect()
+        console.log('app level socket disconnected.')
+      }
       return (() => {
         socket.disconnect()
+        console.log('app level socket disconnected.')
     })
     })();
   }, [dispatch, user]);

@@ -21,15 +21,12 @@ const EditMessageForm = ({user, editPayload, sendEditMessage, messageToEdit, set
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Inside handleSubmit.')
         const payload = {
             id: messageToEdit.id,
             sender_id: user.id,
             content
         };
-        console.log('In handle submit, payload is ', payload);
         // setEditPayload(payload)
-        console.log('In handle submit, editPayload is ', editPayload);
         sendEditMessage(payload);
         setShowEditMessageModal(false);
     }

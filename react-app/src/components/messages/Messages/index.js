@@ -10,10 +10,12 @@ const Messages = () => {
     const profiles = Object.values(profileState);
     const location = useLocation();
     const { currentCorrespondent } = location.state;
-    console.log(currentCorrespondent);
+    // console.log(currentCorrespondent);
     // const { currentCorrespondentId } = location.state;
     const correspondents = Object.keys(messageState);
-    const [selected, setSelected] = useState(currentCorrespondent ? currentCorrespondent.id : null);
+    const [selected, setSelected] = useState(currentCorrespondent ? currentCorrespondent.userId : null);
+    console.log('in messages, currentCorrespondent is ', currentCorrespondent);
+    console.log('in messages, selected is ', selected);
     // will be
     // const [selectedName, setSelectedName] = useState(currentCorrespondent);
 
