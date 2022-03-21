@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProfileLocation } from "../../../../store/profiles";
 import { states, countries, timezones, statesDefaultTimezones, countriesDefaultTimezones } from '../../../../utils';
 
-const CreateProfileLocationForm = ({country, setCountry, state, setState, timezone, setTimezone, setShowModal, setShowLocationForm, setShowAboutForm}) => {
+const CreateProfileLocationForm = ({country, setCountry, state, setState, timezone, setTimezone, setShowModal, setShowLanguageForm, setShowLocationForm, setShowAboutForm}) => {
     const [errors, setErrors] = useState([]);
     const [showState, setShowState] = useState(false);
     const dispatch = useDispatch();
@@ -48,6 +48,11 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
         }
     }
 
+    const handleBack = () => {
+        setShowLocationForm(false);
+        setShowLanguageForm(true);
+    }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -56,7 +61,7 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <h2>Hello, {user.username}!</h2>
+                <h2>Location</h2>
                 <p>Where are you located?</p>
                 <div className='form-field'>
                     <label htmlFor='country'>
@@ -115,9 +120,9 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                     type='button'
                     className='form-button'
                     id='back'
-                    onClick={() => setShowModal(false)}
+                    onClick={handleBack}
                 >
-                    Cancel
+                    Back
                 </button>
                 <button
                     type='submit'
