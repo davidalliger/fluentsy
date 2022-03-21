@@ -38,12 +38,6 @@ const SelectedMessages = ({selected, user, profiles}) => {
             // setSocket(socket);
         //   }
         //   setLoaded(true);
-        messageSocket.on('edit_chat', payload => {
-            dispatch(editMessage(payload, +user.id));
-        })
-        messageSocket.on('delete_chat', payload => {
-            dispatch(removeMessage(payload, +user.id));
-        })
         return (() => {
             messageSocket.disconnect();
         })

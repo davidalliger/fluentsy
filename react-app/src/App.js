@@ -9,7 +9,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import ProfilesFeed from './components/profiles/ProfilesFeed';
 import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
-import { getMessages, addMessage, clearMessages } from './store/messages';
+import { getMessages, addMessage, editMessage, removeMessage, clearMessages } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
 import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
@@ -45,6 +45,12 @@ function App() {
         console.log('app level socket connected.')
         socket.on('chat', chat => {
           dispatch(addMessage(chat, +user.id));
+        })
+        socket.on('edit_chat', payload => {
+          dispatch(editMessage(payload, +user.id));
+        })
+        socket.on('delete_chat', payload => {
+            dispatch(removeMessage(payload, +user.id));
         })
         // setSocket(socket);
       } else {
