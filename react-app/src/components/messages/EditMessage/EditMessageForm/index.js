@@ -23,6 +23,7 @@ const EditMessageForm = ({user, editPayload, sendEditMessage, messageToEdit, set
         e.preventDefault();
         const payload = {
             id: messageToEdit.id,
+            recipient_id: messageToEdit.recipient_id,
             sender_id: user.id,
             content
         };

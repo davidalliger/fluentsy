@@ -69,12 +69,13 @@ def edit_chat(data):
     edit_message = Message.query.get(message_id)
     edit_message.content = data['content']
     db.session.commit()
-    response = {'id': edit_message.id, 'recipient_id': edit_message.recipient_id, 'content': edit_message.content, 'sender_id': edit_message.sender_id}
-    room = response['recipient_id']
-    self = response['sender_id']
-    response_dict = dict(response)
-    emit('edit_chat', response_dict, to=room)
-    emit('edit_chat', response_dict, to=self)
+    # response = {'id': edit_message.id, 'recipient_id': edit_message.recipient_id, 'content': edit_message.content, 'sender_id': edit_message.sender_id}
+    room = data['recipient_id']
+    self = data['sender_id']
+    # response_dict = dict(response)
+    response = edit_message.to_dict()
+    emit('edit_chat', response, to=room)
+    emit('edit_chat', response, to=self)
 
 
 @socketio.on('delete_chat')
