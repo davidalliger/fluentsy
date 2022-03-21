@@ -64,6 +64,8 @@ const SelectedMessages = ({selected, user, profiles}) => {
                 } else {
                     setMessageHistory(null);
                 }
+            } else {
+                setMessageHistory(null);
             }
         } else {
             setMessageHistory(null);
