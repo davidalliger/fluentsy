@@ -9,7 +9,8 @@ html {
 }
 html,
 body,
-#root {
+#root,
+#app {
     margin: 0;
     height: 100%;
     position: relative;
@@ -32,4 +33,9 @@ body,
 
 .nav-button:hover {
     background-color: #ffeaea;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
 }

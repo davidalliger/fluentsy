@@ -3,7 +3,6 @@ export const getAge = (date) => {
     const birthday = new Date(date);
     birthday.setDate(birthday.getUTCDate());
     birthday.setMonth(birthday.getMonth() - 1);
-    console.log(birthday);
     const year = 1000 * 60 * 60 * 24 * 365;
     const age = Math.floor((today - birthday)/year);
     return age;

@@ -11,7 +11,6 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const onLogin = async (e) => {
-    console.log("in onLogin");
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {

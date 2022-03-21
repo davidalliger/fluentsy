@@ -53,7 +53,6 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
             about
         };
         const data = await dispatch(updateProfile(editProfile));
-        console.log(data);
         if (data.errors) {
             setErrors(data.errors);
         } else if (data.id) {

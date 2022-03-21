@@ -9,13 +9,24 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import ProfilesFeed from './components/profiles/ProfilesFeed';
 import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
+import { getMessages, addMessage } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
+import Chat from './components/Chat/Chat';
+import Loading from './components/other/Loading';
+import Messages from './components/messages/Messages';
+import {io} from 'socket.io-client';
+// import { useSocket } from './context/Socket.js'
+
+let socket;
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  // const {setSocket} = useSocket();
 
   useEffect(() => {
     (async() => {
@@ -25,42 +36,63 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('in second useEffect, loaded is ', loaded);
-    console.log('in second useEffect, user is ', user);
     (async() => {
       if (user) {
-        await dispatch(getProfiles())
+        await dispatch(getProfiles());
+        await dispatch(getMessages(+user.id));
+        socket = io();
+        socket.emit('join', {room_id: +user.id});
+        socket.on('chat', chat => {
+          dispatch(addMessage(chat, +user.id));
+        })
+        // setSocket(socket);
       }
       setLoaded(true);
+      return (() => {
+        socket.disconnect()
+    })
     })();
   }, [dispatch, user]);
 
-
-
-  if (!loaded) {
-    return null;
-  }
+  useEffect(() => {
+    if (authenticated && loaded) {
+      setReady(true);
+    }
+  }, [authenticated, loaded]);
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <ProfilesFeed />
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:id' exact={true} >
-          <ProfilePage />
-        </ProtectedRoute>
-        <Route path='/' exact={true} >
-          <LandingPage />
-        </Route>
-      </Switch>
+      {(!ready) && (
+        <Loading />
+      )}
+      {ready && (
+        <div id='app'>
+          <NavBar />
+          <Switch>
+            <Route path='/login' exact={true}>
+              <LoginForm />
+            </Route>
+            <Route path='/sign-up' exact={true}>
+              <SignUpForm />
+            </Route>
+            <ProtectedRoute path='/users' exact={true} >
+              <ProfilesFeed />
+            </ProtectedRoute>
+            <ProtectedRoute path='/users/:id' exact={true} >
+              <ProfilePage />
+            </ProtectedRoute>
+            <Route path='/chat' exact={true} >
+              <Chat />
+            </Route>
+            <Route path='/messages' exact={true} >
+              <Messages />
+            </Route>
+            <Route path='/' exact={true} >
+              <LandingPage />
+            </Route>
+          </Switch>
+        </div>
+      )}
     </BrowserRouter>
   );
 }
