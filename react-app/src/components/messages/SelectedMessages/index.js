@@ -11,7 +11,7 @@ import EditMessageModal from '../EditMessage/EditMessageModal';
 
 let messageSocket;
 
-const SelectedMessages = ({selected, user}) => {
+const SelectedMessages = ({selected, user, profiles}) => {
     const [chatInput, setChatInput] = useState('');
     const [errors, setErrors] = useState([]);
     const [messageHistory, setMessageHistory] = useState(null);
@@ -50,17 +50,40 @@ const SelectedMessages = ({selected, user}) => {
     useEffect(()=> {
         if (selected && messageState && Object.keys(messageState).length) {
             const selectedMessages = messageState[selected];
-            const previousMessages = Object.values(selectedMessages).reverse();
-            let name;
-            if (previousMessages[0].sender_id === user.id) {
-                name = previousMessages[0].recipient;
-            } else {
-                name = previousMessages[0].sender;
+            if (selectedMessages) {
+                const previousMessages = Object.values(selectedMessages).reverse();
+                let name;
+                if (previousMessages.length) {
+                    if (previousMessages[0].sender_id === user.id) {
+                        name = previousMessages[0].recipient;
+                    } else {
+                        name = previousMessages[0].sender;
+                    }
+                    setSelectedName(name);
+                    setMessageHistory(previousMessages);
+                }
             }
-            setSelectedName(name);
-            setMessageHistory(previousMessages);
         }
     }, [messageState, selected]);
+
+    // useEffect(()=> {
+    //     if (selected && messageState && Object.keys(messageState).length) {
+    //         const selectedMessages = messageState[selected];
+    //         if (selectedMessages) {
+    //             const previousMessages = Object.values(selectedMessages).reverse();
+    //             let name;
+    //             if (previousMessages.length) {
+    //                 if (previousMessages[0].sender_id === user.id) {
+    //                     name = previousMessages[0].recipient;
+    //                 } else {
+    //                     name = previousMessages[0].sender;
+    //                 }
+    //                 setSelectedName(name);
+    //                 setMessageHistory(previousMessages);
+    //             }
+    //         }
+    //     }
+    // }, [messageState, selected]);
 
 
     const updateChatInput = (e) => {
@@ -110,87 +133,91 @@ const SelectedMessages = ({selected, user}) => {
 
     return (
         <div id='selected-messages'>
-            {!messageHistory && (
-                <Loading />
-            )}
-            {messageHistory && (
-                <div id='message-panel'>
-                    <div id='message-header'></div>
+            <div id='message-panel'>
+                <div id='message-header'></div>
+                {!messageHistory && (
+                    <div id='message-display'>
+                        <div className='message-display-title-div'>
+                            {selectedName && (
+                                <div className='message-display-title'>
+                                    <span className='message-display-title-user'>{user.username}</span>'s messages with <span className='message-display-title-user'>{selectedName}</span>
+                                </div>
+                            )}
+                            {!selectedName && (
+                                <div className='message-display-title'>
+                                    New Conversation
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+                {messageHistory && (
                     <div id='message-display'>
                         {messageHistory.map((message, ind) => {
                             if (message.sender_id === user.id) {
                                 return (
-                                    <div className='message-bubble-area-right' key={ind}>
-                                        <div className='message-bubble'>
-                                            <div className='message-bubble-sender'>
-                                                {message.sender}
+                                        <div className='message-bubble-area-right' key={ind}>
+                                            <div className='message-bubble'>
+                                                <div className='message-bubble-sender'>
+                                                    {message.sender}
+                                                </div>
+                                                <div className='message-bubble-content'>
+                                                    {message.content}
+                                                </div>
                                             </div>
-                                            <div className='message-bubble-content'>
-                                                {message.content}
-                                            </div>
-                                        </div>
-                                        <div className='message-icon-area'>
-                                            <span id={`${message.id}-edit`}
-                                                className='message-edit-delete-icon'
-                                                onClick={openEditMessage}
-                                            >
-                                                <i className="fa-solid fa-pen"></i>
-                                            </span>
-                                            <span id={message.id}
-                                                className='message-edit-delete-icon'
-                                                onClick={deleteMessage}
-                                            >
-                                                <i className="fa-solid fa-trash-can"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                )
-                            } else {
-                                return (
-                                    <div className='message-bubble-area-left' key={ind}>
-                                        <div className='message-bubble'>
-                                            <div className='message-bubble-sender'>
-                                                {message.sender}
-                                            </div>
-                                            <div className='message-bubble-content'>
-                                                {message.content}
+                                            <div className='message-icon-area'>
+                                                <span id={`${message.id}-edit`}
+                                                    className='message-edit-delete-icon'
+                                                    onClick={openEditMessage}
+                                                >
+                                                    <i className="fa-solid fa-pen"></i>
+                                                </span>
+                                                <span id={message.id}
+                                                    className='message-edit-delete-icon'
+                                                    onClick={deleteMessage}
+                                                >
+                                                    <i className="fa-solid fa-trash-can"></i>
+                                                </span>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            }
+                                    )
+                                } else {
+                                    return (
+                                        <div className='message-bubble-area-left' key={ind}>
+                                            <div className='message-bubble'>
+                                                <div className='message-bubble-sender'>
+                                                    {message.sender}
+                                                </div>
+                                                <div className='message-bubble-content'>
+                                                    {message.content}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                         })}
                         <div className='message-display-title-div'>
                             <div className='message-display-title'>
                                 <span className='message-display-title-user'>{user.username}</span>'s messages with <span className='message-display-title-user'>{selectedName}</span>
                             </div>
                         </div>
-                        <div>
-                            {errors.map((error, ind) => (
-                                <div key={ind}>{error}</div>
-                            ))}
-                        </div>
-                    </div>
-                    {/* <div>
-                        {messages.map((message, ind) => (
-                            <div key={ind}>
-                                {`user ${message.sender_id}: ${message.content}`}
-                            </div>
+                        {errors.map((error, ind) => (
+                            <div key={ind}>{error}</div>
                         ))}
-                    </div> */}
-                    <div id='message-form-div'>
-                        <form id='message-form'onSubmit={sendChat}>
-                            <textarea
-                                id='message-input'
-                                value={chatInput}
-                                onChange={updateChatInput}
-                                />
-                            <button id='message-button' type='submit'>Send</button>
-                        </form>
                     </div>
-                    <EditMessageModal sendEditMessage={sendEditMessage} user={user} editPayload={editPayload} setEditPayload={setEditPayload} showEditMessageModal={showEditMessageModal} setShowEditMessageModal={setShowEditMessageModal} messageToEdit={messageToEdit} />
+                )}
+                <div id='message-form-div'>
+                    <form id='message-form'onSubmit={sendChat}>
+                        <textarea
+                            id='message-input'
+                            value={chatInput}
+                            onChange={updateChatInput}
+                        />
+                        <button id='message-button' type='submit'>Send</button>
+                    </form>
                 </div>
-            )}
+                <EditMessageModal sendEditMessage={sendEditMessage} user={user} editPayload={editPayload} setEditPayload={setEditPayload} showEditMessageModal={showEditMessageModal} setShowEditMessageModal={setShowEditMessageModal} messageToEdit={messageToEdit} />
+            </div>
         </div>
     )
 };

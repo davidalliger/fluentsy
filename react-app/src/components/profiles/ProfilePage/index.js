@@ -94,7 +94,7 @@ const ProfilePage = () => {
                                         </div>
                                     )}
                                     {(user.id !== +id) && (
-                                        <Link to={{pathname: '/messages', state:{currentCorrespondent: userProfile.username, currentCorrespondentId: userProfile.userId}}}>
+                                        <Link to={{pathname: '/messages', state:{currentCorrespondent: userProfile, currentCorrespondentId: userProfile.userId}}}>
                                             <button
                                                 id='profile-page-message-button'
                                             >
@@ -102,7 +102,7 @@ const ProfilePage = () => {
                                             </button>
                                         </Link>
                                     )}
-                                    <SendMessageModal showMessageModal={showMessageModal} setShowMessageModal={setShowMessageModal} userProfile={userProfile} user={user}/>
+                                    {/* <SendMessageModal showMessageModal={showMessageModal} setShowMessageModal={setShowMessageModal} userProfile={userProfile} user={user}/> */}
                                 </div>
                                 {(user.id === +id) && (
                                     <div
