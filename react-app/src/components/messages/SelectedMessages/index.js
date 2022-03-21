@@ -11,7 +11,10 @@ import EditMessageModal from '../EditMessage/EditMessageModal';
 
 let messageSocket;
 
-const SelectedMessages = ({selected, user}) => {
+const SelectedMessages = ({selected, user, profiles}) => {
+    // console.log('in SelectedMessages, selected is ', selected);
+    // console.log('in SelectedMessages, user is ', user);
+    // console.log('in SelectedMessages, profiles is ', profiles);
     const [chatInput, setChatInput] = useState('');
     const [errors, setErrors] = useState([]);
     const [messageHistory, setMessageHistory] = useState(null);
@@ -35,12 +38,6 @@ const SelectedMessages = ({selected, user}) => {
             // setSocket(socket);
         //   }
         //   setLoaded(true);
-        messageSocket.on('edit_chat', payload => {
-            dispatch(editMessage(payload));
-        })
-        messageSocket.on('delete_chat', payload => {
-            dispatch(removeMessage(payload));
-        })
         return (() => {
             messageSocket.disconnect();
         })
@@ -48,19 +45,49 @@ const SelectedMessages = ({selected, user}) => {
     }, []);
 
     useEffect(()=> {
-        if (selected && messageState && Object.keys(messageState).length) {
-            const selectedMessages = messageState[selected];
-            const previousMessages = Object.values(selectedMessages).reverse();
-            let name;
-            if (previousMessages[0].sender_id === user.id) {
-                name = previousMessages[0].recipient;
-            } else {
-                name = previousMessages[0].sender;
+        if (selected && profiles.length) {
+            console.log('in useEffect, selected is ', selected);
+            const userProfile = profiles?.reduce((profileMatch, profile) => {
+                if (profile.userId === +selected) profileMatch = profile;
+                return profileMatch;
+            }, null);
+            setSelectedName(userProfile.username);
+            console.log('in useEffect, selectedName is ', selectedName);
+            if (messageState && Object.keys(messageState).length) {
+
+                console.log('in useEffect, messageState is ', messageState);
+                const selectedMessages = messageState[selected];
+                console.log('in useEffect, selectedMessages is ', selectedMessages);
+                if (selectedMessages && Object.keys(selectedMessages).length) {
+                    const previousMessages = Object.values(selectedMessages).reverse();
+                    setMessageHistory(previousMessages);
+                } else {
+                    setMessageHistory(null);
+                }
             }
-            setSelectedName(name);
-            setMessageHistory(previousMessages);
+        } else {
+            setMessageHistory(null);
         }
-    }, [messageState, selected]);
+    }, [messageState, selected, profiles]);
+
+    // useEffect(()=> {
+    //     if (selected && messageState && Object.keys(messageState).length) {
+    //         const selectedMessages = messageState[selected];
+    //         if (selectedMessages) {
+    //             const previousMessages = Object.values(selectedMessages).reverse();
+    //             let name;
+    //             if (previousMessages.length) {
+    //                 if (previousMessages[0].sender_id === user.id) {
+    //                     name = previousMessages[0].recipient;
+    //                 } else {
+    //                     name = previousMessages[0].sender;
+    //                 }
+    //                 setSelectedName(name);
+    //                 setMessageHistory(previousMessages);
+    //             }
+    //         }
+    //     }
+    // }, [messageState, selected]);
 
 
     const updateChatInput = (e) => {
@@ -76,6 +103,7 @@ const SelectedMessages = ({selected, user}) => {
             recipient: selectedName,
             sender: user.username
         }
+        console.log('in send chat, payload is ', payload)
         // dispatch(addMessage(payload, user.id))
         messageSocket.emit('chat', payload);
         // messageSocket.emit('self_chat', payload);
@@ -93,13 +121,13 @@ const SelectedMessages = ({selected, user}) => {
     }
 
     const openEditMessage = (e) => {
-        console.log('in EditMessage, messageState is ', messageState)
+        // console.log('in EditMessage, messageState is ', messageState)
         const selectedMessages = messageState[selected];
-        console.log('in EditMessage, selectedMessages is ', selectedMessages)
-        console.log('in EditMessage, editId is ', e.currentTarget.id)
+        // console.log('in EditMessage, selectedMessages is ', selectedMessages)
+        // console.log('in EditMessage, editId is ', e.currentTarget.id)
         const editId = (e.currentTarget.id).split('-')[0];
         const message = selectedMessages[+editId];
-        console.log('in EditMessage, message is ', message)
+        // console.log('in EditMessage, message is ', message)
         setMessageToEdit(message);
         setShowEditMessageModal(true);
     }
@@ -110,87 +138,91 @@ const SelectedMessages = ({selected, user}) => {
 
     return (
         <div id='selected-messages'>
-            {!messageHistory && (
-                <Loading />
-            )}
-            {messageHistory && (
-                <div id='message-panel'>
-                    <div id='message-header'></div>
+            <div id='message-panel'>
+                <div id='message-header'></div>
+                {!messageHistory && (
+                    <div id='message-display'>
+                        <div className='message-display-title-div'>
+                            {selectedName && (
+                                <div className='message-display-title'>
+                                    <span className='message-display-title-user'>{user.username}</span>'s messages with <span className='message-display-title-user'>{selectedName}</span>
+                                </div>
+                            )}
+                            {!selectedName && (
+                                <div className='message-display-title'>
+                                    New Conversation
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+                {messageHistory && (
                     <div id='message-display'>
                         {messageHistory.map((message, ind) => {
                             if (message.sender_id === user.id) {
                                 return (
-                                    <div className='message-bubble-area-right' key={ind}>
-                                        <div className='message-bubble'>
-                                            <div className='message-bubble-sender'>
-                                                {message.sender}
+                                        <div className='message-bubble-area-right' key={ind}>
+                                            <div className='message-bubble'>
+                                                <div className='message-bubble-sender'>
+                                                    {message.sender}
+                                                </div>
+                                                <div className='message-bubble-content'>
+                                                    {message.content}
+                                                </div>
                                             </div>
-                                            <div className='message-bubble-content'>
-                                                {message.content}
-                                            </div>
-                                        </div>
-                                        <div className='message-icon-area'>
-                                            <span id={`${message.id}-edit`}
-                                                className='message-edit-delete-icon'
-                                                onClick={openEditMessage}
-                                            >
-                                                <i className="fa-solid fa-pen"></i>
-                                            </span>
-                                            <span id={message.id}
-                                                className='message-edit-delete-icon'
-                                                onClick={deleteMessage}
-                                            >
-                                                <i className="fa-solid fa-trash-can"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                )
-                            } else {
-                                return (
-                                    <div className='message-bubble-area-left' key={ind}>
-                                        <div className='message-bubble'>
-                                            <div className='message-bubble-sender'>
-                                                {message.sender}
-                                            </div>
-                                            <div className='message-bubble-content'>
-                                                {message.content}
+                                            <div className='message-icon-area'>
+                                                <span id={`${message.id}-edit`}
+                                                    className='message-edit-delete-icon'
+                                                    onClick={openEditMessage}
+                                                >
+                                                    <i className="fa-solid fa-pen"></i>
+                                                </span>
+                                                <span id={message.id}
+                                                    className='message-edit-delete-icon'
+                                                    onClick={deleteMessage}
+                                                >
+                                                    <i className="fa-solid fa-trash-can"></i>
+                                                </span>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            }
+                                    )
+                                } else {
+                                    return (
+                                        <div className='message-bubble-area-left' key={ind}>
+                                            <div className='message-bubble'>
+                                                <div className='message-bubble-sender'>
+                                                    {message.sender}
+                                                </div>
+                                                <div className='message-bubble-content'>
+                                                    {message.content}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                         })}
                         <div className='message-display-title-div'>
                             <div className='message-display-title'>
                                 <span className='message-display-title-user'>{user.username}</span>'s messages with <span className='message-display-title-user'>{selectedName}</span>
                             </div>
                         </div>
-                        <div>
-                            {errors.map((error, ind) => (
-                                <div key={ind}>{error}</div>
-                            ))}
-                        </div>
-                    </div>
-                    {/* <div>
-                        {messages.map((message, ind) => (
-                            <div key={ind}>
-                                {`user ${message.sender_id}: ${message.content}`}
-                            </div>
+                        {errors.map((error, ind) => (
+                            <div key={ind}>{error}</div>
                         ))}
-                    </div> */}
-                    <div id='message-form-div'>
-                        <form id='message-form'onSubmit={sendChat}>
-                            <textarea
-                                id='message-input'
-                                value={chatInput}
-                                onChange={updateChatInput}
-                                />
-                            <button id='message-button' type='submit'>Send</button>
-                        </form>
                     </div>
-                    <EditMessageModal sendEditMessage={sendEditMessage} user={user} editPayload={editPayload} setEditPayload={setEditPayload} showEditMessageModal={showEditMessageModal} setShowEditMessageModal={setShowEditMessageModal} messageToEdit={messageToEdit} />
+                )}
+                <div id='message-form-div'>
+                    <form id='message-form'onSubmit={sendChat}>
+                        <textarea
+                            id='message-input'
+                            value={chatInput}
+                            onChange={updateChatInput}
+                        />
+                        <button id='message-button' type='submit'>Send</button>
+                    </form>
                 </div>
-            )}
+                <EditMessageModal sendEditMessage={sendEditMessage} user={user} editPayload={editPayload} setEditPayload={setEditPayload} showEditMessageModal={showEditMessageModal} setShowEditMessageModal={setShowEditMessageModal} messageToEdit={messageToEdit} />
+            </div>
         </div>
     )
 };

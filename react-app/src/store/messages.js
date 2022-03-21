@@ -2,11 +2,13 @@ const LOAD = 'messages/LOAD';
 const ADD = 'messages/ADD';
 const EDIT = 'messages/EDIT';
 const REMOVE = 'messages/REMOVE';
+const CLEAR = 'messages/CLEAR'
 
 const loadMessages = (messages, id) => ({type: LOAD, messages, id});
 export const addMessage = (new_message, id) => ({type: ADD, new_message, id});
-export const editMessage = payload => ({type: EDIT, payload});
-export const removeMessage = payload => ({type: REMOVE, payload});
+export const editMessage = (payload, id) => ({type: EDIT, payload, id});
+export const removeMessage = (payload, id) => ({type: REMOVE, payload, id});
+export const clearMessages = () => ({type: CLEAR});
 
 export const getMessages = (id) => async dispatch => {
     const response = await fetch(`/api/users/${id}/messages`);
@@ -110,7 +112,7 @@ const messagesReducer = (state= {}, action) => {
             });
             return newState;
         case ADD:
-            if (action.new_message.sender_id !== action.id) {
+            if (+action.new_message.sender_id !== +action.id) {
                 if (newState[action.new_message.sender_id]) {
                     newState[action.new_message.sender_id][action.new_message.id] = action.new_message;
                 } else {
@@ -127,10 +129,23 @@ const messagesReducer = (state= {}, action) => {
             }
             return newState;
         case EDIT:
-            newState[action.payload.recipient_id][action.payload.id].content = action.payload.content;
+            if (action.payload.sender_id !== +action.id) {
+                newState[action.payload.sender_id][action.payload.id].content = action.payload.content;
+            } else {
+                newState[action.payload.recipient_id][action.payload.id].content = action.payload.content;
+            }
             return newState;
         case REMOVE:
-            delete newState[action.payload.recipient_id][action.payload.id];
+            if (action.payload.sender_id !== +action.id) {
+                delete newState[action.payload.sender_id][action.payload.id];
+                if ((Object.values(newState[action.payload.sender_id])).length < 1) delete newState[action.payload.sender_id];
+            } else {
+                delete newState[action.payload.recipient_id][action.payload.id];
+                if ((Object.values(newState[action.payload.recipient_id])).length < 1) delete newState[action.payload.recipient_id];
+            }
+            return newState
+        case CLEAR:
+            newState = {}
             return newState
         default:
             return newState;
