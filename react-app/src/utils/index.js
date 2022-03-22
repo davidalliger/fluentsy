@@ -641,3 +641,12 @@ export const levelsWithDescriptions = {
     'C1: Advanced': 'I can use language effectively for social, academic, and professional purposes, without much obvious searching for expressions.',
     'C2: Proficient': 'I can express myself spontaneously and precisely and can understand virtually everything I hear. '
 }
+
+export const levelsWithValues = {
+    'A1: Beginner': 1,
+    'A2: Elementary': 2,
+    'B1: Intermediate': 3,
+    'B2: Upper Intermediate': 4,
+    'C1: Advanced': 5,
+    'C2: Proficient': 6
+}

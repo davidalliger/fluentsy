@@ -45,7 +45,7 @@
 
 .profile-page-user-no-image {
     font-size: 200px;
-    color: gray;
+    color: lightgray;
 }
 
 #profile-page-lower {
@@ -55,10 +55,10 @@
 .profile-page-edit-button {
     /* position: absolute; */
     right: 10px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     margin-right: 10px;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 20px;
     color: rgb(150, 150, 150);
 }
 
@@ -139,8 +139,13 @@
 }
 
 #profile-page-message-button {
-    background-color: green;
+    background-color: rgb(61, 153, 61);;
     color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 7px 20px;
+    margin-top: 10px;
 }
 
 .profile-section-heading {

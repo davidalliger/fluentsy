@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Level from "../Level";
 import './Languages.css'
 
 const Languages = ({userProfile, id, user}) => {
@@ -30,68 +31,92 @@ const Languages = ({userProfile, id, user}) => {
         }
     }, [targetLanguages])
     return (
-        <div id='profile-page-languages'>
-            <div>
-
-                <h3 className='profile-section-heading'>Languages</h3>
-                <div id='profile-native-languages'>
-                    <div id='profile-native-languages-title'>
-                        Native Languages:
+        <div>
+            <div id='profile-page-native-languages'>
+                <div>
+                    <div className='profile-section-heading'> Native Languages</div>
+                    <div id='profile-native-languages'>
+                        {/* <div id='profile-native-languages-title'>
+                            Native Languages:
+                        </div> */}
+                        {/* <ul> */}
+                            <div>
+                                {primaryNativeLanguage.name}
+                            </div>
+                            {!nativeLimitMet && (
+                                <>
+                                    {nativeLanguages.map((language, index) => (
+                                        <div key={index}>
+                                            {language.name}
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                            {nativeLimitMet && (
+                                <div>
+                                    {nativeLanguages.slice(0,6).map((language, index) => (
+                                        <div key={index}>
+                                            {language.name}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        {/* </ul> */}
                     </div>
-                    {primaryNativeLanguage.name}
-                    {!nativeLimitMet && (
-                        <div>
-                            {nativeLanguages.map((language, index) => (
-                                <div key={index}>
-                                    {language.name}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                    {nativeLimitMet && (
-                        <div>
-                            {nativeLanguages.slice(0,6).map((language, index) => (
-                                <div key={index}>
-                                    {language.name}
-                                </div>
-                            ))}
-                        </div>
-                    )}
                 </div>
-                <div id='profile-target-languages'>
-                    <div id ='profile-target-languages-title'>
-                        Also Speaks:
-                    </div>
-                    {primaryTargetLanguage.name} - {primaryTargetLanguage.level}
-                    {!targetLimitMet && (
-                        <div>
-                            {targetLanguages.map((language, index) => (
-                                <div key={index}>
-                                    {language.name} - {language.level}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                    {targetLimitMet && (
-                        <div>
-                            {targetLanguages.slice(0,5).map((language, index) => (
-                                <div key={index}>
-                                    {language.name} - {language.level}
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </div>
-            {(user.id === +id) && (
-                <div
+                {(user.id === +id) && (
+                    <div
                     className='profile-page-edit-button'
                     onClick={() => setShowEditLanguagesModal(true)}
+                    >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                    </div>
+                )}
+                {/* <EditLanguagesModal showEditAboutModal={showEditAboutModal} setShowEditAboutModal={setShowEditAboutModal} userProfile={userProfile}/> */}
+            </div>
+            <div id='profile-page-target-languages'>
+                <div>
+                    <div className='profile-section-heading'>Also Speaks</div>
+                    <div id='profile-target-languages'>
+                        {/* <div id ='profile-target-languages-title'>
+                            Also Speaks:
+                        </div> */}
+                        {/* <ul> */}
+                        <div className='language-level'>
+                            {primaryTargetLanguage.name}
+                            <Level  level={primaryTargetLanguage.level} />
+                        </div>
+                            {!targetLimitMet && (
+                                <div>
+                                    {targetLanguages.map((language, index) => (
+                                        <div key={index}>
+                                            {language.name} - {language.level}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                            {targetLimitMet && (
+                                <div>
+                                    {targetLanguages.slice(0,5).map((language, index) => (
+                                        <div key={index}>
+                                            {language.name} - {language.level}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        {/* </ul> */}
+                    </div>
+                </div>
+                {(user.id === +id) && (
+                <div
+                className='profile-page-edit-button'
+                onClick={() => setShowEditLanguagesModal(true)}
                 >
                     <i className="fa-solid fa-pen-to-square"></i>
                 </div>
             )}
             {/* <EditLanguagesModal showEditAboutModal={showEditAboutModal} setShowEditAboutModal={setShowEditAboutModal} userProfile={userProfile}/> */}
+            </div>
         </div>
     )
 }

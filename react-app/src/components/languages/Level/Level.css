@@ -1,0 +1,28 @@
+#progress-bar {
+    width: 40px;
+    height: 15px;
+    /* padding: 10px; */
+    /* background-color: lightgray; */
+    box-sizing: border-box;
+}
+
+#progress {
+    margin-left: 15px;
+    margin-top: 2px;
+    display: inline-grid;
+    overflow: hidden;
+    border-radius: 5px;
+    grid-template-columns: repeat(7, 1fr);
+    width: 50px;
+    height: 15px;
+    box-sizing: border-box;
+    background-color: lightgray;
+}
+
+.level-container {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    /* margin-right: 10px; */
+    background-color: rgb(61, 153, 61);
+}
