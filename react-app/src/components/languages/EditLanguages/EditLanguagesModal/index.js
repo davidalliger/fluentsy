@@ -1,7 +1,7 @@
 import Modal from '../../../other/Modal';
 // import EditLanguagesForm from '
 
-const EditLanguagesModal = ({ showModal, setShowModal}) => {
+const EditLanguagesModal = ({ showModal, setShowModal, nativeLanguages, targetLanguages, primaryNativeLanguage, primaryTargetLanguage }) => {
 
     return (
         <>

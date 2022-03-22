@@ -3,50 +3,51 @@ import { useDispatch } from "react-redux";
 import{ createLanguage } from '../../../../store/languages'
 import { languages, levels, levelsWithDescriptions } from '../../../../utils';
 
-const EditLanguagesForm = ({ user, setShowModal, setShowLocationForm, setShowLanguageForm, setShowPictureForm }) => {
+const EditLanguagesForm = ({ setShowModal, nativeLanguages, targetLanguages, primaryNativeLanguage, primaryTargetLAnguage }) => {
     const [errors, setErrors] = useState([]);
-    const [nativeLanguage, setNativeLanguage] = useState('');
-    const [targetLanguage, setTargetLanguage] = useState('');
+    const [primaryNative, setPrimaryNative] = useState('');
+    const [primaryTarget, setPrimaryTarget] = useState('');
+    // const [targetLanguage, setTargetLanguage] = useState('');
     const [level, setLevel] = useState('');
     const [showLevel, setShowLevel] = useState(false);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (targetLanguage && nativeLanguage) {
-            if (nativeLanguage === targetLanguage) {
-                // setTargetLanguage('');
-                setErrors(['Error: Native language and target language cannot be the same.'])
-                if (showLevel) {
-                    setShowLevel(false);
-                }
-            } else {
-                setShowLevel(true);
-                setErrors([]);
-            }
-        } else {
-            setErrors([]);
-        }
-    }, [nativeLanguage])
+    // useEffect(() => {
+    //     if (targetLanguage && nativeLanguage) {
+    //         if (nativeLanguage === targetLanguage) {
+    //             // setTargetLanguage('');
+    //             setErrors(['Error: Native language and target language cannot be the same.'])
+    //             if (showLevel) {
+    //                 setShowLevel(false);
+    //             }
+    //         } else {
+    //             setShowLevel(true);
+    //             setErrors([]);
+    //         }
+    //     } else {
+    //         setErrors([]);
+    //     }
+    // }, [nativeLanguage])
 
-    useEffect(() => {
-        if (targetLanguage && nativeLanguage) {
-            if (nativeLanguage === targetLanguage) {
-                // setTargetLanguage('');
-                setErrors(['Error: Native language and target language cannot be the same.'])
-                if (showLevel) {
-                    setShowLevel(false);
-                }
-            } else {
-                setShowLevel(true);
-                setErrors([]);
-            }
-        } else if (targetLanguage) {
-            setShowLevel(true);
-            setErrors([]);
-        } else {
-            setErrors([]);
-        }
-    }, [targetLanguage])
+    // useEffect(() => {
+    //     if (targetLanguage && nativeLanguage) {
+    //         if (nativeLanguage === targetLanguage) {
+    //             // setTargetLanguage('');
+    //             setErrors(['Error: Native language and target language cannot be the same.'])
+    //             if (showLevel) {
+    //                 setShowLevel(false);
+    //             }
+    //         } else {
+    //             setShowLevel(true);
+    //             setErrors([]);
+    //         }
+    //     } else if (targetLanguage) {
+    //         setShowLevel(true);
+    //         setErrors([]);
+    //     } else {
+    //         setErrors([]);
+    //     }
+    // }, [targetLanguage])
 
     const handleSubmit = async(e) => {
         e.preventDefault();
