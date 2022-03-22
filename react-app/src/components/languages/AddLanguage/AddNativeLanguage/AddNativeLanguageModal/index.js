@@ -1,12 +1,12 @@
 import Modal from '../../../../other/Modal';
 import AddNativeLanguageForm from '../AddNativeLanguageForm'
 
-const AddNativeLanguageModal = ({showAddNativeLanguageModal, setShowAddNativeLanguageModal, id}) => {
+const AddNativeLanguageModal = ({showAddNativeLanguageModal, setShowAddNativeLanguageModal, userProfile}) => {
     return (
         <>
             {showAddNativeLanguageModal && (
                 <Modal onClose={()=> setShowAddNativeLanguageModal(false)}>
-                    <AddNativeLanguageForm id={id} setShowModal={setShowAddNativeLanguageModal} />
+                    <AddNativeLanguageForm setShowModal={setShowAddNativeLanguageModal} userProfile={userProfile} />
                 </Modal>
             )}
         </>
