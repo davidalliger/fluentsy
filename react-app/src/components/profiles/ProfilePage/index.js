@@ -35,7 +35,7 @@ const ProfilePage = () => {
         if (!userProfile) {
             return <Redirect to='/users'/>
         }
-    }, [profileState])
+    }, [userProfile])
 
     // const handleMessage = () => {
     //     history.push(`/messages/${userProfile.userId}`)
