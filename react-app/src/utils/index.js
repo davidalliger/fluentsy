@@ -648,5 +648,6 @@ export const levelsWithValues = {
     'B1: Intermediate': 3,
     'B2: Upper Intermediate': 4,
     'C1: Advanced': 5,
-    'C2: Proficient': 6
+    'C2: Proficient': 6,
+    'Native': 7
 }

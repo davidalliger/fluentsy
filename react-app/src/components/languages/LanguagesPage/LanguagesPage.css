@@ -1,0 +1,128 @@
+#languages-page {
+    padding: 100px 175px;
+}
+
+#languages-page-card {
+    padding: 10px;
+    width: auto;
+    min-width: 750px;
+    min-height: 350px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#languages-page-native-languages {
+    border-right: 1px solid lightgray;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#languages-page-native-grid,
+#languages-page-target-grid {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+#languages-page-target-languages {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.languages-page-title {
+    margin: 5px;
+}
+
+.languages-page-description {
+    font-size: 13px;
+}
+
+.languages-page-grid-title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.languages-page-native-row {
+    display: grid;
+    grid-template-columns: 1fr 45px 5px 20px 20px;
+    column-gap: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.languages-page-target-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 45px 5px 20px 20px;
+    column-gap: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.languages-page-grid-hidden-title {
+    width: 20px;
+}
+
+.languages-page-native-primary,
+.languages-page-native-edit,
+.languages-page-native-delete,
+.languages-page-target-primary,
+.languages-page-target-edit,
+.languages-page-target-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.languages-page-native-edit,
+.languages-page-target-edit,
+.languages-page-native-delete,
+.languages-page-target-delete {
+    font-size: 12px;
+    color: darkgray;
+    margin-top: 3px;
+    cursor: pointer
+}
+
+.languages-page-native-edit:hover,
+.languages-page-target-edit:hover,
+.languages-page-native-delete:hover,
+.languages-page-target-delete:hover {
+    color: gray;
+}
+
+.languages-page-radio {
+    margin: 0;
+}
+
+.languages-page-add-button {
+    margin-top: 20px;
+    font-size: 13px;
+    background-color: rgb(61, 153, 61);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 7px 17px;
+    cursor: pointer;
+}
+
+.languages-page-add-button:hover {
+    background-color: rgb(54, 126, 54);
+}
+
+.languages-page-lower {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}

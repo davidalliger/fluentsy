@@ -9,7 +9,7 @@ import EditProfileHeaderModal from '../EditProfile/EditProfileModals/EditProfile
 import EditProfilePictureModal from '../EditProfile/EditProfileModals/EditProfilePictureModal';
 import SendMessageModal from '../../messages/SendMessage/SendMessageModal';
 import Loading from '../../other/Loading';
-import Languages from '../../languages/Languages';
+import Languages from '../../languages/ProfileLanguages';
 
 const ProfilePage = () => {
     const { id } = useParams();
