@@ -11,7 +11,7 @@ import EditMessageModal from '../EditMessage/EditMessageModal';
 
 let messageSocket;
 
-const SelectedMessages = ({selected, user, profiles}) => {
+const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => {
     // console.log('in SelectedMessages, selected is ', selected);
     // console.log('in SelectedMessages, user is ', user);
     // console.log('in SelectedMessages, profiles is ', profiles);
@@ -24,9 +24,24 @@ const SelectedMessages = ({selected, user, profiles}) => {
     const [showEditMessageModal, setShowEditMessageModal] = useState('');
     const [messageToEdit, setMessageToEdit] = useState(null);
     const [editPayload, setEditPayload] = useState(null);
+    const [noMessages, setNoMessages] = useState(false);
+    const [yesMessages, setYesMessages] = useState(false);
     const dispatch = useDispatch();
     // const {socket} = useSocket();
     // let messageHistory;
+
+    useEffect(() => {
+        if (!(Object.values(messageState).length) && !selected) {
+            setNoMessages(true);
+            setYesMessages(false);
+        } else if ((Object.values(messageState).length) && !selected) {
+            setYesMessages(true);
+            setNoMessages(false);
+        } else {
+            setYesMessages(false);
+            setNoMessages(false);
+        }
+    }, [messageState])
 
     useEffect(()=> {
 
@@ -150,9 +165,14 @@ const SelectedMessages = ({selected, user, profiles}) => {
                                     <span className='message-display-title-user'>{user.username}</span>'s messages with <span className='message-display-title-user'>{selectedName}</span>
                                 </div>
                             )}
-                            {!selectedName && (
+                            {yesMessages && (
                                 <div className='message-display-title'>
-                                    New Conversation
+                                    Select a name on the left to start chatting
+                                </div>
+                            )}
+                            {noMessages && (
+                                <div className='message-display-title'>
+                                    Your message inbox is empty
                                 </div>
                             )}
                         </div>
@@ -217,6 +237,7 @@ const SelectedMessages = ({selected, user, profiles}) => {
                     <form id='message-form'onSubmit={sendChat}>
                         <textarea
                             id='message-input'
+                            wrap='soft'
                             placeholder='Type your message here'
                             value={chatInput}
                             onChange={updateChatInput}

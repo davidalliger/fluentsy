@@ -31,7 +31,7 @@ const Languages = ({userProfile, id, user}) => {
         }
     }, [targetLanguages])
     return (
-        <div>
+        <div id='profile-languages-container'>
             <div id='profile-page-native-languages'>
                 <div>
                     <div className='profile-section-heading'> Native Languages</div>
@@ -74,6 +74,7 @@ const Languages = ({userProfile, id, user}) => {
                 )}
                 {/* <EditLanguagesModal showEditAboutModal={showEditAboutModal} setShowEditAboutModal={setShowEditAboutModal} userProfile={userProfile}/> */}
             </div>
+            {/* <div></div> */}
             <div id='profile-page-target-languages'>
                 <div>
                     <div className='profile-section-heading'>Also Speaks</div>

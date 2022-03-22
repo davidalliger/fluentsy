@@ -95,7 +95,7 @@ const ProfilePage = () => {
                                         </div>
                                     )}
                                     {(user.id !== +id) && (
-                                        <Link to={{pathname: '/messages', state:{currentCorrespondent: userProfile, currentCorrespondentId: userProfile.userId}}}>
+                                        <Link to={{pathname: '/messages', state:{currentCorrespondent: userProfile}}}>
                                             <button
                                                 id='profile-page-message-button'
                                             >
