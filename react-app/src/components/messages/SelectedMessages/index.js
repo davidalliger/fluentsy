@@ -41,7 +41,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
             setYesMessages(false);
             setNoMessages(false);
         }
-    }, [messageState])
+    }, [messageState, selectedName])
 
     useEffect(()=> {
 
