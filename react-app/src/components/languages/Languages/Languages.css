@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #profile-native-languages-title,
@@ -30,7 +30,7 @@
 .profile-section-heading {
     font-size: 13px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin: 10px 0;
 }
 
 .language-level {

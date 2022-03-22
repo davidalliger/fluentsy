@@ -5,6 +5,7 @@
 #profile-page-card {
     padding: 30px;
     width: auto;
+    min-width: 500px;
     border-radius: 10px;
     background-color: white;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
@@ -49,14 +50,15 @@
 }
 
 #profile-page-lower {
-    margin-top: 20px;
+    /* margin-top: 10px; */
 }
 
 .profile-page-edit-button {
     /* position: absolute; */
-    right: 10px;
+    /* right: 10px; */
     /* margin-top: 10px; */
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    margin-left: 10px;
     cursor: pointer;
     font-size: 20px;
     color: rgb(150, 150, 150);
@@ -72,6 +74,7 @@
 
 #profile-page-edit-picture {
     position: absolute;
+    z-index: 1;
     font-size: 50px;
     background-color: rgba(0,0,0,0);
     border-radius: 50%;
@@ -120,6 +123,7 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 10px;
+    margin-top: 10px;
 }
 
 #profile-page-delete-div {
@@ -149,6 +153,11 @@
 }
 
 .profile-section-heading {
-    margin-top: 0;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#profile-page-about {
+    overflow-wrap: normal;
+    word-break: break-word;
 }

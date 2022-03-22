@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import LogoutButton from '../../auth/LogoutButton';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Modal from '../../other/Modal';
 import NoProfile from '../../profiles/NoProfile';
 import '../Navigation.css'
@@ -53,6 +53,11 @@ const ProfileButton = () => {
                     <div className='menu-item' onClick={handleProfile}>
                         My Profile
                     </div>
+                    <Link to={{pathname: '/messages', state:{currentCorrespondent: null}}} className='menu-item'>
+                        <div>
+                            My Messages
+                        </div>
+                    </Link>
                     <LogoutButton className='menu-item' user={user}/>
                 </div>
             )}

@@ -67,7 +67,7 @@ const Messages = () => {
                 {(!correspondents) && (
                     <div id='correspondent-list'></div>
                 )}
-                <SelectedMessages user={user} selected={selected} profiles={profiles} />
+                <SelectedMessages user={user} selected={selected} profiles={profiles} currentCorrespondent={currentCorrespondent} />
             </div>
         </div>
     )
