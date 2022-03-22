@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
-import{ createLanguage } from '../../../../store/languages'
-import { languages, levels, levelsWithDescriptions } from '../../../../utils';
+import{ createLanguage } from '../../../store/languages'
+import { languages, levels, levelsWithDescriptions } from '../../../utils';
 
 const CreateProfileLanguagesForm = ({ user, setShowModal, setShowLocationForm, setShowLanguageForm, setShowPictureForm }) => {
     const [errors, setErrors] = useState([]);

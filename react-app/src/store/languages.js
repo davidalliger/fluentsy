@@ -91,7 +91,9 @@ const languagesReducer = (state= {}, action) => {
     let newState = {...state};
     switch(action.type) {
         case LOAD:
-            action.languages.forEach(language => newState[language.id] = language);
+            action.languages.forEach(language => {
+                newState[language.id] = language
+            });
             return newState;
         case ADD:
             newState[action.new_language.id] = action.new_language;

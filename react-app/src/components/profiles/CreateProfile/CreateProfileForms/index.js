@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import CreateProfileLanguagesForm from '../../../languages/AddLanguage/CreateProfileLanguagesForm';
+import CreateProfileLanguagesForm from '../../../languages/ProfileLanguagesForm';
 import CreateProfileLocationForm from './CreateProfileLocationForm';
 import CreateProfileAboutForm from './CreateProfileAboutForm';
 import CreateProfilePictureForm from './CreateProfilePictureForm';

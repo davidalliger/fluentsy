@@ -16,6 +16,7 @@ import Loading from './components/other/Loading';
 import Messages from './components/messages/Messages';
 import {io} from 'socket.io-client';
 import { getLanguages } from './store/languages';
+import LanguagesPage from './components/languages/LanguagesPage'
 
 let socket;
 
@@ -99,6 +100,9 @@ function App() {
             </Route>
             <Route path='/messages' exact={true} >
               <Messages />
+            </Route>
+            <Route path='/languages' exact={true} >
+              <LanguagesPage />
             </Route>
             <Route path='/' exact={true} >
               <LandingPage />

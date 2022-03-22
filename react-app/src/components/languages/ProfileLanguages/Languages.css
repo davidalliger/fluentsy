@@ -15,6 +15,11 @@
     margin-top: 10px;
 }
 
+#profile-language-list {
+    display: flex;
+    /* padding-top: 3px; */
+}
+
 #profile-native-languages-title,
 #profile-target-languages-title {
     font-size: 13px;
@@ -28,7 +33,7 @@
 }
 
 .profile-section-heading {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: bold;
     margin: 10px 0;
 }
@@ -37,5 +42,20 @@
     display: flex;
     align-items: center;
     margin: 0;
+    font-size: 13px;
+    padding: 0 10px;
     /* padding: 5px; */
+}
+
+#profile-languages-container {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#profile-languages {
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    margin-top: 10px;
 }

@@ -9,8 +9,8 @@ const Level =({level}) => {
 
     return (
         <div id='progress'>
-            {length.map(element => (
-                <div className='level-container'></div>
+            {length.map((element, index) => (
+                <div className='level-container' key={index}></div>
             ))}
         </div>
     )
