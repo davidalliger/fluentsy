@@ -2,9 +2,11 @@ import { useLocation } from "react-router-dom";
 import {useState} from 'react';
 import './LanguagesPage.css'
 import AddNativeLanguageModal from "../AddLanguage/AddNativeLanguage/AddNativeLanguageModal";
+import { useSelector } from "react-redux";
 
 const LanguagesPage = () => {
     const location = useLocation();
+    const languages = useSelector(state => state.languages)
     const { userProfile } = location.state;
     const nativeLanguages = userProfile.languages.filter(language => language.native && !language.primary);
     const targetLanguages = userProfile.languages.filter(language => !language.native && !language.primary);
@@ -12,6 +14,7 @@ const LanguagesPage = () => {
     const primaryTargetLanguage = userProfile.languages.filter(language => !language.native && language.primary)[0];
     const [primaryNative, setPrimaryNative] = useState(primaryNativeLanguage.name);
     const [primaryTarget, setPrimaryTarget] = useState(primaryTargetLanguage.name);
+    const [showAddNativeLanguageModal, setShowAddNativeLanguageModal] = useState(false);
 
     const handlePrimaryNative = () => {
 
@@ -81,10 +84,11 @@ const LanguagesPage = () => {
                         <div>
                             <button
                                 className='languages-page-add-button'
+                                onClick={() => setShowAddNativeLanguageModal(true)}
                             >
                                 Add Language
                             </button>
-                            <AddNativeLanguageModal userProfile={userProfile} />
+                            <AddNativeLanguageModal setShowAddNativeLanguageModal={setShowAddNativeLanguageModal} showAddNativeLanguageModal={showAddNativeLanguageModal} userProfile={userProfile} />
                         </div>
                     </div>
                 </div>

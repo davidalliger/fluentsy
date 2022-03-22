@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import{ createLanguage } from '../../../store/languages'
-import { languages, levels, levelsWithDescriptions } from '../../../utils';
+import{ createLanguage } from '../../../../../store/languages'
+import { languages } from '../../../../../utils';
 
-const AddNativeLanguageForm = ({ user, setShowModal, setShowLocationForm, setShowLanguageForm, setShowPictureForm }) => {
+const AddNativeLanguageForm = ({ userProfile, setShowModal }) => {
     const [errors, setErrors] = useState([]);
     const [nativeLanguage, setNativeLanguage] = useState('');
     const dispatch = useDispatch();
@@ -12,10 +12,10 @@ const AddNativeLanguageForm = ({ user, setShowModal, setShowLocationForm, setSho
         e.preventDefault();
         const new_language = {
             name: nativeLanguage,
-            user_id: user.id,
+            user_id: userProfile.userId,
             level: 'Native',
             native: true,
-            primary: true
+            primary: false
         };
         const data = await dispatch(createLanguage(new_language));
         if (data.errors) {
