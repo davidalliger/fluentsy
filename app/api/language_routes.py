@@ -30,6 +30,20 @@ def create_language():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
+@language_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_profile(id):
+    form = LanguageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        edit_profile = Language.query.get(id)
+        form.populate_obj(edit_profile)
+        db.session.commit()
+        return edit_profile.to_dict()
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+
 @language_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_language(id):
@@ -38,16 +52,3 @@ def delete_language(id):
     db.session.delete(delete_language)
     db.session.commit()
     return delete_language.to_dict()
-
-# @language_routes.route('/<int:id>', methods=['PUT'])
-# @login_required
-# def edit_profile(id):
-#     form = ProfileForm()
-#     form['csrf_token'].data = request.cookies['csrf_token']
-#     if form.validate_on_submit():
-#         edit_profile = Profile.query.get(id)
-#         form.populate_obj(edit_profile)
-#         db.session.commit()
-#         return edit_profile.to_dict()
-#     else:
-#         return {'errors': validation_errors_to_error_messages(form.errors)}, 400

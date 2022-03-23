@@ -37,37 +37,40 @@ const LanguagesPage = () => {
             console.log(languages);
             const userLanguages = languages[user.id];
             console.log(userLanguages);
-            const nativeLanguagesWithPrimary = Object.values(userLanguages?.native);
-            console.log(nativeLanguagesWithPrimary);
-            const targetLanguagesWithPrimary = Object.values(userLanguages?.target);
-            console.log(targetLanguagesWithPrimary);
-            const getNativeLanguages = nativeLanguagesWithPrimary?.filter(language => !language.primary);
-            console.log(getNativeLanguages);
-            const getTargetLanguages = targetLanguagesWithPrimary?.filter(language => !language.primary);
-            console.log(getTargetLanguages);
-            const getPrimaryNativeLanguage = nativeLanguagesWithPrimary?.reduce((primary, language) => {
-                if (language.primary) {
-                    primary = language;
-                }
-                return primary;
-            }, null);
-            console.log(getPrimaryNativeLanguage);
-            const getPrimaryTargetLanguage = targetLanguagesWithPrimary?.reduce((primary, language) => {
-                if (language.primary) {
-                    primary = language;
-                }
-                return primary;
-            }, null);
-            console.log(getPrimaryTargetLanguage);
-            setNativeLanguages(getNativeLanguages);
-            setTargetLanguages(getTargetLanguages);
-            setPrimaryNativeLanguage(getPrimaryNativeLanguage);
-            setPrimaryTargetLanguage(getPrimaryTargetLanguage);
-            setLanguagesLoaded(true);
-            console.log(nativeLanguages);
-            console.log(targetLanguages);
-            console.log(primaryNativeLanguage);
-            console.log(primaryTargetLanguage);
+            if (userLanguages) {
+
+                const nativeLanguagesWithPrimary = Object.values(userLanguages?.native);
+                console.log(nativeLanguagesWithPrimary);
+                const targetLanguagesWithPrimary = Object.values(userLanguages?.target);
+                console.log(targetLanguagesWithPrimary);
+                const getNativeLanguages = nativeLanguagesWithPrimary?.filter(language => !language.primary);
+                console.log(getNativeLanguages);
+                const getTargetLanguages = targetLanguagesWithPrimary?.filter(language => !language.primary);
+                console.log(getTargetLanguages);
+                const getPrimaryNativeLanguage = nativeLanguagesWithPrimary?.reduce((primary, language) => {
+                    if (language.primary) {
+                        primary = language;
+                    }
+                    return primary;
+                }, null);
+                console.log(getPrimaryNativeLanguage);
+                const getPrimaryTargetLanguage = targetLanguagesWithPrimary?.reduce((primary, language) => {
+                    if (language.primary) {
+                        primary = language;
+                    }
+                    return primary;
+                }, null);
+                console.log(getPrimaryTargetLanguage);
+                setNativeLanguages(getNativeLanguages);
+                setTargetLanguages(getTargetLanguages);
+                setPrimaryNativeLanguage(getPrimaryNativeLanguage);
+                setPrimaryTargetLanguage(getPrimaryTargetLanguage);
+                setLanguagesLoaded(true);
+                console.log(nativeLanguages);
+                console.log(targetLanguages);
+                console.log(primaryNativeLanguage);
+                console.log(primaryTargetLanguage);
+            }
         }
     }, [languages]);
 
@@ -232,7 +235,7 @@ const LanguagesPage = () => {
                                 </button>
                                 <AddNativeLanguageModal setShowAddNativeLanguageModal={setShowAddNativeLanguageModal} showAddNativeLanguageModal={showAddNativeLanguageModal} user={user} />
                             </div>
-                            <EditNativeLanguageModal showEditNativeLanguageModal={showEditNativeLanguageModal} setShowEditNativeLanguageModal={setShowEditNativeLanguageModal} editNativeLanguage={editNativeLanguage} />
+                            <EditNativeLanguageModal showEditNativeLanguageModal={showEditNativeLanguageModal} setShowEditNativeLanguageModal={setShowEditNativeLanguageModal} editNativeLanguage={editNativeLanguage} user={user}/>
                         </div>
                     </div>
                     <div id='languages-page-target-languages'>
@@ -337,7 +340,7 @@ const LanguagesPage = () => {
                                 <AddTargetLanguageModal setShowAddTargetLanguageModal={setShowAddTargetLanguageModal} showAddTargetLanguageModal={showAddTargetLanguageModal} user={user} />
                             </div>
                             <DeleteLanguageModal showDeleteLanguageModal={showDeleteLanguageModal} setShowDeleteLanguageModal={setShowDeleteLanguageModal} id ={deleteLanguageId} />
-                            <EditTargetLanguageModal showEditTargetLanguageModal={showEditTargetLanguageModal} setShowEditTargetLanguageModal={setShowEditTargetLanguageModal} editTargetLanguage={editTargetLanguage} />
+                            <EditTargetLanguageModal showEditTargetLanguageModal={showEditTargetLanguageModal} setShowEditTargetLanguageModal={setShowEditTargetLanguageModal} editTargetLanguage={editTargetLanguage} user={user} />
                         </div>
                     </div>
                 </div>

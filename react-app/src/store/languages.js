@@ -155,7 +155,11 @@ const languagesReducer = (state= {}, action) => {
             // newState[action.new_language.id] = action.new_language;
             return newState;
         case EDIT:
-            newState[action.edit_language.id] = action.edit_Language;
+            if (action.edit_language.native) {
+                newState[action.edit_language.userId][native][action.edit_language.id] = action.edit_language;
+            } else {
+                newState[action.edit_language.userId][target][action.edit_language.id] = action.edit_language;
+            }
             return newState;
         case REMOVE:
             if (action.delete_language.native) {

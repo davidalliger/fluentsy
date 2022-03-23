@@ -1,12 +1,12 @@
 import Modal from '../../../../other/Modal';
-// import EditTargetLanguageForm from '../EditTargetLanguageForm';
+import EditTargetLanguageForm from '../EditTargetLanguageForm';
 
-const EditTargetLanguageModal = ({showEditTargetLanguageModal, setShowEditTargetLanguageModal, editTargetLanguage}) => {
+const EditTargetLanguageModal = ({showEditTargetLanguageModal, setShowEditTargetLanguageModal, editTargetLanguage, user}) => {
     return (
         <>
             {showEditTargetLanguageModal && (
                 <Modal onClose={()=> setShowEditTargetLanguageModal(false)}>
-                    {/* <EditTargetLanguageForm editTargetLanguage={editTargetLanguage} setShowModal={setShowEditTargetLanguageModal} /> */}
+                    <EditTargetLanguageForm editTargetLanguage={editTargetLanguage} setShowModal={setShowEditTargetLanguageModal} user={user} />
                 </Modal>
             )}
         </>

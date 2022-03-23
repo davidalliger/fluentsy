@@ -1,22 +1,23 @@
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import{ updateLanguage } from '../../../../../store/languages'
-import { languages } from '../../../../../utils';
+import { languages, levelsWithDescriptions, levels } from '../../../../../utils';
 
-const EditNativeLanguageForm = ({ editNativeLanguage, setShowModal, user }) => {
+const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
     const [errors, setErrors] = useState([]);
-    const [nativeLanguage, setNativeLanguage] = useState(editNativeLanguage.name);
+    const [targetLanguage, setTargetLanguage] = useState(editTargetLanguage.name);
+    const [level, setLevel] = useState(editTargetLanguage.level);
     const dispatch = useDispatch();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
         const payload = {
-            id: editNativeLanguage.id,
-            name: nativeLanguage,
+            id: editTargetLanguage.id,
+            name: targetLanguage,
             user_id: user.id,
-            level: 'Native',
-            native: true,
-            primary: editNativeLanguage.primary
+            level: level,
+            native: false,
+            primary: editTargetLanguage.primary
         };
         const data = await dispatch(updateLanguage(payload));
         if (data.errors) {
@@ -38,17 +39,17 @@ const EditNativeLanguageForm = ({ editNativeLanguage, setShowModal, user }) => {
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <h2>Edit Native Language</h2>
+                <h2>Edit Target Language</h2>
                 {/* <p>What is your native language?</p> */}
                 <div className='form-field'>
                     <label htmlFor='native-language'>
-                        Edit a native language
+                        Edit a target language
                         <select
                             id='native-language'
                             name='nativeLanguage'
                             className='form-select'
-                            onChange={e => setNativeLanguage(e.target.value)}
-                            value={nativeLanguage}
+                            onChange={e => setTargetLanguage(e.target.value)}
+                            value={targetLanguage}
                         >
                             <option value='' disabled>Language</option>
                             {languages.map((language, index) => (
@@ -56,6 +57,28 @@ const EditNativeLanguageForm = ({ editNativeLanguage, setShowModal, user }) => {
                             ))}
                         </select>
                     </label>
+                </div>
+                <div className='form-field'>
+                    <fieldset>
+                        <legend>Level</legend>
+                            {levels.map((currentLevel, index) => (
+                                <div key={index}>
+                                    <label htmlFor={currentLevel}>
+                                        <input
+                                            type="radio"
+                                            id={currentLevel}
+                                            name="level"
+                                            checked={level === currentLevel}
+                                            onChange={(e) => setLevel(currentLevel)}
+                                        />
+                                        {currentLevel}
+                                        <div>
+                                            {levelsWithDescriptions[currentLevel]}
+                                        </div>
+                                    </label>
+                                </div>
+                            ))}
+                    </fieldset>
                 </div>
                 <button
                     type='button'
@@ -77,4 +100,4 @@ const EditNativeLanguageForm = ({ editNativeLanguage, setShowModal, user }) => {
     )
 }
 
-export default EditNativeLanguageForm;
+export default EditTargetLanguageForm;
