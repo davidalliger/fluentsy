@@ -4,16 +4,22 @@ import './LanguagesPage.css'
 import AddNativeLanguageModal from "../AddLanguage/AddNativeLanguage/AddNativeLanguageModal";
 import AddTargetLanguageModal from "../AddLanguage/AddTargetLanguage/AddTargetLanguageModal";
 import { useSelector, useDispatch } from "react-redux";
-import { getLanguages } from '../../../store/languages';
+// import { getLanguages } from '../../../store/languages';
 import DeleteLanguageModal from "../DeleteLanguage/DeleteLanguageModal";
+import EditNativeLanguageModal from "../EditLanguage/EditNativeLanguage/EditNativeLanguageModal";
+import EditTargetLanguageModal from "../EditLanguage/EditTargetLanguage/EditTargetLanguageModal";
 
 const LanguagesPage = () => {
     const [primaryNative, setPrimaryNative] = useState('');
     const [primaryTarget, setPrimaryTarget] = useState('');
     const [showAddNativeLanguageModal, setShowAddNativeLanguageModal] = useState(false);
+    const [showEditNativeLanguageModal, setShowEditNativeLanguageModal] = useState(false);
     const [showAddTargetLanguageModal, setShowAddTargetLanguageModal] = useState(false);
+    const [showEditTargetLanguageModal, setShowEditTargetLanguageModal] = useState(false);
     const [showDeleteLanguageModal, setShowDeleteLanguageModal] = useState(false);
     const [deleteLanguageId, setDeleteLanguageId] = useState('');
+    const [editNativeLanguage, setEditNativeLanguage] = useState('');
+    const [editTargetLanguage, setEditTargetLanguage] = useState('');
     const [loggedOut, setLoggedOut] = useState(false);
     // let deleteLanguageId;
     const [languagesLoaded, setLanguagesLoaded] = useState();
@@ -97,14 +103,6 @@ const LanguagesPage = () => {
 
     }
 
-    const handleDeleteLanguage = e => {
-        console.log(e.currentTarget.id);
-        // deleteLanguageId = +e.currentTarget.id;
-        setDeleteLanguageId(+e.currentTarget.id);
-        console.log(deleteLanguageId);
-        setShowDeleteLanguageModal(true)
-    }
-
     useEffect(() => {
         if (!user) {
             setLoggedOut(true);
@@ -113,6 +111,29 @@ const LanguagesPage = () => {
 
     if (loggedOut) {
         return <Redirect to='/' />
+    }
+
+    const handleDeleteLanguage = e => {
+        console.log(e.currentTarget.id);
+        // deleteLanguageId = +e.currentTarget.id;
+        setDeleteLanguageId(+e.currentTarget.id);
+        console.log(deleteLanguageId);
+        setShowDeleteLanguageModal(true)
+    }
+
+
+    const handleEditNativeLanguage = e => {
+        const id = (e.currentTarget.id).split('-')[0];
+        const language = languages[user.id].native[id];
+        setEditNativeLanguage(language);
+        setShowEditNativeLanguageModal(true);
+    }
+
+    const handleEditTargetLanguage = e => {
+        const id = (e.currentTarget.id).split('-')[0];
+        const language = languages[user.id].target[id];
+        setEditTargetLanguage(language);
+        setShowEditTargetLanguageModal(true);
     }
 
     return (
@@ -150,7 +171,11 @@ const LanguagesPage = () => {
                                         />
                                     </div>
                                     <div></div>
-                                    <div className='languages-page-native-edit'>
+                                    <div
+                                        id={`${primaryNativeLanguage?.id}-edit`}
+                                        className='languages-page-native-edit'
+                                        onClick={handleEditNativeLanguage}
+                                    >
                                         <i className="fa-solid fa-pen"></i>
                                     </div>
                                     <div
@@ -179,7 +204,11 @@ const LanguagesPage = () => {
                                                     />
                                                 </div>
                                                 <div></div>
-                                                <div className='languages-page-native-edit'>
+                                                <div
+                                                    id={`${language.id}-edit`}
+                                                    className='languages-page-native-edit'
+                                                    onClick={handleEditNativeLanguage}
+                                                    >
                                                     <i className="fa-solid fa-pen"></i>
                                                 </div>
                                                 <div
@@ -203,6 +232,7 @@ const LanguagesPage = () => {
                                 </button>
                                 <AddNativeLanguageModal setShowAddNativeLanguageModal={setShowAddNativeLanguageModal} showAddNativeLanguageModal={showAddNativeLanguageModal} user={user} />
                             </div>
+                            <EditNativeLanguageModal showEditNativeLanguageModal={showEditNativeLanguageModal} setShowEditNativeLanguageModal={setShowEditNativeLanguageModal} editNativeLanguage={editNativeLanguage} />
                         </div>
                     </div>
                     <div id='languages-page-target-languages'>
@@ -242,7 +272,11 @@ const LanguagesPage = () => {
                                         />
                                     </div>
                                     <div></div>
-                                    <div className='languages-page-target-edit'>
+                                    <div
+                                        id={primaryTargetLanguage?.id}
+                                        className='languages-page-target-edit'
+                                        onClick={handleEditTargetLanguage}
+                                        >
                                         <i className="fa-solid fa-pen"></i>
                                     </div>
                                     <div
@@ -274,7 +308,11 @@ const LanguagesPage = () => {
                                                     />
                                                 </div>
                                                 <div></div>
-                                                <div className='languages-page-target-edit'>
+                                                <div
+                                                    id={`${language.id}-edit`}
+                                                    className='languages-page-target-edit'
+                                                    onClick={handleEditTargetLanguage}
+                                                    >
                                                     <i className="fa-solid fa-pen"></i>
                                                 </div>
                                                 <div
@@ -299,6 +337,7 @@ const LanguagesPage = () => {
                                 <AddTargetLanguageModal setShowAddTargetLanguageModal={setShowAddTargetLanguageModal} showAddTargetLanguageModal={showAddTargetLanguageModal} user={user} />
                             </div>
                             <DeleteLanguageModal showDeleteLanguageModal={showDeleteLanguageModal} setShowDeleteLanguageModal={setShowDeleteLanguageModal} id ={deleteLanguageId} />
+                            <EditTargetLanguageModal showEditTargetLanguageModal={showEditTargetLanguageModal} setShowEditTargetLanguageModal={setShowEditTargetLanguageModal} editTargetLanguage={editTargetLanguage} />
                         </div>
                     </div>
                 </div>

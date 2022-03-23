@@ -65,12 +65,12 @@ const Languages = ({userProfile, id, user}) => {
                     <div id='profile-language-list'>
 
                         <div className='language-level'>
-                            {primaryNativeLanguage.name}
-                            <Level  level={primaryNativeLanguage.level} />
+                            {primaryNativeLanguage?.name}
+                            <Level  level={primaryNativeLanguage?.level} />
                         </div>
                         {!nativeLimitMet && (
                             <>
-                                {nativeLanguages.map((language, index) => (
+                                {nativeLanguages?.map((language, index) => (
                                     <div key={index} className='language-level'>
                                         {language.name}
                                         <Level  level={language.level} />
@@ -80,7 +80,7 @@ const Languages = ({userProfile, id, user}) => {
                         )}
                         {nativeLimitMet && (
                             <>
-                                {nativeLanguages.slice(0,4).map((language, index) => (
+                                {nativeLanguages?.slice(0,4).map((language, index) => (
                                     <div key={index} className='language-level'>
                                         {language.name}
                                         <Level  level={language.level} />
@@ -111,12 +111,12 @@ const Languages = ({userProfile, id, user}) => {
                                     </div> */}
                                     {/* <ul> */}
                         <div className='language-level'>
-                            {primaryTargetLanguage.name}
-                            <Level  level={primaryTargetLanguage.level}/>
+                            {primaryTargetLanguage?.name}
+                            <Level  level={primaryTargetLanguage?.level}/>
                         </div>
                         {!targetLimitMet && (
                             <>
-                                {targetLanguages.map((language, index) => (
+                                {targetLanguages?.map((language, index) => (
                                     <div key={index} className='language-level'>
                                         {language.name}
                                         <Level  level={language.level} />
@@ -126,7 +126,7 @@ const Languages = ({userProfile, id, user}) => {
                         )}
                         {targetLimitMet && (
                             <>
-                                {targetLanguages.slice(0,5).map((language, index) => (
+                                {targetLanguages?.slice(0,5).map((language, index) => (
                                     <div key={index} className='language-level'>
                                         {language.name}
                                         <Level  level={language.level} />
