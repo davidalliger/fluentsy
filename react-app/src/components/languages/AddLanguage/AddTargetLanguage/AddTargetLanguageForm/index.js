@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import{ createLanguage } from '../../../../../store/languages'
-import { languages } from '../../../../../utils';
+import { languages, levelsWithDescriptions, levels } from '../../../../../utils';
 
-const AddNativeLanguageForm = ({ user, setShowModal }) => {
+const AddTargetLanguageForm = ({ user, setShowModal }) => {
     const [errors, setErrors] = useState([]);
-    const [nativeLanguage, setNativeLanguage] = useState('');
+    const [targetLanguage, setTargetLanguage] = useState('');
+    const [level, setLevel] = useState('');
     const dispatch = useDispatch();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
         const new_language = {
-            name: nativeLanguage,
+            name: targetLanguage,
             user_id: user.id,
-            level: 'Native',
-            native: true,
+            level: level,
+            native: false,
             primary: false
         };
         const data = await dispatch(createLanguage(new_language));
@@ -37,17 +38,17 @@ const AddNativeLanguageForm = ({ user, setShowModal }) => {
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <h2>Add Native Language</h2>
+                <h2>Add Target Language</h2>
                 {/* <p>What is your native language?</p> */}
                 <div className='form-field'>
                     <label htmlFor='native-language'>
-                        Add a native language
+                        Add a target language
                         <select
                             id='native-language'
                             name='nativeLanguage'
                             className='form-select'
-                            onChange={e => setNativeLanguage(e.target.value)}
-                            value={nativeLanguage}
+                            onChange={e => setTargetLanguage(e.target.value)}
+                            value={targetLanguage}
                         >
                             <option value='' disabled>Language</option>
                             {languages.map((language, index) => (
@@ -55,6 +56,28 @@ const AddNativeLanguageForm = ({ user, setShowModal }) => {
                             ))}
                         </select>
                     </label>
+                </div>
+                <div className='form-field'>
+                    <fieldset>
+                        <legend>Level</legend>
+                            {levels.map((currentLevel, index) => (
+                                <div key={index}>
+                                    <label htmlFor={currentLevel}>
+                                        <input
+                                            type="radio"
+                                            id={currentLevel}
+                                            name="level"
+                                            checked={level === currentLevel}
+                                            onChange={(e) => setLevel(currentLevel)}
+                                        />
+                                        {currentLevel}
+                                        <div>
+                                            {levelsWithDescriptions[currentLevel]}
+                                        </div>
+                                    </label>
+                                </div>
+                            ))}
+                    </fieldset>
                 </div>
                 <button
                     type='button'
@@ -76,4 +99,4 @@ const AddNativeLanguageForm = ({ user, setShowModal }) => {
     )
 }
 
-export default AddNativeLanguageForm;
+export default AddTargetLanguageForm;

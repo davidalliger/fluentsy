@@ -64,8 +64,8 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, setShowLocationForm, s
             native: false,
             primary: true
         };
-        console.log(native);
-        console.log(target);
+        // console.log(native);
+        // console.log(target);
         const nativeData = await dispatch(createLanguage(native));
         const targetData = await dispatch(createLanguage(target));
         if (nativeData.errors) {
@@ -84,7 +84,7 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, setShowLocationForm, s
         }
     }
 
-    console.log('Errors is ', errors);
+    // console.log('Errors is ', errors);
 
     return (
         <div>

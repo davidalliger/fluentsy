@@ -30,6 +30,15 @@ def create_language():
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
+@language_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_language(id):
+    delete_language = Language.query.get(id)
+
+    db.session.delete(delete_language)
+    db.session.commit()
+    return delete_language.to_dict()
+
 # @language_routes.route('/<int:id>', methods=['PUT'])
 # @login_required
 # def edit_profile(id):
@@ -42,13 +51,3 @@ def create_language():
 #         return edit_profile.to_dict()
 #     else:
 #         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
-
-
-# @profile_routes.route('/<int:id>', methods=['DELETE'])
-# @login_required
-# def delete_profile(id):
-#     delete_profile = Profile.query.get(id)
-
-#     db.session.delete(delete_profile)
-#     db.session.commit()
-#     return {'success': 'success'}

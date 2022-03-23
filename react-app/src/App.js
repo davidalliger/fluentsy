@@ -43,7 +43,7 @@ function App() {
         await dispatch(getLanguages());
         socket = io();
         socket.emit('join', {room_id: +user.id});
-        console.log('app level socket connected.')
+        // console.log('app level socket connected.')
         socket.on('chat', chat => {
           dispatch(addMessage(chat, +user.id));
         })
@@ -59,11 +59,11 @@ function App() {
       setLoaded(true);
       if (socket && !user) {
         socket.disconnect()
-        console.log('app level socket disconnected.')
+        // console.log('app level socket disconnected.')
       }
       return (() => {
         socket.disconnect()
-        console.log('app level socket disconnected.')
+        // console.log('app level socket disconnected.')
     })
     })();
   }, [dispatch, user]);
