@@ -30,10 +30,10 @@ const Languages = ({userProfile, id, user}) => {
     const targetLanguages = userProfile.languages.filter(language => !language.native && !language.primary);
     const primaryNativeLanguage = userProfile.languages.filter(language => language.native && language.primary)[0];
     const primaryTargetLanguage = userProfile.languages.filter(language => !language.native && language.primary)[0];
-    console.log('Native languages are ', nativeLanguages);
-    console.log('Target languages are ', targetLanguages);
-    console.log('Primary native language is ', primaryNativeLanguage);
-    console.log('Primary target language is ', primaryTargetLanguage);
+    // console.log('Native languages are ', nativeLanguages);
+    // console.log('Target languages are ', targetLanguages);
+    // console.log('Primary native language is ', primaryNativeLanguage);
+    // console.log('Primary target language is ', primaryTargetLanguage);
     useEffect(() => {
         if (nativeLanguages.length > 5) {
             setNativeLimitMet(true);
@@ -71,20 +71,22 @@ const Languages = ({userProfile, id, user}) => {
                         {!nativeLimitMet && (
                             <>
                                 {nativeLanguages.map((language, index) => (
-                                    <div key={index}>
+                                    <div key={index} className='language-level'>
                                         {language.name}
+                                        <Level  level={language.level} />
                                     </div>
                                 ))}
                             </>
                         )}
                         {nativeLimitMet && (
-                            <div>
+                            <>
                                 {nativeLanguages.slice(0,4).map((language, index) => (
-                                    <div key={index}>
+                                    <div key={index} className='language-level'>
                                         {language.name}
+                                        <Level  level={language.level} />
                                     </div>
                                 ))}
-                            </div>
+                            </>
                         )}
                                     {/* </ul> */}
                                 {/* </div> */}
@@ -112,23 +114,25 @@ const Languages = ({userProfile, id, user}) => {
                             {primaryTargetLanguage.name}
                             <Level  level={primaryTargetLanguage.level}/>
                         </div>
-                        {targetLimitMet && (
-                            <div>
+                        {!targetLimitMet && (
+                            <>
                                 {targetLanguages.map((language, index) => (
-                                    <div key={index}>
-                                        {language.name} - {language.level}
+                                    <div key={index} className='language-level'>
+                                        {language.name}
+                                        <Level  level={language.level} />
                                     </div>
                                 ))}
-                            </div>
+                            </>
                         )}
                         {targetLimitMet && (
-                            <div>
+                            <>
                                 {targetLanguages.slice(0,5).map((language, index) => (
-                                    <div key={index}>
-                                        {language.name} - {language.level}
+                                    <div key={index} className='language-level'>
+                                        {language.name}
+                                        <Level  level={language.level} />
                                     </div>
                                 ))}
-                            </div>
+                            </>
                         )}
                                     {/* </ul> */}
                                 {/* </div> */}

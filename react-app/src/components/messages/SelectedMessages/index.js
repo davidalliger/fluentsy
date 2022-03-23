@@ -61,18 +61,18 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
 
     useEffect(()=> {
         if (selected && profiles.length) {
-            console.log('in useEffect, selected is ', selected);
+            // console.log('in useEffect, selected is ', selected);
             const userProfile = profiles?.reduce((profileMatch, profile) => {
                 if (profile.userId === +selected) profileMatch = profile;
                 return profileMatch;
             }, null);
             setSelectedName(userProfile.username);
-            console.log('in useEffect, selectedName is ', selectedName);
+            // console.log('in useEffect, selectedName is ', selectedName);
             if (messageState && Object.keys(messageState).length) {
 
-                console.log('in useEffect, messageState is ', messageState);
+                // console.log('in useEffect, messageState is ', messageState);
                 const selectedMessages = messageState[selected];
-                console.log('in useEffect, selectedMessages is ', selectedMessages);
+                // console.log('in useEffect, selectedMessages is ', selectedMessages);
                 if (selectedMessages && Object.keys(selectedMessages).length) {
                     const previousMessages = Object.values(selectedMessages).reverse();
                     setMessageHistory(previousMessages);
@@ -120,7 +120,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
             recipient: selectedName,
             sender: user.username
         }
-        console.log('in send chat, payload is ', payload)
+        // console.log('in send chat, payload is ', payload)
         // dispatch(addMessage(payload, user.id))
         messageSocket.emit('chat', payload);
         // messageSocket.emit('self_chat', payload);
