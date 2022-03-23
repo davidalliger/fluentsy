@@ -8,6 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import DeleteLanguageModal from "../DeleteLanguage/DeleteLanguageModal";
 import EditNativeLanguageModal from "../EditLanguage/EditNativeLanguage/EditNativeLanguageModal";
 import EditTargetLanguageModal from "../EditLanguage/EditTargetLanguage/EditTargetLanguageModal";
+import { updateLanguage } from "../../../store/languages";
+import UpdatePrimaryNativeModal from "../EditLanguage/UpdatePrimaryNative/UpdatePrimaryNativeModal";
+import UpdatePrimaryTargetModal from "../EditLanguage/UpdatePrimaryTarget/UpdatePrimaryTargetModal";
 
 const LanguagesPage = () => {
     const [primaryNative, setPrimaryNative] = useState('');
@@ -17,10 +20,18 @@ const LanguagesPage = () => {
     const [showAddTargetLanguageModal, setShowAddTargetLanguageModal] = useState(false);
     const [showEditTargetLanguageModal, setShowEditTargetLanguageModal] = useState(false);
     const [showDeleteLanguageModal, setShowDeleteLanguageModal] = useState(false);
+    const [showUpdatePrimaryNativeModal, setShowUpdatePrimaryNativeModal] = useState(false);
+    const [showUpdatePrimaryTargetModal, setShowUpdatePrimaryTargetModal] = useState(false);
     const [deleteLanguageId, setDeleteLanguageId] = useState('');
     const [editNativeLanguage, setEditNativeLanguage] = useState('');
     const [editTargetLanguage, setEditTargetLanguage] = useState('');
     const [loggedOut, setLoggedOut] = useState(false);
+    // const [nativeErrors, setNativeErrors] = useState([]);
+    // const [targetErrors, setTargetErrors] = useState([]);
+    const [newNativePrimaryPayload, setNewNativePrimaryPayload] = useState(null);
+    const [oldNativePrimaryPayload, setOldNativePrimaryPayload] = useState(null);
+    const [newTargetPrimaryPayload, setNewTargetPrimaryPayload] = useState(null);
+    const [oldTargetPrimaryPayload, setOldTargetPrimaryPayload] = useState(null);
     // let deleteLanguageId;
     const [languagesLoaded, setLanguagesLoaded] = useState();
     const [nativeLanguages, setNativeLanguages] = useState('');
@@ -31,6 +42,7 @@ const LanguagesPage = () => {
     const [targetLanguagesLength, setTargetLanguagesLength] = useState(false);
     const user = useSelector(state => state.session.user);
     const languages = useSelector(state => state.languages);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) {
@@ -98,13 +110,6 @@ const LanguagesPage = () => {
     }, [primaryNativeLanguage, primaryTargetLanguage])
 
 
-    const handlePrimaryNative = () => {
-
-    }
-
-    const handlePrimaryTarget = () => {
-
-    }
 
     useEffect(() => {
         if (!user) {
@@ -114,6 +119,84 @@ const LanguagesPage = () => {
 
     if (loggedOut) {
         return <Redirect to='/' />
+    }
+
+    const handlePrimaryNative = async(e) => {
+        const newPrimaryId = e.currentTarget.id.split('-')[0];
+        const newPrimaryLanguage = languages[user.id].native[newPrimaryId];
+        const newPrimaryPayload = {
+            id: newPrimaryLanguage.id,
+            name: newPrimaryLanguage.name,
+            user_id: user.id,
+            level: 'Native',
+            native: true,
+            primary: true
+        };
+        const oldPrimaryPayload = {
+            id: primaryNative.id,
+            name: primaryNative.name,
+            user_id: user.id,
+            level: 'Native',
+            native: true,
+            primary: false
+        }
+        setNewNativePrimaryPayload(newPrimaryPayload);
+        setOldNativePrimaryPayload(oldPrimaryPayload);
+        setShowUpdatePrimaryNativeModal(true);
+        // const newData = await dispatch(updateLanguage(newPrimaryPayload));
+        // const oldData = await dispatch(updateLanguage(oldPrimaryPayload));
+        // if (newData.errors) {
+        //     if (oldData.errors) {
+        //         setNativeErrors([...newData.errors, ...oldData.errors]);
+        //     } else {
+        //         setNativeErrors(newData.errors);
+        //     }
+        // } else if (oldData.errors) {
+        //     setNativeErrors(oldData.errors);
+        // } else if (newData.name && oldData.name) {
+        //     setPrimaryNative(newData);
+        // } else {
+        //     setNativeErrors(newData);
+        // }
+    }
+
+    const handlePrimaryTarget = async(e) => {
+        const newPrimaryId = e.currentTarget.id.split('-')[0];
+        const newPrimaryLanguage = languages[user.id].target[newPrimaryId];
+        const newPrimaryPayload = {
+            id: newPrimaryLanguage.id,
+            name: newPrimaryLanguage.name,
+            user_id: user.id,
+            level: newPrimaryLanguage.level,
+            native: false,
+            primary: true
+        };
+        const oldPrimaryPayload = {
+            id: primaryTarget.id,
+            name: primaryTarget.name,
+            user_id: user.id,
+            level: primaryTarget.level,
+            native: false,
+            primary: false
+        }
+        setNewTargetPrimaryPayload(newPrimaryPayload);
+        setOldTargetPrimaryPayload(oldPrimaryPayload);
+        setShowUpdatePrimaryTargetModal(true);
+        // const newData = await dispatch(updateLanguage(newPrimaryPayload));
+        // const oldData = await dispatch(updateLanguage(oldPrimaryPayload));
+        // if (newData.errors) {
+        //     if (oldData.errors) {
+        //         setTargetErrors([...newData.errors, ...oldData.errors]);
+        //     } else {
+        //         setTargetErrors(newData.errors);
+        //     }
+        // } else if (oldData.errors) {
+        //     setTargetErrors(oldData.errors);
+        // } else if (newData.name && oldData.name) {
+        //     setPrimaryTarget(newData);
+        // } else {
+        //     setTargetErrors(newData);
+        // }
     }
 
     const handleDeleteLanguage = e => {
@@ -144,6 +227,11 @@ const LanguagesPage = () => {
             {/* {languagesLoaded && ( */}
                 <div id='languages-page-card'>
                     <div id='languages-page-native-languages'>
+                        {/* <div>
+                            {nativeErrors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div> */}
                         <h2 className='languages-page-title'>My Native Languages</h2>
                         <p className='languages-page-description'>I grew up speaking these every day.</p>
                         <div className='languages-page-lower'>
@@ -165,12 +253,13 @@ const LanguagesPage = () => {
                                     </div>
                                     <div className='languages-page-native-primary'>
                                         <input
-                                            // className='languages-page-radio'
+                                            className='languages-page-radio'
                                             type='radio'
                                             name='primary-native'
                                             checked={primaryNative === primaryNativeLanguage}
                                             onChange={handlePrimaryNative}
                                             value={primaryNative}
+                                            id={`${primaryNativeLanguage.id}-primary`}
                                         />
                                     </div>
                                     <div></div>
@@ -181,13 +270,13 @@ const LanguagesPage = () => {
                                     >
                                         <i className="fa-solid fa-pen"></i>
                                     </div>
-                                    <div
+                                    {/* <div
                                         id={primaryNativeLanguage?.id}
                                         className='languages-page-native-delete'
                                         onClick={handleDeleteLanguage}
                                     >
                                         <i className="fa-solid fa-trash-can"></i>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 {nativeLanguagesLength && (
                                     <div>
@@ -198,12 +287,13 @@ const LanguagesPage = () => {
                                                 </div>
                                                 <div className='languages-page-native-primary'>
                                                     <input
-                                                        // className='languages-page-radio'
+                                                        className='languages-page-radio'
                                                         type='radio'
                                                         name='primary-native'
                                                         checked={primaryNative === language}
                                                         onChange={handlePrimaryNative}
                                                         value={primaryNative}
+                                                        id={`${language.id}-primary`}
                                                     />
                                                 </div>
                                                 <div></div>
@@ -236,9 +326,15 @@ const LanguagesPage = () => {
                                 <AddNativeLanguageModal setShowAddNativeLanguageModal={setShowAddNativeLanguageModal} showAddNativeLanguageModal={showAddNativeLanguageModal} user={user} />
                             </div>
                             <EditNativeLanguageModal showEditNativeLanguageModal={showEditNativeLanguageModal} setShowEditNativeLanguageModal={setShowEditNativeLanguageModal} editNativeLanguage={editNativeLanguage} user={user}/>
+                            <UpdatePrimaryNativeModal showUpdatePrimaryNativeModal={showUpdatePrimaryNativeModal} setShowUpdatePrimaryNativeModal={setShowUpdatePrimaryNativeModal} newNativePrimaryPayload={newNativePrimaryPayload} oldNativePrimaryPayload={oldNativePrimaryPayload} setPrimaryNative={setPrimaryNative} />
                         </div>
                     </div>
                     <div id='languages-page-target-languages'>
+                        {/* <div>
+                            {targetErrors.map((error, ind) => (
+                                <div key={ind}>{error}</div>
+                            ))}
+                        </div> */}
                         <h2 className='languages-page-title'>My Target Languages</h2>
                         <p className='languages-page-description'>I'm still learning these.</p>
                         <div className='languages-page-lower'>
@@ -266,12 +362,13 @@ const LanguagesPage = () => {
                                     </div>
                                     <div className='languages-page-target-primary'>
                                         <input
-                                            // className='languages-page-radio'
+                                            className='languages-page-radio'
                                             type='radio'
                                             name='primary-target'
                                             checked={primaryTarget === primaryTargetLanguage}
                                             onChange={handlePrimaryTarget}
                                             value={primaryTarget}
+                                            id={`${primaryTargetLanguage.id}-primary`}
                                         />
                                     </div>
                                     <div></div>
@@ -282,13 +379,13 @@ const LanguagesPage = () => {
                                         >
                                         <i className="fa-solid fa-pen"></i>
                                     </div>
-                                    <div
+                                    {/* <div
                                         id={primaryTargetLanguage?.id}
                                         className='languages-page-target-delete'
                                         onClick={handleDeleteLanguage}
                                     >
                                         <i className="fa-solid fa-trash-can"></i>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 {targetLanguagesLength && (
                                     <div>
@@ -302,12 +399,13 @@ const LanguagesPage = () => {
                                                 </div>
                                                 <div className='languages-page-target-primary'>
                                                     <input
-                                                        // className='languages-page-radio'
+                                                        className='languages-page-radio'
                                                         type='radio'
                                                         name='primary-target'
                                                         checked={primaryTarget === language}
                                                         onChange={handlePrimaryTarget}
                                                         value={primaryTarget}
+                                                        id={`${language.id}-primary`}
                                                     />
                                                 </div>
                                                 <div></div>
@@ -341,6 +439,7 @@ const LanguagesPage = () => {
                             </div>
                             <DeleteLanguageModal showDeleteLanguageModal={showDeleteLanguageModal} setShowDeleteLanguageModal={setShowDeleteLanguageModal} id ={deleteLanguageId} />
                             <EditTargetLanguageModal showEditTargetLanguageModal={showEditTargetLanguageModal} setShowEditTargetLanguageModal={setShowEditTargetLanguageModal} editTargetLanguage={editTargetLanguage} user={user} />
+                            <UpdatePrimaryTargetModal showUpdatePrimaryTargetModal={showUpdatePrimaryTargetModal} setShowUpdatePrimaryTargetModal={setShowUpdatePrimaryTargetModal} newTargetPrimaryPayload={newTargetPrimaryPayload} oldTargetPrimaryPayload={oldTargetPrimaryPayload} setPrimaryTarget={setPrimaryTarget}/>
                         </div>
                     </div>
                 </div>
