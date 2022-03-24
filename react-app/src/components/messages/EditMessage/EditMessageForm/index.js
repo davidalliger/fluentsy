@@ -33,30 +33,24 @@ const EditMessageForm = ({user, editPayload, sendEditMessage, messageToEdit, set
     }
 
     return (
-        <div>
-            {/* {(!showSent) && ( */}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors && errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
-                <h2>Edit your message</h2>
-                <div className='form-field'>
-                    <label htmlFor='content'>
-                        <textarea
-                            id='content'
-                            // placeholder={`What would you like to say to ${userProfile.username}?`}
-                            name='content'
-                            className='form-input'
-                            onChange={e => setContent(e.target.value)}
-                            value={content}
-                        />
-                    </label>
-                </div>
+        <form
+            onSubmit={handleSubmit}
+            className='basic-form-wide'
+        >
+            <h2>Edit your message</h2>
+            <div className='basic-form-field'>
+                <textarea
+                    id='content'
+                    name='content'
+                    className='basic-form-text-area'
+                    onChange={e => setContent(e.target.value)}
+                    value={content}
+                />
+            </div>
+            <div className='basic-form-double-button-div'>
                 <button
                     type='button'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                     id='cancel'
                     onClick={() => setShowEditMessageModal(false)}
                 >
@@ -65,34 +59,17 @@ const EditMessageForm = ({user, editPayload, sendEditMessage, messageToEdit, set
                 <button
                     type='submit'
                     id='Submit'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                 >
                     Submit
                 </button>
-            </form>
-            {/* )} */}
-            {/* {showSent && (
-                <div>
-                    <h2>Your message has been sent!</h2>
-                    <button
-                        type='button'
-                        className='form-button'
-                        id='cancel'
-                        onClick={() => setShowMessageModal(false)}
-                    >
-                        Exit
-                    </button>
-                    <button
-                        type='button'
-                        id='Submit'
-                        className='form-button'
-                        onClick={() => setShowMessageModal(false)}
-                    >
-                        See Conversation
-                    </button>
-                </div>
-            )} */}
-        </div>
+            </div>
+            <div>
+                {errors && errors.map((error, ind) => (
+                    <div key={ind}>{error}</div>
+                ))}
+            </div>
+        </form>
     )
 }
 
