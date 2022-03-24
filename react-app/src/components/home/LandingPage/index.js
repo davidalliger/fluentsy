@@ -6,7 +6,7 @@ import './LandingPage.css'
 import myImage from '../../../images/landing-page_small_good.jpg'
 
 const LandingPage = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showSignUpModal, setShowSignUpModal] = useState(false);
     const user = useSelector(state => state.session.user);
 
 
@@ -33,8 +33,8 @@ const LandingPage = () => {
                                 Have fun while broadening your cultural horizons
                             </p>
                         </div>
-                        <button id='landing-page-get-started' onClick={() => setShowModal(true)}>Get Started</button>
-                        <SignUpModal showModal={showModal} setShowModal={setShowModal} />
+                        <button id='landing-page-get-started' onClick={() => setShowSignUpModal(true)}>Get Started</button>
+                        <SignUpModal showSignUpModal={showSignUpModal} setShowSignUpModal={setShowSignUpModal} />
                     </div>
                     <div id='landing-page-img-div'>
                         <div id='landing-page-img' style={{backgroundImage: `url(${myImage})`}}>

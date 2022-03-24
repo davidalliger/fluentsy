@@ -51,15 +51,22 @@ const LoginForm = ({setShowLoginModal}) => {
   return (
     <>
       {showLoginForm && (
-        <form onSubmit={onLogin}>
+        <form
+          onSubmit={onLogin}
+          className='basic-form'
+        >
           <div>
             {errors.map((error, ind) => (
               <div key={ind}>{error}</div>
             ))}
           </div>
-          <div>
-            <label htmlFor='email'>Email</label>
+          <h2>Log In</h2>
+          <div className='basic-form-field'>
+            <div className='basic-form-label'>
+              <label htmlFor='email'>Email</label>
+            </div>
             <input
+              className='basic-form-input'
               name='email'
               type='text'
               placeholder='Email'
@@ -67,30 +74,43 @@ const LoginForm = ({setShowLoginModal}) => {
               onChange={updateEmail}
             />
           </div>
-          <div>
-            <label htmlFor='password'>Password</label>
+          <div className='basic-form-field'>
+            <div className='basic-form-label'>
+              <label htmlFor='password'>Password</label>
+            </div>
             <input
+              className='basic-form-input'
               name='password'
               type='password'
               placeholder='Password'
               value={password}
               onChange={updatePassword}
             />
-            <button type='submit'>Login</button>
+          </div>
+          <div className='basic-form-button-div'>
+            <button
+              type='submit'
+              className='basic-form-button'
+            >
+              Log In
+            </button>
+          </div>
+          <div className='basic-form-button-div'>
             <button
               onClick={demoLogin}
+              className='basic-form-button'
             >
               Demo User
             </button>
-            <div>
-              <span>Don't have an account yet?</span>
-              <span
-                onClick={handleSignup}
-                className='toggleAuth'
-              >
-                Sign Up
-              </span>
-            </div>
+          </div>
+          <div className='toggle-auth-div'>
+            <span>Don't have an account yet? </span>
+            <span
+              onClick={handleSignup}
+              className='toggle-auth'
+            >
+              Sign Up
+            </span>
           </div>
         </form>
       )}

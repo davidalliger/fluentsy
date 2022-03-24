@@ -55,54 +55,75 @@ const SignUpForm = ({setShowSignUpModal}) => {
     <>
       {showSignUpForm && (
 
-        <form onSubmit={onSignUp}>
+        <form
+          onSubmit={onSignUp}
+          className='basic-form'
+        >
           <div>
             {errors.map((error, ind) => (
               <div key={ind}>{error}</div>
             ))}
           </div>
-          <div>
-            <label>User Name</label>
+          <h2>Sign Up</h2>
+          <div className ='basic-form-field'>
+            <div className='basic-form-label'>
+              <label>User Name</label>
+            </div>
             <input
+              className='basic-form-input'
               type='text'
               name='username'
               onChange={updateUsername}
               value={username}
             ></input>
           </div>
-          <div>
-            <label>Email</label>
+          <div className ='basic-form-field'>
+            <div className='basic-form-label'>
+              <label>Email</label>
+            </div>
             <input
+              className='basic-form-input'
               type='text'
               name='email'
               onChange={updateEmail}
               value={email}
             ></input>
           </div>
-          <div>
-            <label>Password</label>
+          <div className ='basic-form-field'>
+            <div className='basic-form-label'>
+              <label>Password</label>
+            </div>
             <input
+              className='basic-form-input'
               type='password'
               name='password'
               onChange={updatePassword}
               value={password}
             ></input>
           </div>
-          <div>
-            <label>Confirm Password</label>
+          <div className ='basic-form-field'>
+            <div className='basic-form-label'>
+              <label>Confirm Password</label>
+            </div>
             <input
+              className='basic-form-input'
               type='password'
               name='repeat_password'
               onChange={updateRepeatPassword}
               value={repeatPassword}
             ></input>
           </div>
-          <button type='submit'>Sign Up</button>
-          <div>
-            <span>Already have an account?</span>
+          <button
+            type='submit'
+            className='basic-form-button'
+          >
+            Sign Up
+          </button>
+          <div className='toggle-auth-div'>
+            <span>Already have an account? </span>
             <span
               onClick={handleLogin}
-              className='toggleAuth'
+              className='toggle-auth'
             >
               Log In
             </span>
