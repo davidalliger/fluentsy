@@ -6,12 +6,16 @@ import CreateProfilePictureForm from './CreateProfilePictureForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createProfile } from '../../../../store/profiles';
+import { createLanguage } from '../../../../store/languages';
 
 const CreateProfileForms = ({setShowModal}) => {
     const [showLanguageForm, setShowLanguageForm] = useState(true);
     const [showLocationForm, setShowLocationForm] = useState(false);
     const [showAboutForm, setShowAboutForm] = useState(false);
     const [showPictureForm, setShowPictureForm] = useState(false);
+    const [nativeLanguage, setNativeLanguage] = useState('');
+    const [targetLanguage, setTargetLanguage] = useState('');
+    const [level, setLevel] = useState('');
     const [country, setCountry] = useState('');
     const [state, setState] = useState('');
     const [timezone, setTimezone] = useState('');
@@ -29,31 +33,64 @@ const CreateProfileForms = ({setShowModal}) => {
 
     useEffect(() => {
         (async()=> {
-                if (allStepsCompleted) {
-                    const birthday = `${year}, ${month}, ${day}`;
+            if (allStepsCompleted) {
+                const birthday = `${year}, ${month}, ${day}`;
 
-                    const new_profile = {
-                        user_id: user.id,
-                        img_url: imgUrl,
-                        country,
-                        state,
-                        timezone,
-                        about: about ? about : 'Hi! I\'m a new user!',
-                        birthday: birthday,
-                        display_age: displayAge
-                    }
+                const new_profile = {
+                    user_id: user.id,
+                    img_url: imgUrl,
+                    country,
+                    state,
+                    timezone,
+                    about: about ? about : 'Hi! I\'m a new user!',
+                    birthday: birthday,
+                    display_age: displayAge
+                };
+                const native = {
+                    name: nativeLanguage,
+                    user_id: user.id,
+                    level: 'Native',
+                    native: true,
+                    primary: true
+                };
+                const target = {
+                    name: targetLanguage,
+                    user_id: user.id,
+                    level: level,
+                    native: false,
+                    primary: true
+                };
 
-                    const data = await dispatch(createProfile(new_profile));
-                    if (data.errors) {
-                        setErrors(data.errors);
-                    } else if (data.userId) {
-                        setShowModal(false);
-                        history.push(`/users/${data.userId}`);
+                const data = await dispatch(createProfile(new_profile));
+                const nativeData = await dispatch(createLanguage(native));
+                const targetData = await dispatch(createLanguage(target));
+
+                if (data.errors) {
+                    if (nativeData.errors) {
+                        if (targetData.errors) {
+                            setErrors([...data.errors, ...nativeData.errors, ...targetData.errors]);
+                        } else {
+                            setErrors([...data.errors, ...nativeData.errors]);
+                        }
                     } else {
-                        setErrors(data);
+                        setErrors(data.errors);
                     }
-
-                }})()
+                } else if (nativeData.errors) {
+                    if (targetData.errors) {
+                        setErrors([...nativeData.errors, ...targetData.errors]);
+                    } else {
+                        setErrors(nativeData.errors);
+                    }
+                } else if (targetData.errors) {
+                    setErrors(targetData.errors);
+                } else if (data.userId && nativeData.name && targetData.name) {
+                    setShowModal(false);
+                    history.push(`/users/${data.userId}`);
+                } else {
+                    setErrors(data);
+                }
+            }
+        })()
 
     }, [allStepsCompleted])
 
@@ -65,7 +102,7 @@ const CreateProfileForms = ({setShowModal}) => {
                 ))}
             </div>
             {showLanguageForm && (
-                <CreateProfileLanguagesForm user={user} setShowLocationForm={setShowLocationForm} setShowLanguageForm={setShowLanguageForm} setShowModal={setShowModal} />
+                <CreateProfileLanguagesForm user={user} setShowLocationForm={setShowLocationForm} setShowLanguageForm={setShowLanguageForm} setShowModal={setShowModal} nativeLanguage={nativeLanguage} setNativeLanguage={setNativeLanguage} targetLanguage={targetLanguage} setTargetLanguage={setTargetLanguage} level={level} setLevel={setLevel} />
             )}
             {showLocationForm && (
                 <CreateProfileLocationForm setShowLanguageForm={setShowLanguageForm} setShowLocationForm={setShowLocationForm} setShowAboutForm={setShowAboutForm} country={country} setCountry={setCountry} state={state} setState={setState} timezone={timezone} setTimezone={setTimezone} />

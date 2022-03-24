@@ -54,7 +54,7 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                     <label htmlFor='month'>
                         Month
                         <input
-                            type='text'
+                            type='number'
                             id='month'
                             name='month'
                             className='form-input'
@@ -65,7 +65,7 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                     <label htmlFor='day'>
                         Day
                         <input
-                            type='text'
+                            type='number'
                             id='day'
                             name='day'
                             className='form-input'
@@ -76,7 +76,7 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                     <label htmlFor='year'>
                         Year
                         <input
-                            type='text'
+                            type='number'
                             id='year'
                             name='year'
                             className='form-input'

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.forms.profile_forms import ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, ProfileForm
+from app.forms.profile_forms import ProfileLanguagesForm, ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, ProfileForm
 from app.models import db, Profile
 from .route_utils import validation_errors_to_error_messages
 
@@ -12,6 +12,16 @@ profile_routes = Blueprint('profiles',__name__)
 def get_profiles():
     profiles = Profile.query.all()
     return jsonify([profile.to_dict() for profile in profiles])
+
+@profile_routes.route('/languages', methods=['POST'])
+@login_required
+def add_profile_languages():
+    form = ProfileLanguagesForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        return {'success': 'Success'}
+    else:
+        return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @profile_routes.route('/location', methods=['POST'])
 @login_required
@@ -31,6 +41,7 @@ def add_profile_about():
     if form.validate_on_submit():
         return {'success': 'Success'}
     else:
+        # print('form raw data is ', form.raw_data)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @profile_routes.route('/picture', methods=['POST'])

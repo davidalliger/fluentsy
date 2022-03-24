@@ -24,6 +24,27 @@ export const getProfiles = () => async dispatch => {
     }
 }
 
+export const addProfileLanguages = (payload) => async dispatch => {
+    const response = await fetch('/api/profiles/languages', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        const message = await response.json();
+        return message;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return ['An error occured. Please try again.'];
+    }
+}
+
 export const addProfileLocation = (payload) => async dispatch => {
     const response = await fetch('/api/profiles/location', {
         method: 'POST',

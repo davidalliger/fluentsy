@@ -1,0 +1,502 @@
+from wtforms import ValidationError
+from wtforms.validators import StopValidation
+
+class NotEqual(object):
+    """
+    Compares the values of two fields. Based on WTForms's EqualTo validator.
+
+    :param fieldname:
+        The name of the other field to compare to.
+    :param message:
+        Error message.
+    """
+    def __init__(self, fieldname, message):
+        self.fieldname = fieldname
+        self.message = message
+
+    def __call__(self, form, field):
+        other = form[self.fieldname]
+        if field.data == other.data:
+            message = self.message
+            raise ValidationError(message)
+
+class RequiredIf(object):
+    """
+    Requires a field when another field has any value
+
+    """
+    def __init__(self, fieldname, message):
+        self.fieldname = fieldname
+        self.message = message
+
+    def __call__(self, form, field):
+        other = form[self.fieldname]
+        if not other.data:
+            raise StopValidation()
+        if other.data and not field.data:
+            message = self.message
+            raise StopValidation(message)
+
+class RequiredWhen(object):
+    """
+    Requires a field when another field has a given value
+
+    """
+    def __init__(self, fieldname, value, message):
+        self.fieldname = fieldname
+        self.message = message
+        self.value = value
+
+    def __call__(self, form, field):
+        other = form[self.fieldname]
+        value = self.value
+        if not other.data:
+            raise StopValidation()
+        if other.data == value and not field.data:
+            message = self.message
+            raise StopValidation(message)
+        else:
+            raise StopValidation()
+
+class IsInt(object):
+    """
+    Requires a field to be an integer
+
+    """
+    def __init__(self, message):
+        self.message = message
+
+    def __call__(self, form, field):
+
+        try:
+            int(field.data)
+        except:
+            message = self.message
+            raise StopValidation(message)
+
+class InRange(object):
+    """
+    Requires a field to be an integer
+
+    """
+    def __init__(self, min, max, message):
+        self.message = message
+        self.min = min
+        self.max = max + 1
+
+    def __call__(self, form, field):
+
+        num = int(field.data)
+        if num not in range(self.min, self.max):
+            message = self.message
+            raise StopValidation(message)
+
+class IsValidDate(object):
+    """
+    Checks a date field against a month field. Pretty limited use cases.
+
+    """
+    def __init__(self, fieldname, message=None):
+        self.fieldname = fieldname
+        self.message = message
+
+    def __call__(self, form, field):
+        month = form[self.fieldname]
+        message = self.message
+        num = int(field.data)
+        if not month.data:
+            raise StopValidation()
+        if int(month.data) == 1:
+            if num not in range(1,32):
+                raise StopValidation(message)
+        if int(month.data) == 2:
+            if num not in range(1,30):
+                raise StopValidation(message)
+        if int(month.data) == 3:
+            if num not in range(1,32):
+                raise StopValidation(message)
+        if int(month.data) == 4:
+            if num not in range(1,31):
+                raise StopValidation(message)
+        if int(month.data) == 5:
+            if num not in range(1,32):
+                raise StopValidation(message)
+        if int(month.data) == 6:
+            if num not in range(1,31):
+                raise StopValidation(message)
+        if int(month.data) == 7:
+            if num not in range(1,32):
+                raise StopValidation(message)
+        if int(month.data) == 8:
+            if num not in range(1,32):
+                raise StopValidation(message)
+        if int(month.data) == 9:
+            if num not in range(1,31):
+                raise StopValidation(message)
+        if int(month.data) == 10:
+            if num not in range(1,32):
+                raise StopValidation(message)
+        if int(month.data) == 11:
+            if num not in range(1,31):
+                raise StopValidation(message)
+        if int(month.data) == 12:
+            if num not in range(1,32):
+                raise StopValidation(message)
+
+offered_languages = [
+    'English',
+    'Spanish',
+    'French',
+    'German',
+    'Italian',
+    'Russian',
+    'Mandarin',
+    'Japanese',
+    'Arabic',
+    'Korean',
+    'Vietnamese',
+    'Armenian',
+    'Azerbaijani',
+    'Bengali',
+    'Bulgarian',
+    'Cantonese',
+    'Croatian',
+    'Czech',
+    'Danish',
+    'Dutch',
+    'Finnish',
+    'Farsi',
+    'Gujarati',
+    'Greek',
+    'Ganda',
+    'Hindi',
+    'Hebrew',
+    'Hungarian',
+    'Hawaiian',
+    'Indonesian',
+    'Irish',
+    'Kashmiri',
+    'Latin',
+    'Lakota',
+    'Malayalam',
+    'Maya',
+    'Navajo',
+    'Norwegian',
+    'Pashto',
+    'Punjabi',
+    'Portuguese',
+    'Polish',
+    'Romanian',
+    'Serbian',
+    'Swahili',
+    'Swedish',
+    'Samoan',
+    'Tamil',
+    'Telugu',
+    'Tagalog',
+    'Turkish',
+    'Ukrainian',
+    'Urdu',
+    'Uzbek',
+    'Welsh',
+    'Esperanto',
+    'Elvish',
+    'Klingon'
+]
+
+valid_levels = [
+    'A1: Beginner',
+    'A2: Elementary',
+    'B1: Intermediate',
+    'B2: Upper Intermediate',
+    'C1: Advanced',
+    'C2: Proficient'
+]
+
+provided_countries = [
+    'United States',
+    'Canada',
+    'United Kingdom',
+    'Afghanistan',
+    'Albania',
+    'Algeria',
+    'Andorra',
+    'Angola',
+    'Antigua and Barbuda',
+    'Argentina',
+    'Armenia',
+    'Australia',
+    'Austria',
+    'Azerbaijan',
+    'The Bahamas',
+    'Bahrain',
+    'Bangladesh',
+    'Barbados',
+    'Belarus',
+    'Belgium',
+    'Belize',
+    'Benin',
+    'Bhutan',
+    'Bolivia',
+    'Bosnia and Herzegovina',
+    'Botswana',
+    'Brazil',
+    'Brunei',
+    'Bulgaria',
+    'Burkina Faso',
+    'Burundi',
+    'Cabo Verde',
+    'Cambodia',
+    'Cameroon',
+    'Central African Republic',
+    'Chad',
+    'Chile',
+    'China',
+    'Colombia',
+    'Comoros',
+    'Democratic Republic of the Congo',
+    'Republic of the Congo',
+    'Costa Rica',
+    'Côte d\'Ivoire',
+    'Croatia',
+    'Cuba',
+    'Cyprus',
+    'Czech Republic',
+    'Denmark',
+    'Djibouti',
+    'Dominica',
+    'Dominican Republic',
+    'East Timor',
+    'Ecuador',
+    'Egypt',
+    'El Salvador',
+    'Equatorial Guinea',
+    'Eritrea',
+    'Estonia',
+    'Eswatini',
+    'Ethiopia',
+    'Fiji',
+    'Finland',
+    'France',
+    'Gabon',
+    'The Gambia',
+    'Georgia',
+    'Germany',
+    'Ghana',
+    'Greece',
+    'Grenada',
+    'Guatemala',
+    'Guinea',
+    'Guinea-Bissau',
+    'Guyana',
+    'Haiti',
+    'Honduras',
+    'Hungary',
+    'Iceland',
+    'India',
+    'Indonesia',
+    'Iran',
+    'Iraq',
+    'Ireland',
+    'Israel',
+    'Italy',
+    'Jamaica',
+    'Japan',
+    'Jordan',
+    'Kazakhstan',
+    'Kenya',
+    'Kiribati',
+    'North Korea',
+    'South Korea',
+    'Kosovo',
+    'Kuwait',
+    'Kyrgyzstan',
+    'Laos',
+    'Latvia',
+    'Lebanon',
+    'Lesotho',
+    'Liberia',
+    'Libya',
+    'Liechtenstein',
+    'Lithuania',
+    'Luxembourg',
+    'Madagascar',
+    'Malawi',
+    'Malaysia',
+    'Maldives',
+    'Mali',
+    'Malta',
+    'Marshall Islands',
+    'Mauritania',
+    'Mauritius',
+    'Mexico',
+    'Federated States of Micronesia',
+    'Moldova',
+    'Monaco',
+    'Mongolia',
+    'Montenegro',
+    'Morocco',
+    'Mozambique',
+    'Myanmar',
+    'Namibia',
+    'Nauru',
+    'Nepal',
+    'Netherlands',
+    'New Zealand',
+    'Nicaragua',
+    'Niger',
+    'Nigeria',
+    'North Macedonia',
+    'Norway',
+    'Oman',
+    'Pakistan',
+    'Palau',
+    'Panama',
+    'Papua New Guinea',
+    'Paraguay',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'Qatar',
+    'Romania',
+    'Russia',
+    'Rwanda',
+    'Saint Kitts and Nevis',
+    'Saint Lucia',
+    'Saint Vincent and the Grenadines',
+    'Samoa',
+    'San Marino',
+    'Sao Tome and Principe',
+    'Saudi Arabia',
+    'Senegal',
+    'Serbia',
+    'Seychelles',
+    'Sierra Leone',
+    'Singapore',
+    'Slovakia',
+    'Slovenia',
+    'Solomon Islands',
+    'Somalia',
+    'South Africa',
+    'Spain',
+    'Sri Lanka',
+    'Sudan',
+    'South Sudan',
+    'Suriname',
+    'Sweden',
+    'Switzerland',
+    'Syria',
+    'Taiwan',
+    'Tajikistan',
+    'Tanzania',
+    'Thailand',
+    'Togo',
+    'Tonga',
+    'Trinidad and Tobago',
+    'Tunisia',
+    'Turkey',
+    'Turkmenistan',
+    'Tuvalu',
+    'Uganda',
+    'Ukraine',
+    'United Arab Emirates',
+    'Uruguay',
+    'Uzbekistan',
+    'Vanuatu',
+    'Vatican City',
+    'Venezuela',
+    'Vietnam',
+    'Yemen',
+    'Zambia',
+    'Zimbabwe',
+    'Other'
+]
+
+valid_states = [
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming'
+]
+
+provided_timezones = [
+    'Greenwich Mean Time (GMT)',
+    'Central European Time (GMT+1:00)',
+    'Eastern European Time (GMT+2:00)',
+    'Eastern African Time (GMT+3:00)',
+    'Middle East Time (GMT+3:30)',
+    'Near East Time (GMT+4:00)',
+    'Afghanistan Time (GMT+4:30)',
+    'Pakistan Lahore Time (GMT+5:00)',
+    'India Standard Time (GMT+5:30)',
+    'Nepal Standard Time (GMT+5:45)',
+    'Bangladesh Standard Time (GMT+6:00)',
+    'Myanmar Standard Time (GMT+6:30)',
+    'Vietnam Standard Time (GMT+7:00)',
+    'China Taiwan Time (GMT+8:00)',
+    'Japan Standard Time (GMT+9:00)',
+    'Australia Central Time (GMT+9:30)',
+    'Australia Eastern Time (GMT+10:00)',
+    'Solomon Standard Time (GMT+11:00)',
+    'New Zealand Standard Time (GMT+12:00)',
+    'Midway Islands Time (GMT-11:00)',
+    'Hawaii Standard Time (GMT-10:00)',
+    'Alaska Standard Time (GMT-9:00)',
+    'Pacific Standard Time (GMT-8:00)',
+    'Phoenix Standard Time (GMT-7:00)',
+    'Mountain Standard Time (GMT-7:00)',
+    'Central Standard Time (GMT-6:00)',
+    'Eastern Standard Time (GMT-5:00)',
+    'Indiana Eastern Standard Time (GMT-5:00)',
+    'Puerto Rico Time (GMT-4:00)',
+    'Argentina Standard Time (GMT-3:00)',
+    'Brazil Eastern Time (GMT-3:00)',
+    'Central African Time (GMT-1:00)'
+]
