@@ -26,14 +26,35 @@ const UpdatePrimaryNativeForm = ({setShowModal, newNativePrimaryPayload, oldNati
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-            <h2>Update Primary Native Language</h2>
-            <p>Make this your new primary native language?</p>
-            <button type='button' onClick={()=> setShowModal(false)}>Cancel</button>
-            <button>Confirm</button>
+        <form
+            onSubmit={handleSubmit}
+            className='basic-form'
+        >
+            {/* <div className="basic-form-field"> */}
+                <h2>Update Primary Language</h2>
+            {/* </div> */}
+            <div className="basic-form-label-question">
+                Make this your new primary native language?
+            </div>
+            <div className="basic-form-double-button-div">
+                <button
+                    type='button'
+                    onClick={()=> setShowModal(false)}
+                    className='basic-form-button-smaller'
+                    >
+                    Cancel
+                </button>
+                <button
+                    className='basic-form-button-smaller'
+                    >
+                    Confirm
+                </button>
+            </div>
+            <div>
+                {errors.map((error, ind) => (
+                    <div key={ind}>{error}</div>
+                ))}
+            </div>
         </form>
     )
 }
