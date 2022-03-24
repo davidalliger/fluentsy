@@ -10,6 +10,9 @@ import EditProfilePictureModal from '../EditProfile/EditProfileModals/EditProfil
 import SendMessageModal from '../../messages/SendMessage/SendMessageModal';
 import Loading from '../../other/Loading';
 import Languages from '../../languages/ProfileLanguages';
+import NoProfile from '../NoProfile';
+import Modal from '../../other/Modal';
+
 
 const ProfilePage = () => {
     const { id } = useParams();
@@ -20,11 +23,18 @@ const ProfilePage = () => {
         if (profile.userId === +id) profileMatch = profile;
         return profileMatch;
     }, null);
+    const hasProfile = profiles?.reduce((profileMatch, profile) => {
+        if (profile.userId === +user.id) profileMatch = profile;
+        return profileMatch;
+    }, null);
+    const [showNoProfileModal, setShowNoProfileModal] = useState(false);
     const [showEditAboutModal, setShowEditAboutModal] = useState(false);
     const [showEditHeaderModal, setShowEditHeaderModal] = useState(false);
     const [showEditPictureModal, setShowEditPictureModal] = useState(false);
     const [showMessageModal, setShowMessageModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [userHasProfile, setUserHasProfile] = useState(false);
+    const [ignore, setIgnore] = useState(false);
     // const history = useHistory();
     const handleDelete = () => {
         setShowDeleteModal(true);
@@ -36,6 +46,12 @@ const ProfilePage = () => {
             return <Redirect to='/users'/>
         }
     }, [userProfile])
+
+    useEffect(() => {
+        if (hasProfile) {
+            setUserHasProfile(true);
+        }
+    }, [hasProfile])
 
     // const handleMessage = () => {
     //     history.push(`/messages/${userProfile.userId}`)
@@ -95,13 +111,25 @@ const ProfilePage = () => {
                                         </div>
                                     )}
                                     {(user.id !== +id) && (
-                                        <Link to={{pathname: '/messages', state:{currentCorrespondent: userProfile}}}>
-                                            <button
-                                                id='profile-page-message-button'
-                                            >
-                                                Message
-                                            </button>
-                                        </Link>
+                                        <>
+                                            {userHasProfile && (
+                                                <Link to={{pathname: '/messages', state:{currentCorrespondent: userProfile}}}>
+                                                    <button
+                                                        id='profile-page-message-button'
+                                                    >
+                                                        Message
+                                                    </button>
+                                                </Link>
+                                            )}
+                                            {!userHasProfile && (
+                                                    <button
+                                                        id='profile-page-message-button'
+                                                        onClick={() => setShowNoProfileModal(true)}
+                                                    >
+                                                        Message
+                                                    </button>
+                                            )}
+                                        </>
                                     )}
                                     {/* <SendMessageModal showMessageModal={showMessageModal} setShowMessageModal={setShowMessageModal} userProfile={userProfile} user={user}/> */}
                                 </div>
@@ -141,6 +169,11 @@ const ProfilePage = () => {
                         </div>
                     )}
                     <DeleteProfileModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={userProfile?.id}/>
+                    {showNoProfileModal && (
+                        <Modal onClose={()=> setShowNoProfileModal(false)}>
+                            <NoProfile setShowModal={setShowNoProfileModal} setIgnore={setIgnore}/>
+                        </Modal>
+                    )}
                 </div>
             )}
         </div>

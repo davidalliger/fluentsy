@@ -2,10 +2,30 @@ import { useSelector } from "react-redux"
 import { getAge } from "../../../utils";
 import './ProfilesFeed.css'
 import {Link} from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import Modal from "../../other/Modal";
+import NoProfile from "../NoProfile";
 
 const ProfilesFeed = () => {
     const profileState = useSelector(state => state.profiles);
     const profiles = Object.values(profileState).reverse();
+    const user = useSelector(state => state.session.user);
+    const [ignore, setIgnore] = useState(false);
+    const [showNoProfileModal, setShowNoProfileModal] = useState(false);
+    const userProfile = profiles?.reduce((profileMatch, profile) => {
+        if (profile.userId === +user.id) profileMatch = profile;
+        return profileMatch;
+    }, null);
+
+    useEffect(() => {
+        if (user && !userProfile) {
+            if (!ignore) {
+                setShowNoProfileModal(true);
+            }
+        }
+    }, [user, userProfile])
+
+
 
     return (
         <div id='profiles-feed-page'>
@@ -41,6 +61,11 @@ const ProfilesFeed = () => {
                     </div>
                 </Link>
             ))}
+            {showNoProfileModal && (
+                <Modal onClose={()=> setShowNoProfileModal(false)}>
+                    <NoProfile setShowModal={setShowNoProfileModal} setIgnore={setIgnore}/>
+                </Modal>
+            )}
         </div>
     )
 }

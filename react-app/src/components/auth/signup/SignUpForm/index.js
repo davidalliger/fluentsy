@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../../../store/session';
+import NoProfile from '../../../profiles/NoProfile';
+import Modal from '../../../other/Modal';
 
-const SignUpForm = () => {
+const SignUpForm = ({setShowModal}) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -15,6 +17,7 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     const data = await dispatch(signUp(username, email, password, repeatPassword));
+    // setShowModal(true);
     if (data) {
       setErrors(data)
     }

@@ -9,6 +9,7 @@ import '../Navigation.css'
 const ProfileButton = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [ignore, setIgnore] = useState(false);
     const [profile, setProfile] = useState(false)
     const history = useHistory();
     const user = useSelector(state => state.session.user)
@@ -89,7 +90,7 @@ const ProfileButton = () => {
             )}
             {showModal && (
                 <Modal onClose={()=> setShowModal(false)}>
-                    <NoProfile setShowModal={setShowModal} />
+                    <NoProfile setShowModal={setShowModal} setIgnore={setIgnore}/>
                 </Modal>
             )}
         </>
