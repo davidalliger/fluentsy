@@ -97,11 +97,7 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             <form
                 className='basic-form-inner'
                 onSubmit={handleSubmit}>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
+
                 <h2>Hello, {user.username}!</h2>
                 {/* <p>What is your native language?</p> */}
                 <div className='basic-form-field'>
@@ -192,6 +188,11 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
                     >
                         Next
                     </button>
+                </div>
+                <div>
+                    {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
                 </div>
             </form>
         </div>
