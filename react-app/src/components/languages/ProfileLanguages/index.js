@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import './Languages.css'
 
-const Languages = ({userProfile, id, user}) => {
+const Languages = ({userProfile, id}) => {
+    const user = useSelector(state => state.session.user);
+    const languages = useSelector(state => state.languages);
     const [nativeLimitMet, setNativeLimitMet] = useState(false);
     const [targetLimitMet, setTargetLimitMet] = useState(false);
     const [showEditLanguagesModal, setShowEditLanguagesModal] = useState(false);
@@ -26,14 +28,86 @@ const Languages = ({userProfile, id, user}) => {
     // }
     // const primaryNativeLanguage = Object.values(primaryNative);
     // const primaryTargetLanguage = Object.values(primaryTarget);
-    const nativeLanguages = userProfile.languages.filter(language => language.native && !language.primary);
-    const targetLanguages = userProfile.languages.filter(language => !language.native && !language.primary);
-    const primaryNativeLanguage = userProfile.languages.filter(language => language.native && language.primary)[0];
-    const primaryTargetLanguage = userProfile.languages.filter(language => !language.native && language.primary)[0];
+    // const nativeLanguages = userProfile.languages.filter(language => language.native && !language.primary);
+    // const targetLanguages = userProfile.languages.filter(language => !language.native && !language.primary);
+    // const primaryNativeLanguage = userProfile.languages.filter(language => language.native && language.primary)[0];
+    // const primaryTargetLanguage = userProfile.languages.filter(language => !language.native && language.primary)[0];
     // console.log('Native languages are ', nativeLanguages);
     // console.log('Target languages are ', targetLanguages);
     // console.log('Primary native language is ', primaryNativeLanguage);
     // console.log('Primary target language is ', primaryTargetLanguage);
+
+    const [nativeLanguages, setNativeLanguages] = useState('');
+    const [targetLanguages, setTargetLanguages] = useState('');
+    const [primaryNativeLanguage, setPrimaryNativeLanguage] = useState('');
+    const [primaryTargetLanguage, setPrimaryTargetLanguage] = useState('');
+    const [nativeLanguagesLength, setNativeLanguagesLength] = useState(false);
+    const [targetLanguagesLength, setTargetLanguagesLength] = useState(false);
+
+    useEffect(() => {
+        if (userProfile) {
+            const userLanguages = languages[userProfile.userId];
+            console.log(userLanguages);
+            if (userLanguages) {
+
+                const nativeLanguagesWithPrimary = Object.values(userLanguages?.native);
+                console.log(nativeLanguagesWithPrimary);
+                const targetLanguagesWithPrimary = Object.values(userLanguages?.target);
+                console.log(targetLanguagesWithPrimary);
+                const getNativeLanguages = nativeLanguagesWithPrimary?.filter(language => !language.primary);
+                console.log(getNativeLanguages);
+                const getTargetLanguages = targetLanguagesWithPrimary?.filter(language => !language.primary);
+                console.log(getTargetLanguages);
+                const getPrimaryNativeLanguage = nativeLanguagesWithPrimary?.reduce((primary, language) => {
+                    if (language.primary) {
+                        primary = language;
+                    }
+                    return primary;
+                }, null);
+                console.log(getPrimaryNativeLanguage);
+                const getPrimaryTargetLanguage = targetLanguagesWithPrimary?.reduce((primary, language) => {
+                    if (language.primary) {
+                        primary = language;
+                    }
+                    return primary;
+                }, null);
+                console.log(getPrimaryTargetLanguage);
+                setNativeLanguages(getNativeLanguages);
+                setTargetLanguages(getTargetLanguages);
+                setPrimaryNativeLanguage(getPrimaryNativeLanguage);
+                setPrimaryTargetLanguage(getPrimaryTargetLanguage);
+                // setLanguagesLoaded(true);
+                console.log(nativeLanguages);
+                console.log(targetLanguages);
+                console.log(primaryNativeLanguage);
+                console.log(primaryTargetLanguage);
+            }
+        }
+    }, [languages]);
+
+    useEffect(() => {
+        if (nativeLanguages?.length) {
+            setNativeLanguagesLength(true);
+        }
+        if (targetLanguages?.length) {
+            setTargetLanguagesLength(true);
+        }
+        console.log(nativeLanguages);
+        console.log(targetLanguages);
+        console.log(primaryNativeLanguage);
+        console.log(primaryTargetLanguage);
+    }, [nativeLanguages, targetLanguages]);
+
+    // useEffect(()=> {
+    //     if (primaryNativeLanguage) {
+    //         setPrimaryNative(primaryNativeLanguage);
+    //         // console.log(primar)
+    //     }
+    //     if (primaryTargetLanguage) {
+    //         setPrimaryTarget(primaryTargetLanguage);
+    //     }
+    // }, [primaryNativeLanguage, primaryTargetLanguage])
+
     useEffect(() => {
         if (nativeLanguages.length > 5) {
             setNativeLimitMet(true);
@@ -49,6 +123,7 @@ const Languages = ({userProfile, id, user}) => {
             setTargetLimitMet(false);
         }
     }, [targetLanguages])
+
     return (
         <div id='profile-languages'>
 
@@ -68,24 +143,28 @@ const Languages = ({userProfile, id, user}) => {
                             {primaryNativeLanguage?.name}
                             <Level  level={primaryNativeLanguage?.level} />
                         </div>
-                        {!nativeLimitMet && (
+                        {nativeLanguagesLength && (
                             <>
-                                {nativeLanguages?.map((language, index) => (
-                                    <div key={index} className='language-level'>
-                                        {language.name}
-                                        <Level  level={language.level} />
-                                    </div>
-                                ))}
-                            </>
-                        )}
-                        {nativeLimitMet && (
-                            <>
-                                {nativeLanguages?.slice(0,4).map((language, index) => (
-                                    <div key={index} className='language-level'>
-                                        {language.name}
-                                        <Level  level={language.level} />
-                                    </div>
-                                ))}
+                                {!nativeLimitMet && (
+                                    <>
+                                        {nativeLanguages?.map((language, index) => (
+                                            <div key={index} className='language-level'>
+                                                {language.name}
+                                                <Level  level={language.level} />
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
+                                {nativeLimitMet && (
+                                    <>
+                                        {nativeLanguages?.slice(0,4).map((language, index) => (
+                                            <div key={index} className='language-level'>
+                                                {language.name}
+                                                <Level  level={language.level} />
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
                             </>
                         )}
                                     {/* </ul> */}
@@ -114,24 +193,28 @@ const Languages = ({userProfile, id, user}) => {
                             {primaryTargetLanguage?.name}
                             <Level  level={primaryTargetLanguage?.level}/>
                         </div>
-                        {!targetLimitMet && (
+                        {targetLanguagesLength && (
                             <>
-                                {targetLanguages?.map((language, index) => (
-                                    <div key={index} className='language-level'>
-                                        {language.name}
-                                        <Level  level={language.level} />
-                                    </div>
-                                ))}
-                            </>
-                        )}
-                        {targetLimitMet && (
-                            <>
-                                {targetLanguages?.slice(0,5).map((language, index) => (
-                                    <div key={index} className='language-level'>
-                                        {language.name}
-                                        <Level  level={language.level} />
-                                    </div>
-                                ))}
+                                {!targetLimitMet && (
+                                    <>
+                                        {targetLanguages?.map((language, index) => (
+                                            <div key={index} className='language-level'>
+                                                {language.name}
+                                                <Level  level={language.level} />
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
+                                {targetLimitMet && (
+                                    <>
+                                        {targetLanguages?.slice(0,5).map((language, index) => (
+                                            <div key={index} className='language-level'>
+                                                {language.name}
+                                                <Level  level={language.level} />
+                                            </div>
+                                        ))}
+                                    </>
+                                )}
                             </>
                         )}
                                     {/* </ul> */}
