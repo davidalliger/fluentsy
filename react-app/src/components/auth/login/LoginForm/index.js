@@ -65,27 +65,31 @@ const LoginForm = ({setShowLoginModal}) => {
             <div className='basic-form-label'>
               <label htmlFor='email'>Email</label>
             </div>
-            <input
-              className='basic-form-input'
-              name='email'
-              type='text'
-              placeholder='Email'
-              value={email}
-              onChange={updateEmail}
-            />
+            <div className='basic-form-input-container'>
+              <input
+                className='basic-form-input'
+                name='email'
+                type='text'
+                placeholder='Email'
+                value={email}
+                onChange={updateEmail}
+              />
+            </div>
           </div>
           <div className='basic-form-field'>
             <div className='basic-form-label'>
               <label htmlFor='password'>Password</label>
             </div>
-            <input
-              className='basic-form-input'
-              name='password'
-              type='password'
-              placeholder='Password'
-              value={password}
-              onChange={updatePassword}
-            />
+            <div className='basic-form-input-container'>
+              <input
+                className='basic-form-input'
+                name='password'
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={updatePassword}
+              />
+            </div>
           </div>
           <div className='basic-form-button-div'>
             <button

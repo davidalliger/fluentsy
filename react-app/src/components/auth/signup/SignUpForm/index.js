@@ -69,49 +69,57 @@ const SignUpForm = ({setShowSignUpModal}) => {
             <div className='basic-form-label'>
               <label>User Name</label>
             </div>
-            <input
-              className='basic-form-input'
-              type='text'
-              name='username'
-              onChange={updateUsername}
-              value={username}
-            ></input>
+            <div className='basic-form-input-container'>
+              <input
+                className='basic-form-input'
+                type='text'
+                name='username'
+                onChange={updateUsername}
+                value={username}
+              ></input>
+            </div>
           </div>
           <div className ='basic-form-field'>
             <div className='basic-form-label'>
               <label>Email</label>
             </div>
-            <input
-              className='basic-form-input'
-              type='text'
-              name='email'
-              onChange={updateEmail}
-              value={email}
-            ></input>
+            <div className='basic-form-input-container'>
+              <input
+                className='basic-form-input'
+                type='text'
+                name='email'
+                onChange={updateEmail}
+                value={email}
+              ></input>
+            </div>
           </div>
           <div className ='basic-form-field'>
             <div className='basic-form-label'>
               <label>Password</label>
             </div>
-            <input
-              className='basic-form-input'
-              type='password'
-              name='password'
-              onChange={updatePassword}
-              value={password}
-            ></input>
+            <div className='basic-form-input-container'>
+              <input
+                className='basic-form-input'
+                type='password'
+                name='password'
+                onChange={updatePassword}
+                value={password}
+              ></input>
+            </div>
           </div>
           <div className ='basic-form-field'>
             <div className='basic-form-label'>
               <label>Confirm Password</label>
             </div>
-            <input
-              className='basic-form-input'
-              type='password'
-              name='repeat_password'
-              onChange={updateRepeatPassword}
-              value={repeatPassword}
-            ></input>
+            <div className='basic-form-input-container'>
+              <input
+                className='basic-form-input'
+                type='password'
+                name='repeat_password'
+                onChange={updateRepeatPassword}
+                value={repeatPassword}
+              ></input>
+            </div>
           </div>
           <button
             type='submit'

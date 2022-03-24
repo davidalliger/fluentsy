@@ -64,120 +64,140 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
-                <h2>Edit Basic Info</h2>
-                <div className='form-field'>
+        <form
+            className='basic-form-wide'
+            onSubmit={handleSubmit}
+        >
+            <h2>Edit Basic Info</h2>
+            <div className='basic-form-field'>
+                <div className='basic-form-label-question'>
                     <label htmlFor='country'>
-                        Update Country:
-                        <select
-                            id='country'
-                            name='country'
-                            className='form-select'
-                            onChange={e => setCountry(e.target.value)}
-                            value={country}
-                        >
-                            <option value='' disabled>Please select your country...</option>
-                            {countries.map((country, index) => (
-                                <option value={country} key={index}>{country}</option>
-                            ))}
-                        </select>
+                        Country
                     </label>
                 </div>
-                {showState && (
-                    <div className='form-field'>
+                <div className='basic-form-input-container'>
+                    <select
+                        id='country'
+                        name='country'
+                        className='basic-form-input'
+                        onChange={e => setCountry(e.target.value)}
+                        value={country}
+                    >
+                        <option value='' disabled>Please select your country...</option>
+                        {countries.map((country, index) => (
+                            <option value={country} key={index}>{country}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+            {showState && (
+                <div className='basic-form-field'>
+                    <div className='basic-form-label-question'>
                         <label htmlFor='state'>
-                            Update State:
-                            <select
-                                id='state'
-                                name='state'
-                                className='form-select'
-                                onChange={e => setState(e.target.value)}
-                                value={state}
-                            >
-                                <option value='' disabled>Please select your state...</option>
-                                {states.map((state, index) => (
-                                    <option value={state} key={index}>{state}</option>
-                                ))}
-                            </select>
+                            State
                         </label>
                     </div>
-                )}
-                <div className='form-field'>
-                    <label htmlFor='timezone'>
-                        Update Time Zone:
+                    <div className='basic-form-input-container'>
                         <select
-                            id='timezone'
-                            name='timezone'
+                            id='state'
+                            name='state'
                             className='form-select'
-                            onChange={e => setTimezone(e.target.value)}
-                            value={timezone}
+                            onChange={e => setState(e.target.value)}
+                            value={state}
                         >
-                            <option value='' disabled>Please select your time zone...</option>
-                            {timezones.map((timezone, index) => (
-                                <option value={timezone} key={index}>{timezone}</option>
+                            <option value='' disabled>Please select your state...</option>
+                            {states.map((state, index) => (
+                                <option value={state} key={index}>{state}</option>
                             ))}
                         </select>
+                    </div>
+                </div>
+            )}
+            <div className='basic-form-field'>
+                <div className='basic-form-label-question'>
+                    <label htmlFor='timezone'>
+                        Time Zone
                     </label>
                 </div>
-                <div className='form-field'>
-                    Birthday:
+                <div className='basic-form-input-container'>
+                    <select
+                        id='timezone'
+                        name='timezone'
+                        className='form-select'
+                        onChange={e => setTimezone(e.target.value)}
+                        value={timezone}
+                    >
+                        <option value='' disabled>Please select your time zone...</option>
+                        {timezones.map((timezone, index) => (
+                            <option value={timezone} key={index}>{timezone}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+            <div className='basic-form-field'>
+                <div className='basic-form-label'>
+                    Birthday
+                </div>
+            </div>
+            <div className='basic-form-field-multi'>
+                <span className='basic-form-inline'>
                     <label htmlFor='month'>
                         Month
-                        <input
-                            type='text'
-                            id='month'
-                            name='month'
-                            className='form-input'
-                            onChange={e => setMonth(e.target.value)}
-                            value={month}
-                        />
                     </label>
+                    <input
+                        type='text'
+                        id='month'
+                        name='month'
+                        className='basic-form-input-small'
+                        onChange={e => setMonth(e.target.value)}
+                        value={month}
+                    />
+                </span>
+                <span className='basic-form-inline'>
                     <label htmlFor='day'>
                         Day
-                        <input
-                            type='text'
-                            id='day'
-                            name='day'
-                            className='form-input'
-                            onChange={e => setDay(e.target.value)}
-                            value={day}
-                        />
                     </label>
+                    <input
+                        type='text'
+                        id='day'
+                        name='day'
+                        className='basic-form-input-small'
+                        onChange={e => setDay(e.target.value)}
+                        value={day}
+                    />
+                </span>
+                <span className='basic-form-inline'>
                     <label htmlFor='year'>
                         Year
-                        <input
-                            type='text'
-                            id='year'
-                            name='year'
-                            className='form-input'
-                            onChange={e => setYear(e.target.value)}
-                            value={year}
-                        />
                     </label>
-                </div>
-                <div className='form-field'>
-                    <label htmlFor='displayAge'>
-                        <input
-                            type='checkbox'
-                            checked={displayAge}
-                            id='displayAge'
-                            name='displayAge'
-                            className='form-input'
-                            onChange={e => setDisplayAge(!displayAge)}
-                            value={displayAge}
-                        />
-                        Display age in profile
-                    </label>
-                </div>
+                    <input
+                        type='text'
+                        id='year'
+                        name='year'
+                        className='basic-form-input-small'
+                        onChange={e => setYear(e.target.value)}
+                        value={year}
+                    />
+                </span>
+            </div>
+            <div className='basic-form-field'>
+                <label htmlFor='displayAge'>
+                    <input
+                        type='checkbox'
+                        checked={displayAge}
+                        id='displayAge'
+                        name='displayAge'
+                        className='form-input'
+                        onChange={e => setDisplayAge(!displayAge)}
+                        value={displayAge}
+                    />
+                    Display age in profile
+                </label>
+            </div>
+            <div className='basic-form-double-button-div'>
                 <button
                     type='button'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                     id='cancel'
                     onClick={() => setShowEditHeaderModal(false)}
                 >
@@ -186,12 +206,17 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
                 <button
                     type='submit'
                     id='Submit'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                 >
                     Submit
                 </button>
-            </form>
-        </div>
+            </div>
+            <div>
+                {errors.map((error, ind) => (
+                    <div key={ind}>{error}</div>
+                ))}
+            </div>
+        </form>
     )
 }
 
