@@ -30,35 +30,37 @@ const AddNativeLanguageForm = ({ user, setShowModal }) => {
     // console.log('Errors is ', errors);
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
-                <h2>Add Native Language</h2>
-                {/* <p>What is your native language?</p> */}
-                <div className='form-field'>
+        <form
+            onSubmit={handleSubmit}
+            className='basic-form'
+        >
+            <h2>Add Native Language</h2>
+            {/* <p>What is your native language?</p> */}
+            <div className='basic-form-field'>
+                <div className='basic-form-label-question'>
                     <label htmlFor='native-language'>
                         Add a native language
-                        <select
-                            id='native-language'
-                            name='nativeLanguage'
-                            className='form-select'
-                            onChange={e => setNativeLanguage(e.target.value)}
-                            value={nativeLanguage}
-                        >
-                            <option value='' disabled>Language</option>
-                            {languages.map((language, index) => (
-                                <option value={language} key={index}>{language}</option>
-                            ))}
-                        </select>
                     </label>
                 </div>
+                <div className='basic-form-input-container'>
+                    <select
+                        id='native-language'
+                        name='nativeLanguage'
+                        className='basic-form-input'
+                        onChange={e => setNativeLanguage(e.target.value)}
+                        value={nativeLanguage}
+                    >
+                        <option value='' disabled>Language</option>
+                        {languages.map((language, index) => (
+                            <option value={language} key={index}>{language}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+            <div className='basic-form-double-button-div'>
                 <button
                     type='button'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                     id='back'
                     onClick={() => setShowModal(false)}
                 >
@@ -67,12 +69,17 @@ const AddNativeLanguageForm = ({ user, setShowModal }) => {
                 <button
                     type='submit'
                     id='next'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                 >
                     Submit
                 </button>
-            </form>
-        </div>
+            </div>
+            <div>
+                {errors.map((error, ind) => (
+                    <div key={ind}>{error}</div>
+                ))}
+            </div>
+        </form>
     )
 }
 
