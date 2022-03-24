@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import LogoutButton from '../../auth/LogoutButton';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, Redirect } from 'react-router-dom';
 import Modal from '../../other/Modal';
 import NoProfile from '../../profiles/NoProfile';
 import '../Navigation.css'
@@ -9,6 +9,7 @@ import '../Navigation.css'
 const ProfileButton = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [profile, setProfile] = useState(false)
     const history = useHistory();
     const user = useSelector(state => state.session.user)
     const profileState = useSelector(state => state.profiles);
@@ -18,9 +19,24 @@ const ProfileButton = () => {
         return profileMatch;
     }, null);
 
+    useEffect(() => {
+        if (userProfile) {
+            setProfile(true);
+        }
+    }, [userProfile])
+
+
     const handleProfile = () => {
         if (userProfile) {
             history.push(`/users/${user.id}`);
+        } else {
+            setShowModal(true);
+        }
+    }
+
+    const handleLanguages = () => {
+        if (userProfile) {
+            history.push('/languages');
         } else {
             setShowModal(true);
         }
@@ -53,11 +69,21 @@ const ProfileButton = () => {
                     <div className='menu-item' onClick={handleProfile}>
                         My Profile
                     </div>
-                    <Link to={{pathname: '/messages', state:{currentCorrespondent: null}}} className='menu-item'>
-                        <div>
+                    <div className='menu-item' onClick={handleLanguages}>
+                        My Languages
+                    </div>
+                    {profile && (
+                        <Link className='menu-item' to={{pathname: "/messages", state:{currentCorrespondent: null}}}>
+                            <div>
+                                My Messages
+                            </div>
+                        </Link>
+                    )}
+                    {!profile && (
+                        <div className='menu-item' onClick={() =>setShowModal(true)}>
                             My Messages
                         </div>
-                    </Link>
+                    )}
                     <LogoutButton className='menu-item' user={user}/>
                 </div>
             )}
