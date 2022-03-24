@@ -23,7 +23,7 @@ const ProfilesFeed = () => {
                 setShowNoProfileModal(true);
             }
         }
-    }, [user, userProfile])
+    }, [userProfile])
 
 
 

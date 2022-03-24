@@ -22,13 +22,13 @@ const NavBar = () => {
           <button className='nav-button' onClick={()=> {setShowSignUpModal(true)}}>
             Sign Up
           </button>
-          <SignUpModal showModal={showSignUpModal} setShowModal={setShowSignUpModal} />
+          <SignUpModal showSignUpModal={showSignUpModal} setShowSignUpModal={setShowSignUpModal} />
         </li>
         <li>
           <button className='nav-button' onClick={()=> {setShowLoginModal(true)}}>
             Log In
           </button>
-          <LoginModal showModal={showLoginModal} setShowModal={setShowLoginModal} />
+          <LoginModal showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
         </li>
       </ul>
     )
