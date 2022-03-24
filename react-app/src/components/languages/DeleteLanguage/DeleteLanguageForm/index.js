@@ -20,13 +20,30 @@ const DeleteLanguageForm = ({setShowModal, id}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
+        <form
+            onSubmit={handleSubmit}
+            className='basic-form'
+        >
             <h2>Delete Language?</h2>
-            <button type='button' onClick={()=> setShowModal(false)}>Cancel</button>
-            <button>Delete</button>
+            <div className="basic-form-double-button-div">
+                <button
+                    type='button'
+                    onClick={()=> setShowModal(false)}
+                    className='basic-form-button-smaller'
+                >
+                    Cancel
+                </button>
+                <button
+                    className='basic-form-button-smaller'
+                >
+                    Delete
+                </button>
+            </div>
+            <div>
+                {errors.map((error, ind) => (
+                            <div key={ind}>{error}</div>
+                ))}
+            </div>
         </form>
     )
 }
