@@ -99,7 +99,7 @@ const CreateProfileForms = ({setShowModal}) => {
     }, [languagesAdded])
 
     return (
-        <div>
+        <div className='basic-form-inner'>
             <div>
                 {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
