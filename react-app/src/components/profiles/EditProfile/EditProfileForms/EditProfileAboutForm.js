@@ -35,30 +35,30 @@ const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors && errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
-                <h2>Edit About</h2>
-                <div className='form-field'>
+        <form
+            onSubmit={handleSubmit}
+            className='basic-form-wide'
+        >
+            <h2>Edit About</h2>
+            <div className='basic-form-field'>
+                <div className='basic-form-label-question'>
                     <label htmlFor='about'>
                         Tell us a bit about yourself...
-                        <textarea
-                            id='about'
-                            placeholder='Add a brief description of yourself including favorite pastimes, hobbies, and interests...'
-                            name='about'
-                            className='form-input'
-                            onChange={e => setAboutInfo(e.target.value)}
-                            value={aboutInfo}
-                        />
                     </label>
                 </div>
+                <textarea
+                    id='about'
+                    placeholder='Add a brief description of yourself including favorite pastimes, hobbies, and interests...'
+                    name='about'
+                    className='basic-form-text-area'
+                    onChange={e => setAboutInfo(e.target.value)}
+                    value={aboutInfo}
+                />
+            </div>
+            <div className='basic-form-double-button-div'>
                 <button
                     type='button'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                     id='cancel'
                     onClick={() => setShowEditAboutModal(false)}
                 >
@@ -67,12 +67,17 @@ const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
                 <button
                     type='submit'
                     id='Submit'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                 >
                     Submit
                 </button>
-            </form>
-        </div>
+            </div>
+            <div>
+                {errors && errors.map((error, ind) => (
+                    <div key={ind}>{error}</div>
+                ))}
+            </div>
+        </form>
     )
 }
 

@@ -35,30 +35,32 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors && errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
-                <h2>Update Image</h2>
-                <div className='form-field'>
+        <form
+            onSubmit={handleSubmit}
+            className='basic-form-wide'
+        >
+            <h2>Update Picture</h2>
+            <div className='basic-form-field'>
+                <div className='basic-form-label-question'>
                     <label htmlFor='img-url'>
-                        Url:
-                        <input
-                            type='text'
-                            id='img-url'
-                            name='imgUrl'
-                            className='form-input'
-                            onChange={e => setImgUrl(e.target.value)}
-                            value={imgUrl}
-                        />
+                        Image URL
                     </label>
                 </div>
+                <div className='basic-form-input-container'>
+                    <input
+                        type='text'
+                        id='img-url'
+                        name='imgUrl'
+                        className='basic-form-input'
+                        onChange={e => setImgUrl(e.target.value)}
+                        value={imgUrl}
+                    />
+                </div>
+            </div>
+            <div className='basic-form-double-button-div'>
                 <button
                     type='button'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                     id='cancel'
                     onClick={() => setShowEditPictureModal(false)}
                 >
@@ -67,12 +69,17 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
                 <button
                     type='submit'
                     id='Submit'
-                    className='form-button'
+                    className='basic-form-button-smaller'
                 >
                     Submit
                 </button>
-            </form>
-        </div>
+            </div>
+            <div>
+                {errors && errors.map((error, ind) => (
+                    <div key={ind}>{error}</div>
+                ))}
+            </div>
+        </form>
     )
 }
 

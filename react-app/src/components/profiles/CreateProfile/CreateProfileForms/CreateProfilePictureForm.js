@@ -43,7 +43,7 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
                 <div className='basic-form-field'>
                     <div className='basic-form-label'>
                         <label htmlFor='img-url'>
-                            Image Url
+                            Image URL
                         </label>
                     </div>
                     <div className='basic-form-input-container'>
