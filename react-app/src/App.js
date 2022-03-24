@@ -17,6 +17,7 @@ import Messages from './components/messages/Messages';
 import {io} from 'socket.io-client';
 import { getLanguages } from './store/languages';
 import LanguagesPage from './components/languages/LanguagesPage'
+import Footer from './components/navigation/Footer'
 
 let socket;
 
@@ -108,6 +109,7 @@ function App() {
               <LandingPage />
             </Route>
           </Switch>
+          <Footer />
         </div>
       )}
     </BrowserRouter>
