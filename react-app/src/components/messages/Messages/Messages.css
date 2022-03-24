@@ -71,8 +71,13 @@
 }
 
 #messages-page {
-    /* height: 100%; */
-    padding: 100px 175px;
+    height: 100%;
+    /* padding: 100px 0; */
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #message-panel {
@@ -82,7 +87,7 @@
 }
 
 #message-display {
-    height: 440px;
+    height: 270px;
     overflow-y: auto;
     word-wrap: break-word;
     word-break: break-all;
@@ -135,6 +140,7 @@
     display: grid;
     grid-template-columns: 1fr 3fr;
     background-color: white;
+    width: 700px;
     min-width: 600px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;

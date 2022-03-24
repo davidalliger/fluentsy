@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import CreateProfileForms from '../CreateProfile/CreateProfileForms';
 
-const NoProfile = ({setShowModal}) => {
+const NoProfile = ({setShowModal, setIgnore}) => {
     const [showNoProfile, setShowNoProfile] = useState(true);
     const [showCreateProfile, setShowCreateProfile] = useState(false);
 
     const handleCreateProfile = () => {
         setShowNoProfile(false);
         setShowCreateProfile(true);
+    }
+
+    const handleIgnore = () => {
+        setIgnore(true);
+        setShowModal(false);
     }
 
     return (
@@ -19,7 +24,7 @@ const NoProfile = ({setShowModal}) => {
                     <button onClick={handleCreateProfile}>
                         Create Profile
                     </button>
-                    <button onClick={()=> setShowModal(false)}>Skip for Now</button>
+                    <button onClick={handleIgnore}>Skip for Now</button>
                 </div>
             )}
             {showCreateProfile && (
