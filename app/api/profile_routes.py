@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms.profile_forms import ProfileLanguagesForm, ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, ProfileForm
-from app.models import db, Profile
+from app.models import db, Profile, Language, Message
 from .route_utils import validation_errors_to_error_messages
 
 profile_routes = Blueprint('profiles',__name__)
@@ -88,8 +88,17 @@ def edit_profile(id):
 @profile_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_profile(id):
-    delete_profile = Profile.query.get(id)
+    delete_profile = Profile.query.filter(Profile.id == id).first()
+    delete_languages = Language.query.filter(Language.user_id == delete_profile.user_id).all()
+    delete_messages = Message.query.filter((Message.sender_id == delete_profile.user_id) | (Message.recipient_id == delete_profile.user_id)).all()
 
+
+    if delete_languages:
+        for language in delete_languages:
+            db.session.delete(language)
+    if delete_messages:
+        for message in delete_messages:
+            db.session.delete(message)
     db.session.delete(delete_profile)
     db.session.commit()
     return {'success': 'success'}
