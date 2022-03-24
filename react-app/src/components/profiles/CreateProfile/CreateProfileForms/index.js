@@ -26,6 +26,7 @@ const CreateProfileForms = ({setShowModal}) => {
     const [about, setAbout] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [allStepsCompleted, setAllStepsCompleted] = useState(false);
+    const [languagesAdded, setLanguagesAdded] = useState(false);
     const [errors, setErrors] = useState([])
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
@@ -34,18 +35,6 @@ const CreateProfileForms = ({setShowModal}) => {
     useEffect(() => {
         (async()=> {
             if (allStepsCompleted) {
-                const birthday = `${year}, ${month}, ${day}`;
-
-                const new_profile = {
-                    user_id: user.id,
-                    img_url: imgUrl,
-                    country,
-                    state,
-                    timezone,
-                    about: about ? about : 'Hi! I\'m a new user!',
-                    birthday: birthday,
-                    display_age: displayAge
-                };
                 const native = {
                     name: nativeLanguage,
                     user_id: user.id,
@@ -61,21 +50,9 @@ const CreateProfileForms = ({setShowModal}) => {
                     primary: true
                 };
 
-                const data = await dispatch(createProfile(new_profile));
                 const nativeData = await dispatch(createLanguage(native));
                 const targetData = await dispatch(createLanguage(target));
-
-                if (data.errors) {
-                    if (nativeData.errors) {
-                        if (targetData.errors) {
-                            setErrors([...data.errors, ...nativeData.errors, ...targetData.errors]);
-                        } else {
-                            setErrors([...data.errors, ...nativeData.errors]);
-                        }
-                    } else {
-                        setErrors(data.errors);
-                    }
-                } else if (nativeData.errors) {
+                if (nativeData.errors) {
                     if (targetData.errors) {
                         setErrors([...nativeData.errors, ...targetData.errors]);
                     } else {
@@ -83,16 +60,43 @@ const CreateProfileForms = ({setShowModal}) => {
                     }
                 } else if (targetData.errors) {
                     setErrors(targetData.errors);
-                } else if (data.userId && nativeData.name && targetData.name) {
-                    setShowModal(false);
-                    history.push(`/users/${data.userId}`);
+                } else if (nativeData.name && targetData.name) {
+                    setLanguagesAdded(true);
                 } else {
-                    setErrors(data);
+                    setErrors(nativeData);
                 }
             }
         })()
 
     }, [allStepsCompleted])
+
+    useEffect(()=> {
+        if (languagesAdded) {
+            (async() => {
+                const birthday = `${year}, ${month}, ${day}`;
+
+                const new_profile = {
+                    user_id: user.id,
+                    img_url: imgUrl,
+                    country,
+                    state,
+                    timezone,
+                    about: about ? about : 'Hi! I\'m a new user!',
+                    birthday: birthday,
+                    display_age: displayAge
+                };
+                const data = await dispatch(createProfile(new_profile));
+                if (data.errors) {
+                    setErrors(data.errors)
+                } else if (data.userId) {
+                    setShowModal(false);
+                    history.push(`/users/${data.userId}`);
+                } else {
+                    setErrors(data);
+                }
+            })()
+        }
+    }, [languagesAdded])
 
     return (
         <div>
