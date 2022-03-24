@@ -31,13 +31,13 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
             setShowLocationForm(true);
     }
 
-    const handleSkip = () => {
-            setShowAboutForm(false);
-            setShowPictureForm(true);
-            if (!about) {
-                setAbout('Hi! I\'m a new user!')
-            }
-    }
+    // const handleSkip = () => {
+    //         setShowAboutForm(false);
+    //         setShowPictureForm(true);
+    //         if (!about) {
+    //             setAbout('Hi! I\'m a new user!')
+    //         }
+    // }
 
     return (
         <div>
@@ -126,14 +126,14 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                 >
                     Next
                 </button>
-                <button
+                {/* <button
                     onClick={handleSkip}
                     type='button'
                     id='skip'
                     className='form-button'
                 >
                     Skip this step
-                </button>
+                </button> */}
             </form>
         </div>
     )

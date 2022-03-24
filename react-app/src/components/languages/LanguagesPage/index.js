@@ -259,7 +259,7 @@ const LanguagesPage = () => {
                                             checked={primaryNative === primaryNativeLanguage}
                                             onChange={handlePrimaryNative}
                                             value={primaryNative}
-                                            id={`${primaryNativeLanguage.id}-primary`}
+                                            id={`${primaryNativeLanguage?.id}-primary`}
                                         />
                                     </div>
                                     <div></div>
@@ -368,7 +368,7 @@ const LanguagesPage = () => {
                                             checked={primaryTarget === primaryTargetLanguage}
                                             onChange={handlePrimaryTarget}
                                             value={primaryTarget}
-                                            id={`${primaryTargetLanguage.id}-primary`}
+                                            id={`${primaryTargetLanguage?.id}-primary`}
                                         />
                                     </div>
                                     <div></div>

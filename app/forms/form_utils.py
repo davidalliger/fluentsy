@@ -1,5 +1,6 @@
 from wtforms import ValidationError
 from wtforms.validators import StopValidation
+from datetime import datetime
 
 class NotEqual(object):
     """
@@ -96,7 +97,7 @@ class IsValidDate(object):
     Checks a date field against a month field. Pretty limited use cases.
 
     """
-    def __init__(self, fieldname, message=None):
+    def __init__(self, fieldname, message):
         self.fieldname = fieldname
         self.message = message
 
@@ -142,6 +143,91 @@ class IsValidDate(object):
         if int(month.data) == 12:
             if num not in range(1,32):
                 raise StopValidation(message)
+
+class IsValidYear(object):
+    """
+    Checks a date field against a month field. Pretty limited use cases.
+
+    """
+    def __init__(self):
+        pass
+
+    def __call__(self, form, field):
+        current_year = datetime.now().year
+        year = int(field.data)
+        if year < 1900 or year > current_year:
+            raise StopValidation('Per regulations handed down by the Time Council, time travelers are not permitted to use this app')
+        if year <= current_year and year >= (current_year - 13):
+            raise StopValidation('Must be at least 13 years of age to use this app')
+
+def validate_birthday(form, field):
+    #Checking if birthday is valid
+    current_year = datetime.now().year
+    input_year = field.data
+    parts = input_year.split(', ')
+    intErrors = 0
+    try:
+        int(parts[1])
+    except ValueError:
+        field.errors.append('Month must be an integer')
+        intErrors += 1
+    try:
+        int(parts[2])
+    except ValueError:
+        field.errors.append('Day must be an integer')
+        intErrors += 1
+    try:
+        int(parts[0])
+    except ValueError:
+        field.errors.append('Year must be an integer')
+        intErrors += 1
+    if intErrors > 0:
+        return
+    year = int(parts[0])
+    month = int(parts[1])
+    day = int(parts[2])
+    if month not in range(1,13):
+        field.errors.append('Month must be a number between')
+    if month == 1:
+        if day not in range(1,32):
+            field.errors.append('Please select a valid date')
+    if month == 2:
+        if day not in range(1,30):
+            field.errors.append('Please select a valid date')
+    if month == 3:
+        if day not in range(1,32):
+            field.errors.append('Please select a valid date')
+    if month == 4:
+        if day not in range(1,31):
+            field.errors.append('Please select a valid date')
+    if month == 5:
+        if day not in range(1,32):
+            field.errors.append('Please select a valid date')
+    if month == 6:
+        if day not in range(1,31):
+            field.errors.append('Please select a valid date')
+    if month == 7:
+        if day not in range(1,32):
+            field.errors.append('Please select a valid date')
+    if month == 8:
+        if day not in range(1,32):
+            field.errors.append('Please select a valid date')
+    if month == 9:
+        if day not in range(1,31):
+            field.errors.append('Please select a valid date')
+    if month == 10:
+        if day not in range(1,32):
+            field.errors.append('Please select a valid date')
+    if month == 11:
+        if day not in range(1,31):
+            field.errors.append('Please select a valid date')
+    if month == 12:
+        if day not in range(1,32):
+            field.errors.append('Please select a valid date')
+    if year < 1900 or year > current_year:
+        field.errors.append('Per regulations handed down by the Time Council, time travelers are not permitted to use this app')
+    if year <= current_year and year >= (current_year - 13):
+        field.errors.append('Must be at least 13 years of age to use this app')
 
 offered_languages = [
     'English',
@@ -210,7 +296,8 @@ valid_levels = [
     'B1: Intermediate',
     'B2: Upper Intermediate',
     'C1: Advanced',
-    'C2: Proficient'
+    'C2: Proficient',
+    'Native'
 ]
 
 provided_countries = [
