@@ -54,31 +54,30 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
+        <div className='basic-form-inner'>
+            <form onSubmit={handleSubmit} className='basic-form-inner'>
                 <h2>Location</h2>
-                <p>Where are you located?</p>
-                <div className='form-field'>
-                    <label htmlFor='country'>
-                        Country:
+                {/* <p>Where are you located?</p> */}
+                <div className='basic-form-field'>
+                    <div className='basic-form-label'>
+                        <label htmlFor='country'>
+                            Please select your country
+                        </label>
+                    </div>
+                    <div className='basic-form-input-container'>
                         <select
+                            className='basic-form-input'
                             id='country'
                             name='country'
-                            className='form-select'
                             onChange={e => setCountry(e.target.value)}
                             value={country}
                         >
-                            <option value='' disabled>Please select your country...</option>
+                            <option value='' disabled>Country</option>
                             {countries.map((country, index) => (
                                 <option value={country} key={index}>{country}</option>
                             ))}
                         </select>
-                    </label>
+                    </div>
                 </div>
                 {showState && (
                     <div className='form-field'>
@@ -99,38 +98,49 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                         </label>
                     </div>
                 )}
-                <div className='form-field'>
-                    <label htmlFor='timezone'>
-                        Time Zone:
+                <div className='basic-form-field'>
+                    <div className='basic-form-label'>
+                        <label htmlFor='timezone'>
+                            Please select your timezone
+                        </label>
+                    </div>
+                    <div className='basic-form-input-container'>
                         <select
                             id='timezone'
                             name='timezone'
-                            className='form-select'
+                            className='basic-form-input'
                             onChange={e => setTimezone(e.target.value)}
                             value={timezone}
                         >
-                            <option value='' disabled>Please select your time zone...</option>
+                            <option value='' disabled>Time Zone</option>
                             {timezones.map((timezone, index) => (
                                 <option value={timezone} key={index}>{timezone}</option>
                             ))}
                         </select>
-                    </label>
+                    </div>
                 </div>
-                <button
-                    type='button'
-                    className='form-button'
-                    id='back'
-                    onClick={handleBack}
-                >
-                    Back
-                </button>
-                <button
-                    type='submit'
-                    id='submit'
-                    className='form-button'
-                >
-                    Next
-                </button>
+                <div className='basic-form-double-button-div'>
+                    <button
+                        type='button'
+                        className='basic-form-button-smaller'
+                        id='back'
+                        onClick={handleBack}
+                    >
+                        Back
+                    </button>
+                    <button
+                        type='submit'
+                        id='submit'
+                        className='basic-form-button-smaller'
+                    >
+                        Next
+                    </button>
+                </div>
+                <div>
+                    {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
+                </div>
             </form>
         </div>
     )

@@ -148,10 +148,31 @@ option {
 
 .basic-form-field {
     width: 100%;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     margin-bottom: 10px;
-    display: inline;
+    display: inline-block;
     /* flex-direction: column; */
+}
+
+.basic-form-field-multi {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: column; */
+}
+
+.basic-form-text-area {
+    resize: none;
+    width: 100%;
+    overflow-y: auto;
+    font-family: 'Noto Sans', sans-serif;
+    height: 60px;
+}
+
+.basic-form-label-question {
+    margin-bottom: 10px;
 }
 
 .basic-form-input {
@@ -160,6 +181,17 @@ option {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    background-color: transparent;
+}
+
+.basic-form-input-small {
+    width: 100px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .basic-form-input option {
@@ -199,7 +231,11 @@ select {
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;
-    size:
+}
+
+.basic-form-inline {
+    display: flex;
+    flex-direction: column;
 }
 
 .toggle-auth-div {
@@ -260,4 +296,12 @@ select {
 
 .basic-form-extra {
     font-size: 14px;
+}
+
+.basic-form-extra-link {
+    font-size: 13px;
+    font-weight: bold;
+    color: #F14052;
+    margin-top: 30px;
+    cursor: pointer;
 }

@@ -40,52 +40,61 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
     // }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
+        <div className='basic-form-inner'>
+            <form onSubmit={handleSubmit} className='basic-form-inner'>
                 <h2>About</h2>
-                <p>Tell us a bit more about yourself...</p>
-                <div className='form-field'>
-                    Birthday:
-                    <label htmlFor='month'>
-                        Month
+                {/* <div className='basic-form-label-question'>
+                    Tell us a bit more about yourself...
+                </div> */}
+                <div className='basic-form-label-question'>
+                    What is your birthday?
+                </div>
+                <div className='basic-form-field-multi'>
+                    <span className='basic-form-inline'>
+                        {/* <span className='basic-form-label'> */}
+                            <label htmlFor='month'>
+                                Month
+                            </label>
+                        {/* </span> */}
                         <input
                             type='number'
                             id='month'
                             name='month'
-                            className='form-input'
+                            className='basic-form-input-small'
                             onChange={e => setMonth(e.target.value)}
                             value={month}
                         />
-                    </label>
-                    <label htmlFor='day'>
-                        Day
+                    </span>
+                    <span className='basic-form-inline'>
+                        {/* <span className='basic-form-label'> */}
+                            <label htmlFor='day'>
+                                Day
+                            </label>
+                        {/* </span> */}
                         <input
                             type='number'
                             id='day'
                             name='day'
-                            className='form-input'
+                            className='basic-form-input-small'
                             onChange={e => setDay(e.target.value)}
                             value={day}
                         />
-                    </label>
-                    <label htmlFor='year'>
-                        Year
+                    </span>
+                    <span className='basic-form-inline'>
+                        <label htmlFor='year'>
+                            Year
+                        </label>
                         <input
                             type='number'
                             id='year'
                             name='year'
-                            className='form-input'
+                            className='basic-form-input-small'
                             onChange={e => setYear(e.target.value)}
                             value={year}
                         />
-                    </label>
+                    </span>
                 </div>
-                <div className='form-field'>
+                <div className='basic-form-field'>
                     <label htmlFor='displayAge'>
                         <input
                         type='checkbox'
@@ -98,34 +107,38 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                         Display age in profile
                     </label>
                 </div>
-                <div className='form-field'>
-                    <label htmlFor='about'>
-                        How would you describe yourself?
+                <div className='basic-form-field'>
+                    <div className='basic-form-label-question'>
+                        <label htmlFor='about'>
+                            Tell us a bit more about yourself...
+                        </label>
+                    </div>
                         <textarea
                             id='about'
                             placeholder='Add a brief description of yourself including favorite pastimes, hobbies, and interests...'
                             name='about'
-                            className='form-input'
+                            className='basic-form-text-area'
                             onChange={e => setAbout(e.target.value)}
                             value={about}
                         />
-                    </label>
                 </div>
-                <button
-                    type='button'
-                    className='form-button'
-                    id='back'
-                    onClick={handleBack}
-                >
-                    Back
-                </button>
-                <button
-                    type='submit'
-                    id='next'
-                    className='form-button'
-                >
-                    Next
-                </button>
+                <div className='basic-form-double-button-div'>
+                    <button
+                        type='button'
+                        className='basic-form-button-smaller'
+                        id='back'
+                        onClick={handleBack}
+                    >
+                        Back
+                    </button>
+                    <button
+                        type='submit'
+                        id='next'
+                        className='basic-form-button-smaller'
+                    >
+                        Next
+                    </button>
+                </div>
                 {/* <button
                     onClick={handleSkip}
                     type='button'
@@ -134,6 +147,11 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                 >
                     Skip this step
                 </button> */}
+                <div>
+                    {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
+                </div>
             </form>
         </div>
     )
