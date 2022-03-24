@@ -11,6 +11,7 @@ const ProfilesFeed = () => {
     const profiles = Object.values(profileState).reverse();
     const user = useSelector(state => state.session.user);
     const [ignore, setIgnore] = useState(false);
+    const [profileLoaded, setProfileLoaded] = useState(false);
     const [showNoProfileModal, setShowNoProfileModal] = useState(false);
     const userProfile = profiles?.reduce((profileMatch, profile) => {
         if (profile.userId === +user.id) profileMatch = profile;
@@ -18,11 +19,17 @@ const ProfilesFeed = () => {
     }, null);
 
     useEffect(() => {
-        if (user && !userProfile) {
-            if (!ignore) {
+
+        const timeOut = setTimeout(() => {
+            if (user && profiles && !userProfile) {
                 setShowNoProfileModal(true);
+            } else {
+                setShowNoProfileModal(false);
             }
-        }
+        }, 700)
+
+
+        return () => clearTimeout(timeOut);
     }, [userProfile])
 
 
