@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import SignUpModal from "../../auth/signup/SignUpModal";
 import ProfilesFeed from "../../profiles/ProfilesFeed";
 import './LandingPage.css'
+import myImage from '../../../images/landing-page_small_good.jpg'
 
 const LandingPage = () => {
     const [showModal, setShowModal] = useState(false);
@@ -13,7 +14,7 @@ const LandingPage = () => {
         return <ProfilesFeed />
     }
 
-    const landingPageImg = '/images/landing-page_small.jpeg';
+    // const landingPageImg = '../../../../public/images/landing-page_small_good.png';
 
     return (
         <div id='landing-page'>
@@ -36,7 +37,7 @@ const LandingPage = () => {
                         <SignUpModal showModal={showModal} setShowModal={setShowModal} />
                     </div>
                     <div id='landing-page-img-div'>
-                        <div id='landing-page-img' style={{backgroundImage: `url(${landingPageImg})`}}>
+                        <div id='landing-page-img' style={{backgroundImage: `url(${myImage})`}}>
                         </div>
                     </div>
                 </div>

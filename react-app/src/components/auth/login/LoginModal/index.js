@@ -1,13 +1,13 @@
 import Modal from '../../../other/Modal';
 import LoginForm from '../LoginForm';
 
-const LoginModal = ({showModal, setShowModal}) => {
+const LoginModal = ({showLoginModal, setShowLoginModal}) => {
 
     return (
         <>
-            {showModal && (
-                <Modal onClose={()=> setShowModal(false)}>
-                    <LoginForm setShowModal={setShowModal} />
+            {showLoginModal && (
+                <Modal onClose={()=> setShowLoginModal(false)}>
+                    <LoginForm setShowLoginModal={setShowLoginModal} />
                 </Modal>
             )}
         </>

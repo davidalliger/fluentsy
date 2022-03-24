@@ -1,13 +1,13 @@
 import Modal from '../../../other/Modal';
 import SignUpForm from '../SignUpForm';
 
-const SignUpModal = ({showModal, setShowModal}) => {
+const SignUpModal = ({showSignUpModal, setShowSignUpModal}) => {
 
     return (
         <>
-            {showModal && (
-                <Modal onClose={()=> setShowModal(false)}>
-                    <SignUpForm setShowModal={setShowModal} />
+            {showSignUpModal && (
+                <Modal onClose={()=> setShowSignUpModal(false)}>
+                    <SignUpForm setShowSignUpModal={setShowSignUpModal} />
                 </Modal>
             )}
         </>
