@@ -2,13 +2,24 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, BooleanField, DecimalField
 from wtforms.validators import DataRequired, Email, ValidationError, InputRequired, AnyOf, NumberRange
 from app.models import User, Profile, Language
-from .form_utils import NotEqual, offered_languages, valid_levels, provided_countries, provided_timezones, valid_states, IsInt, RequiredIf, RequiredWhen, InRange, IsValidDate
+from .form_utils import validate_birthday, NotEqual, offered_languages, valid_levels, provided_countries, provided_timezones, valid_states, IsInt, RequiredIf, RequiredWhen, InRange, IsValidDate, IsValidYear
+from datetime import datetime
 
 def validate_display_age(form, field):
     # Checking if display_age is a valid boolean value
     display_age = field.data
     if display_age != True and display_age != False:
         raise ValidationError('Display age on profile must be either true or false.')
+
+def user_exists(form, field):
+    # Checking if user exists
+    id = field.data
+    user = User.query.get(id)
+    if not user:
+        raise ValidationError('You must have an account to make a profile')
+
+
+
 
 class ProfileLanguagesForm(FlaskForm):
     native_language = StringField('Native Language', validators=[
@@ -52,20 +63,30 @@ class ProfileAboutForm(FlaskForm):
                                             ])
     year = StringField('Birthday', validators=[
                                                 DataRequired('Please enter your birth year'),
-                                                IsInt('Birth year must be an integer')
+                                                IsInt('Birth year must be an integer'),
+                                                IsValidYear()
                                             ])
     display_age = BooleanField('Display Age', validators=[validate_display_age])
-    about = StringField('About')
+    about = StringField('About', validators=[DataRequired('Please enter a brief description')])
 
 class ProfilePictureForm(FlaskForm):
     img_url = StringField('Image')
 
 class ProfileForm(FlaskForm):
-    country = StringField('Country', validators=[DataRequired()])
-    state = StringField('State')
-    timezone = StringField('Time Zone', validators=[DataRequired()])
-    birthday = StringField('Birthday', validators=[DataRequired()])
+    country = StringField('Country', validators=[
+                                                    DataRequired('Please select your country'),
+                                                    AnyOf(provided_countries, message='Must select a country from the options provided')
+                                                ])
+    state = StringField('State', validators=[
+                                                RequiredWhen('country', 'United States', message='Please select your state'),
+                                                AnyOf(valid_states, message='Must select a state from the options provided')
+                                            ])
+    timezone = StringField('Time Zone', validators=[
+                                                        DataRequired('Please select your time zone'),
+                                                        AnyOf(provided_timezones, message='Must select a time zone from the options provided')
+                                                    ])
+    birthday = StringField('Birthday', validators=[DataRequired('Please enter your birthday'), validate_birthday])
     display_age = BooleanField('Display Age', validators=[validate_display_age])
-    about = StringField('About')
+    about = StringField('About', validators=[DataRequired('Please enter a brief description')])
     img_url = StringField('Image')
-    user_id = IntegerField('User', validators=[DataRequired()])
+    user_id = IntegerField('User', validators=[user_exists])

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.forms.language_form import LanguageForm
+from app.forms.language_form import AddLanguageForm, EditLanguageForm
 from app.models import db, Language
 from .route_utils import validation_errors_to_error_messages
 
@@ -16,7 +16,7 @@ def get_languages():
 @language_routes.route('/', methods=['POST'])
 @login_required
 def create_language():
-    form = LanguageForm()
+    form = AddLanguageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_language = Language()
@@ -33,7 +33,7 @@ def create_language():
 @language_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def edit_profile(id):
-    form = LanguageForm()
+    form = EditLanguageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         edit_profile = Language.query.get(id)
