@@ -9,6 +9,7 @@ export const addMessage = (new_message, id) => ({type: ADD, new_message, id});
 export const editMessage = (payload, id) => ({type: EDIT, payload, id});
 export const removeMessage = (payload, id) => ({type: REMOVE, payload, id});
 export const clearMessages = () => ({type: CLEAR});
+export const errorMessage = (error_message)
 
 export const getMessages = (id) => async dispatch => {
     const response = await fetch(`/api/users/${id}/messages`);
@@ -91,6 +92,7 @@ export const getMessages = (id) => async dispatch => {
 
 const messagesReducer = (state= {}, action) => {
     let newState = {...state};
+    const errors = 'errors';
     switch(action.type) {
         case LOAD:
             action.messages.forEach(message => {
@@ -110,6 +112,7 @@ const messagesReducer = (state= {}, action) => {
                     }
                 }
             });
+            newState[errors] = {};
             return newState;
         case ADD:
             if (+action.new_message.sender_id !== +action.id) {
@@ -122,9 +125,15 @@ const messagesReducer = (state= {}, action) => {
             } else {
                 if (newState[action.new_message.recipient_id]) {
                     newState[action.new_message.recipient_id][action.new_message.id] = action.new_message;
+                    if (newState[errors][action.new_message.recipient_id]) {
+                        delete newState[errors][action.new_message.recipient_id]
+                    }
                 } else {
                     newState[action.new_message.recipient_id]= {};
                     newState[action.new_message.recipient_id][action.new_message.id] = action.new_message;
+                    if (newState[errors][action.new_message.recipient_id]) {
+                        delete newState[errors][action.new_message.recipient_id]
+                    }
                 }
             }
             return newState;

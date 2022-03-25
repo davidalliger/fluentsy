@@ -49,14 +49,20 @@ def handle_chat(data):
     # username = data['username']
     # form = MessageForm()
     # if form.validate_on_submit():
+    room = data['recipient_id']
+    self = data['sender_id']
+    if not data['content']:
+        error_message = {'message': 'Message cannot be empty'}
+        emit('error', error_message, to=self)
+    if len(data['content']) > 255:
+        error_message = {'message': 'Message must be 255 characters or less'}
+        emit('error', error_message, to=self)
     new_message = Message()
     new_message.sender_id = data['sender_id']
     new_message.recipient_id = data['recipient_id']
     new_message.content = data['content']
     db.session.add(new_message)
     db.session.commit()
-    room = data['recipient_id']
-    self = data['sender_id']
     # for room in rooms:
     response = new_message.to_dict()
     emit('chat', response, to=room)
