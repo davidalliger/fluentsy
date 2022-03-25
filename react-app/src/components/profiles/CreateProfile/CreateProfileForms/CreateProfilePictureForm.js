@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { addProfilePicture } from "../../../../store/profiles";
 
 const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl, setImgUrl, setAllStepsCompleted}) => {
     const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
     const dispatch = useDispatch();
 
     const handleSubmit = async(e) => {
@@ -14,10 +15,12 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
         const data = await dispatch(addProfilePicture(picture));
         if (data.errors) {
             setErrors(data.errors);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.success) {
             setAllStepsCompleted(true);
         } else {
             setErrors(data);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         }
     }
 
@@ -30,12 +33,29 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
             setAllStepsCompleted(true);
     }
 
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors]);
+
     return (
         <div className='basic-form-inner'>
             <form
                 onSubmit={handleSubmit}
                 className='basic-form-inner'
             >
+                {showErrors && (
+                    <div className='basic-form-errors'>
+                        <ul className='basic-form-errors-ul'>
+                            {errors.map((error, ind) => (
+                            <li key={ind} className='basic-form-errors-li'>
+                                {error}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <h2>Picture</h2>
                 <div className='basic-form-label-question'>
                     Select your profile picture
@@ -81,11 +101,6 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
                     className='basic-form-extra-link'
                 >
                     Skip this step
-                </div>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
                 </div>
             </form>
         </div>

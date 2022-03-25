@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { addProfileAbout } from "../../../../store/profiles";
 
 const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, displayAge, setDisplayAge, about, setAbout, setShowLocationForm, setShowAboutForm, setShowPictureForm}) => {
     const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
     const dispatch = useDispatch();
 
     const handleSubmit = async(e) => {
@@ -18,11 +19,13 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
         const data = await dispatch(addProfileAbout(aboutInfo));
         if (data.errors) {
             setErrors(data.errors);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.success) {
             setShowPictureForm(true);
             setShowAboutForm(false);
         } else {
             setErrors(data);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         }
     }
 
@@ -30,6 +33,12 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
             setShowAboutForm(false);
             setShowLocationForm(true);
     }
+
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors]);
 
     // const handleSkip = () => {
     //         setShowAboutForm(false);
@@ -42,6 +51,17 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
     return (
         <div className='basic-form-inner'>
             <form onSubmit={handleSubmit} className='basic-form-inner'>
+                {showErrors && (
+                    <div className='basic-form-errors'>
+                        <ul className='basic-form-errors-ul'>
+                            {errors.map((error, ind) => (
+                            <li key={ind} className='basic-form-errors-li'>
+                                {error}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <h2>About</h2>
                 {/* <div className='basic-form-label-question'>
                     Tell us a bit more about yourself...
@@ -103,6 +123,7 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                             className='form-input'
                             onChange={e => setDisplayAge(!displayAge)}
                             value={displayAge}
+                            checked={displayAge}
                         />
                         Display age in profile
                     </label>
@@ -147,11 +168,6 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                 >
                     Skip this step
                 </button> */}
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
             </form>
         </div>
     )

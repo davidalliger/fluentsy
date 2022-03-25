@@ -5,6 +5,7 @@ import { states, countries, timezones, statesDefaultTimezones, countriesDefaultT
 
 const CreateProfileLocationForm = ({country, setCountry, state, setState, timezone, setTimezone, setShowModal, setShowLanguageForm, setShowLocationForm, setShowAboutForm}) => {
     const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
     const [showState, setShowState] = useState(false);
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
@@ -40,11 +41,13 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
         const data = await dispatch(addProfileLocation(location));
         if (data.errors) {
             setErrors(data.errors);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.success) {
             setShowLocationForm(false);
             setShowAboutForm(true);
         } else {
             setErrors(data);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         }
     }
 
@@ -53,9 +56,26 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
         setShowLanguageForm(true);
     }
 
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors]);
+
     return (
         <div className='basic-form-inner'>
             <form onSubmit={handleSubmit} className='basic-form-inner'>
+                {showErrors && (
+                    <div className='basic-form-errors'>
+                        <ul className='basic-form-errors-ul'>
+                            {errors.map((error, ind) => (
+                            <li key={ind} className='basic-form-errors-li'>
+                                {error}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <h2>Location</h2>
                 {/* <p>Where are you located?</p> */}
                 <div className='basic-form-field'>
@@ -80,22 +100,26 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                     </div>
                 </div>
                 {showState && (
-                    <div className='form-field'>
-                        <label htmlFor='state'>
-                            State:
+                    <div className='basic-form-field'>
+                        <div className='basic-form-label'>
+                            <label htmlFor='state'>
+                                Please select your state
+                            </label>
+                        </div>
+                        <div className='basic-form-input-container'>
                             <select
                                 id='state'
                                 name='state'
-                                className='form-select'
+                                className='basic-form-input'
                                 onChange={e => setState(e.target.value)}
                                 value={state}
                             >
-                                <option value='' disabled>Please select your state...</option>
+                                <option value='' disabled>State</option>
                                 {states.map((state, index) => (
                                     <option value={state} key={index}>{state}</option>
                                 ))}
                             </select>
-                        </label>
+                        </div>
                     </div>
                 )}
                 <div className='basic-form-field'>
@@ -135,11 +159,6 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                     >
                         Next
                     </button>
-                </div>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
                 </div>
             </form>
         </div>

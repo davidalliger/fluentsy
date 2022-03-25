@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User, Message
+from app.models import User, Profile, Message
 
 user_routes = Blueprint('users', __name__)
 
@@ -12,11 +12,24 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
+
 @user_routes.route('/<int:id>')
 @login_required
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+# Check if profile exists for logged-in user
+
+@user_routes.route('/<int:id>/profiles')
+@login_required
+def check_profile(id):
+    profile = Profile.query.filter(Profile.user_id==id).first()
+    if profile:
+        message = { 'exists': 'exists' }
+    else:
+        message = { 'none': 'none' }
+    return message
 
 # Get messages for currently logged-in user
 

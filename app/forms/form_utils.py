@@ -149,22 +149,39 @@ class IsValidYear(object):
     Checks a date field against a month field. Pretty limited use cases.
 
     """
-    def __init__(self):
-        pass
+    def __init__(self, fieldname1, fieldname2):
+        self.fieldname1 = fieldname1
+        self.fieldname2 = fieldname2
 
     def __call__(self, form, field):
-        current_year = datetime.now().year
+        today = datetime.now()
+        current_year = today.year
+        current_month = today.month
+        current_day = today.day
+        thirteen_years_ago = current_year - 13
         year = int(field.data)
+        if form[self.fieldname1].data:
+            month = int(form[self.fieldname1].data)
+        if form[self.fieldname2].data:
+            day = int(form[self.fieldname2].data)
+        if not form[self.fieldname1].data or not form[self.fieldname2].data:
+            raise StopValidation()
         if year < 1900 or year > current_year:
-            raise StopValidation('Per regulations handed down by the Time Council, time travelers are not permitted to use this app')
-        if year <= current_year and year >= (current_year - 13):
+            raise StopValidation(f'Per regulations handed down by the Time Council, time travelers are not permitted to use this app (Please enter a year between 1900 and {thirteen_years_ago})')
+        if year <= current_year and year > thirteen_years_ago:
+            raise StopValidation('Must be at least 13 years of age to use this app')
+        if year == thirteen_years_ago and month == current_month and day > current_day:
             raise StopValidation('Must be at least 13 years of age to use this app')
 
 def validate_birthday(form, field):
     #Checking if birthday is valid
-    current_year = datetime.now().year
-    input_year = field.data
-    parts = input_year.split(', ')
+    today = datetime.now()
+    current_year = today.year
+    current_month = today.month
+    current_day = today.day
+    thirteen_years_ago = current_year - 13
+    birthday = field.data
+    parts = birthday.split(', ')
     intErrors = 0
     try:
         int(parts[1])
@@ -225,9 +242,13 @@ def validate_birthday(form, field):
         if day not in range(1,32):
             field.errors.append('Please select a valid date')
     if year < 1900 or year > current_year:
-        field.errors.append('Per regulations handed down by the Time Council, time travelers are not permitted to use this app')
-    if year <= current_year and year >= (current_year - 13):
+        field.errors.append(f'Per regulations handed down by the Time Council, time travelers are not permitted to use this app (Please enter a year between 1900 and {thirteen_years_ago})')
+    if year <= current_year and year > thirteen_years_ago:
         field.errors.append('Must be at least 13 years of age to use this app')
+    if year == thirteen_years_ago and month == current_month and day > current_day:
+        field.errors.append('Must be at least 13 years of age to use this app')
+
+
 
 offered_languages = [
     'English',

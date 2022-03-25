@@ -91,6 +91,23 @@ option {
     margin-bottom: 15px;
 }
 
+.basic-form-errors {
+    padding: 10px;
+    font-size: 13px;
+    color:red;
+    background-color: pink;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.basic-form-errors-ul {
+
+    margin: 0;
+    /* padding-left: 15px; */
+}
+
 .basic-form-button-div {
     width: 100%;
     box-sizing: border-box;
@@ -224,9 +241,9 @@ select {
 select {
     width: 100%;
     display: inline;
-    -webkit-appearance: none;
+    /* -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none;
+    appearance: none; */
     /* background-color:#e93329; */
     box-sizing: border-box;
     text-align: center;

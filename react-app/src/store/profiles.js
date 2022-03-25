@@ -24,6 +24,21 @@ export const getProfiles = () => async dispatch => {
     }
 }
 
+export const checkProfileExists = (id) => async dispatch => {
+    const response = await fetch(`api/users/${id}/profiles`);
+    if (response.ok) {
+        const message = await response.json();
+        return message;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return ['An error occured. Please try again.'];
+    }
+}
+
 export const addProfileLanguages = (payload) => async dispatch => {
     const response = await fetch('/api/profiles/languages', {
         method: 'POST',

@@ -5,7 +5,7 @@ import CreateProfileAboutForm from './CreateProfileAboutForm';
 import CreateProfilePictureForm from './CreateProfilePictureForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createProfile } from '../../../../store/profiles';
+import { checkProfileExists, createProfile } from '../../../../store/profiles';
 import { createLanguage } from '../../../../store/languages';
 
 const CreateProfileForms = ({setShowModal}) => {
@@ -26,15 +26,17 @@ const CreateProfileForms = ({setShowModal}) => {
     const [about, setAbout] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [allStepsCompleted, setAllStepsCompleted] = useState(false);
+    const [noProfile, setNoProfile] = useState(false);
     const [languagesAdded, setLanguagesAdded] = useState(false);
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const history = useHistory();
 
     useEffect(() => {
         (async()=> {
-            if (allStepsCompleted) {
+            if (noProfile) {
                 const native = {
                     name: nativeLanguage,
                     user_id: user.id,
@@ -55,19 +57,40 @@ const CreateProfileForms = ({setShowModal}) => {
                 if (nativeData.errors) {
                     if (targetData.errors) {
                         setErrors([...nativeData.errors, ...targetData.errors]);
+                        document.querySelector('.basic-form-wide').scrollTop = 0;
                     } else {
                         setErrors(nativeData.errors);
+                        document.querySelector('.basic-form-wide').scrollTop = 0;
                     }
                 } else if (targetData.errors) {
                     setErrors(targetData.errors);
+                    document.querySelector('.basic-form-wide').scrollTop = 0;
                 } else if (nativeData.name && targetData.name) {
                     setLanguagesAdded(true);
                 } else {
                     setErrors(nativeData);
+                    document.querySelector('.basic-form-wide').scrollTop = 0;
                 }
             }
         })()
 
+    }, [noProfile]);
+
+    useEffect(() => {
+        (async() => {
+            if (allStepsCompleted) {
+                const data = await dispatch(checkProfileExists(user.id));
+                if (data.none) {
+                    setNoProfile(true);
+                } else if (data.exists) {
+                    setErrors(['This user has already created a profile.'])
+                } else if (data.errors) {
+                    setErrors(data.errors);
+                } else {
+                    setErrors(data);
+                }
+            }
+        })()
     }, [allStepsCompleted])
 
     useEffect(()=> {
@@ -87,24 +110,38 @@ const CreateProfileForms = ({setShowModal}) => {
                 };
                 const data = await dispatch(createProfile(new_profile));
                 if (data.errors) {
-                    setErrors(data.errors)
+                    setErrors(data.errors);
+                    document.querySelector('.basic-form-wide').scrollTop = 0;
                 } else if (data.userId) {
                     setShowModal(false);
                     history.push(`/users/${data.userId}`);
                 } else {
                     setErrors(data);
+                    document.querySelector('.basic-form-wide').scrollTop = 0;
                 }
             })()
         }
-    }, [languagesAdded])
+    }, [languagesAdded]);
+
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors]);
 
     return (
         <div className='basic-form-inner'>
-            <div>
-                {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
-                ))}
-            </div>
+            {showErrors && (
+                <div className='basic-form-errors'>
+                    <ul className='basic-form-errors-ul'>
+                        {errors.map((error, ind) => (
+                        <li key={ind} className='basic-form-errors-li'>
+                            {error}
+                        </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             {showLanguageForm && (
                 <CreateProfileLanguagesForm user={user} setShowLocationForm={setShowLocationForm} setShowLanguageForm={setShowLanguageForm} setShowModal={setShowModal} nativeLanguage={nativeLanguage} setNativeLanguage={setNativeLanguage} targetLanguage={targetLanguage} setTargetLanguage={setTargetLanguage} level={level} setLevel={setLevel} />
             )}
