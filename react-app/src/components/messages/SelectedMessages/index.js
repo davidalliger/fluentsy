@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import '../Messages/Messages.css';
 // import { useParams } from 'react-router-dom';
-import { editMessage, removeMessage } from '../../../store/messages';
+import { clearError } from '../../../store/messages';
 import Loading from '../../other/Loading';
 // import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 import EditMessageModal from '../EditMessage/EditMessageModal';
@@ -20,12 +20,15 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
     const [messageHistory, setMessageHistory] = useState(null);
     // const user = useSelector(state => state.session.user);
     const messageState = useSelector(state=> state.messages);
+
     const [selectedName, setSelectedName] = useState('');
     const [showEditMessageModal, setShowEditMessageModal] = useState('');
     const [messageToEdit, setMessageToEdit] = useState(null);
     const [editPayload, setEditPayload] = useState(null);
     const [noMessages, setNoMessages] = useState(false);
     const [yesMessages, setYesMessages] = useState(false);
+    const [chatSent, setChatSent] = useState(false);
+    const [chatHandled, setChatHandled] = useState(false);
     const dispatch = useDispatch();
     // const {socket} = useSocket();
     // let messageHistory;
@@ -43,6 +46,16 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
         }
     }, [messageState, selectedName])
 
+    useEffect(() => {
+        console.log('update in message state, resetting');
+        if (messageState && messageState['errors'] && messageState['errors'][selected]) {
+            setErrors([messageState['errors'][selected]['message']]);
+            setChatInput(messageState['errors'][selected]['content'])
+        } else if (messageState && messageState['errors'] && !messageState['errors'][selected]) {
+            setErrors([])
+        }
+    }, [messageState, selected])
+
     useEffect(()=> {
 
         messageSocket = io();
@@ -58,6 +71,10 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
         })
 
     }, []);
+
+    // useEffect(()=> {
+
+    // }, [messageState])
 
     useEffect(()=> {
         if (selected && profiles.length) {
@@ -111,6 +128,32 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
         setChatInput(e.target.value);
     }
 
+    useEffect(() => {
+        console.log('chat sent, beginning timer...');
+        console.log('chat sent is', chatSent);
+        console.log('chat handled is ', chatHandled);
+        console.log('errors is ', errors);
+        const timer = setTimeout(() => {
+            if (chatSent && !errors?.length) {
+                setChatInput('')
+                setChatHandled(true);
+                setErrors([]);
+            }
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [chatSent, errors])
+
+    useEffect(() => {
+        if (chatHandled) {
+            setChatSent(false);
+        }
+    }, [chatHandled]);
+
+    useEffect(()=> {
+        dispatch(clearError(selected));
+    }, [selected])
+
     const sendChat = (e) => {
         e.preventDefault();
         const payload = {
@@ -124,7 +167,12 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
         // dispatch(addMessage(payload, user.id))
         messageSocket.emit('chat', payload);
         // messageSocket.emit('self_chat', payload);
-        setChatInput('');
+        setChatSent(true);
+        console.log('chat sent');
+        console.log('chat sent is', chatSent);
+        setChatHandled(false);
+        console.log('chat not yet handled');
+        console.log('chat handled is ', chatHandled);
     }
 
     // document.getElementById("message-button").addEventListener('keypress')
@@ -228,11 +276,13 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
                                 <span className='message-display-title-user'>{user.username}</span>'s messages with <span className='message-display-title-user'>{selectedName}</span>
                             </div>
                         </div>
-                        {errors.map((error, ind) => (
-                            <div key={ind}>{error}</div>
-                        ))}
                     </div>
                 )}
+                {errors.map((error, ind) => (
+                    <div key={ind} className='message-error'>
+                        {error}
+                    </div>
+                ))}
                 <div id='message-form-div'>
                     <form id='message-form'onSubmit={sendChat}>
                         <textarea

@@ -65,6 +65,12 @@ option {
     overflow-y: auto;
     scrollbar-width: thin;
 }
+.message-error {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+    background-color: #F5F6F9;
+}
 
 .basic-form-small {
     max-width: 320px;

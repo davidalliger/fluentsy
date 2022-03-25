@@ -2,14 +2,17 @@ const LOAD = 'messages/LOAD';
 const ADD = 'messages/ADD';
 const EDIT = 'messages/EDIT';
 const REMOVE = 'messages/REMOVE';
-const CLEAR = 'messages/CLEAR'
+const ERROR = 'messages/ERROR';
+const CLEAR = 'messages/CLEAR';
+const REMOVE_ERROR = 'messages/REMOVE_ERROR'
 
 const loadMessages = (messages, id) => ({type: LOAD, messages, id});
 export const addMessage = (new_message, id) => ({type: ADD, new_message, id});
 export const editMessage = (payload, id) => ({type: EDIT, payload, id});
 export const removeMessage = (payload, id) => ({type: REMOVE, payload, id});
 export const clearMessages = () => ({type: CLEAR});
-export const errorMessage = (error_message)
+export const errorMessage = (error_message, id) => ({type: ERROR, error_message, id})
+export const clearError = (id) => ({type: REMOVE_ERROR, id})
 
 export const getMessages = (id) => async dispatch => {
     const response = await fetch(`/api/users/${id}/messages`);
@@ -142,6 +145,9 @@ const messagesReducer = (state= {}, action) => {
                 newState[action.payload.sender_id][action.payload.id].content = action.payload.content;
             } else {
                 newState[action.payload.recipient_id][action.payload.id].content = action.payload.content;
+                if (newState[errors][action.payload.recipient_id]) {
+                    delete newState[errors][action.payload.recipient_id]
+                }
             }
             return newState;
         case REMOVE:
@@ -152,7 +158,19 @@ const messagesReducer = (state= {}, action) => {
                 delete newState[action.payload.recipient_id][action.payload.id];
                 if ((Object.values(newState[action.payload.recipient_id])).length < 1) delete newState[action.payload.recipient_id];
             }
-            return newState
+            return newState;
+        case ERROR:
+            if (newState[errors][action.id]) {
+                newState[errors][action.id] = action.error_message;
+            } else {
+                newState[errors][action.id] = action.error_message;
+            }
+            return newState;
+        case REMOVE_ERROR:
+            if (newState[errors][action.id]) {
+                delete newState[errors][action.id];
+            }
+            return newState;
         case CLEAR:
             newState = {}
             return newState

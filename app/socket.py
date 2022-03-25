@@ -52,36 +52,44 @@ def handle_chat(data):
     room = data['recipient_id']
     self = data['sender_id']
     if not data['content']:
-        error_message = {'message': 'Message cannot be empty'}
+        error_message = {'message': 'Message cannot be empty', 'recipient_id': data['recipient_id'], 'content': data['content']}
         emit('error', error_message, to=self)
-    if len(data['content']) > 255:
-        error_message = {'message': 'Message must be 255 characters or less'}
+    elif len(data['content']) > 255:
+        error_message = {'message': 'Message must be 255 characters or less', 'recipient_id': data['recipient_id'], 'content': data['content']}
         emit('error', error_message, to=self)
-    new_message = Message()
-    new_message.sender_id = data['sender_id']
-    new_message.recipient_id = data['recipient_id']
-    new_message.content = data['content']
-    db.session.add(new_message)
-    db.session.commit()
-    # for room in rooms:
-    response = new_message.to_dict()
-    emit('chat', response, to=room)
-    emit('chat', response, to=self)
+    else:
+        new_message = Message()
+        new_message.sender_id = data['sender_id']
+        new_message.recipient_id = data['recipient_id']
+        new_message.content = data['content']
+        db.session.add(new_message)
+        db.session.commit()
+        # for room in rooms:
+        response = new_message.to_dict()
+        emit('chat', response, to=room)
+        emit('chat', response, to=self)
 
 
 @socketio.on('edit_chat')
 def edit_chat(data):
-    message_id = data['id']
-    edit_message = Message.query.get(message_id)
-    edit_message.content = data['content']
-    db.session.commit()
-    # response = {'id': edit_message.id, 'recipient_id': edit_message.recipient_id, 'content': edit_message.content, 'sender_id': edit_message.sender_id}
     room = data['recipient_id']
     self = data['sender_id']
-    # response_dict = dict(response)
-    response = edit_message.to_dict()
-    emit('edit_chat', response, to=room)
-    emit('edit_chat', response, to=self)
+    if not data['content']:
+        error_message = {'message': 'Message cannot be empty', 'recipient_id': data['recipient_id']}
+        emit('error', error_message, to=self)
+    elif len(data['content']) > 255:
+        error_message = {'message': 'Message must be 255 characters or less', 'recipient_id': data['recipient_id']}
+        emit('error', error_message, to=self)
+    else:
+        message_id = data['id']
+        edit_message = Message.query.get(message_id)
+        edit_message.content = data['content']
+        db.session.commit()
+        # response = {'id': edit_message.id, 'recipient_id': edit_message.recipient_id, 'content': edit_message.content, 'sender_id': edit_message.sender_id}
+        # response_dict = dict(response)
+        response = edit_message.to_dict()
+        emit('edit_chat', response, to=room)
+        emit('edit_chat', response, to=self)
 
 
 @socketio.on('delete_chat')
