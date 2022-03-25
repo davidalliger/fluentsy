@@ -1,9 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, BooleanField, DecimalField
-from wtforms.validators import DataRequired, Email, ValidationError, InputRequired, AnyOf, NumberRange
+from wtforms.validators import DataRequired, Email, ValidationError, InputRequired, AnyOf, NumberRange, StopValidation
 from app.models import User, Profile, Language
 from .form_utils import validate_birthday, NotEqual, offered_languages, valid_levels, provided_countries, provided_timezones, valid_states, IsInt, RequiredIf, RequiredWhen, InRange, IsValidDate, IsValidYear
 from datetime import datetime
+import re
+import requests
 
 def validate_display_age(form, field):
     # Checking if display_age is a valid boolean value
@@ -18,6 +20,24 @@ def user_exists(form, field):
     if not user:
         raise ValidationError('You must have an account to make a profile')
 
+def validate_img_url(form, field):
+    # Checking if image url is valid
+    url = field.data
+    print(url)
+    if not url:
+        raise StopValidation()
+    extensions = re.compile(r'\.jpg$|\.jpeg$|\.png$|\.gif$|\.svg$|.bmp$', re.IGNORECASE)
+    schemes = re.compile(r'^https:\/\/|^http:\/\/', re.IGNORECASE)
+    correct_extension = re.search(extensions, url)
+    correct_scheme = re.search(schemes, url)
+    if not correct_extension:
+        raise ValidationError('Please enter a valid image URL ending in any of the following extensions: .jpg, .jpeg, .png, .gif, .svg, .bmp')
+    if not correct_scheme:
+        raise ValidationError('Please enter a valid image URL beginning with either "http://" or "https://"')
+    try:
+        response = requests.get(url)
+    except:
+        raise ValidationError('Please enter a valid URL')
 
 
 
@@ -64,13 +84,13 @@ class ProfileAboutForm(FlaskForm):
     year = StringField('Birthday', validators=[
                                                 DataRequired('Please enter your birth year'),
                                                 IsInt('Birth year must be an integer'),
-                                                IsValidYear()
+                                                IsValidYear('month', 'day')
                                             ])
     display_age = BooleanField('Display Age', validators=[validate_display_age])
     about = StringField('About', validators=[DataRequired('Please enter a brief description')])
 
 class ProfilePictureForm(FlaskForm):
-    img_url = StringField('Image')
+    img_url = StringField('Image', validators=[validate_img_url])
 
 class ProfileForm(FlaskForm):
     country = StringField('Country', validators=[
@@ -88,5 +108,5 @@ class ProfileForm(FlaskForm):
     birthday = StringField('Birthday', validators=[DataRequired('Please enter your birthday'), validate_birthday])
     display_age = BooleanField('Display Age', validators=[validate_display_age])
     about = StringField('About', validators=[DataRequired('Please enter a brief description')])
-    img_url = StringField('Image')
+    img_url = StringField('Image', validators=[validate_img_url])
     user_id = IntegerField('User', validators=[user_exists])

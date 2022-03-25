@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../../../store/session';
@@ -6,6 +6,7 @@ import SignUpForm from '../../signup/SignUpForm'
 
 const LoginForm = ({setShowLoginModal}) => {
   const [errors, setErrors] = useState([]);
+  const [showErrors, setShowErrors] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showSignUpForm, setShowSignUpForm] = useState(false);
@@ -28,6 +29,7 @@ const LoginForm = ({setShowLoginModal}) => {
     const data = await dispatch(login(demoEmail, demoPassword));
     if (data) {
       setErrors(data);
+      document.querySelector('.basic-form').scrollTop = 0;
     }
   };
 
@@ -44,6 +46,12 @@ const LoginForm = ({setShowLoginModal}) => {
     setShowLoginForm(false);
   }
 
+  useEffect(() => {
+    if (errors?.length) {
+      setShowErrors(true);
+    }
+  }, [errors])
+
   if (user) {
     return <Redirect to='/' />;
   }
@@ -55,11 +63,17 @@ const LoginForm = ({setShowLoginModal}) => {
           onSubmit={onLogin}
           className='basic-form'
         >
-          <div>
-            {errors.map((error, ind) => (
-              <div key={ind}>{error}</div>
-            ))}
-          </div>
+          {showErrors && (
+            <div className='basic-form-errors'>
+              <ul className='basic-form-errors-ul'>
+                {errors.map((error, ind) => (
+                  <li key={ind} className='basic-form-errors-li'>
+                    {error}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <h2>Log In</h2>
           <div className='basic-form-field'>
             <div className='basic-form-label'>

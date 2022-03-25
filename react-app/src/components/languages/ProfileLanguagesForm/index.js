@@ -6,9 +6,15 @@ import { languages, levels, levelsWithDescriptions } from '../../../utils';
 import '../../../index.css'
 const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNativeLanguage, targetLanguage, setTargetLanguage, setShowLocationForm, setShowLanguageForm, setShowPictureForm, level, setLevel }) => {
     const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
     const [showLevel, setShowLevel] = useState(false);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors])
     // useEffect(() => {
     //     if (targetLanguage && nativeLanguage) {
     //         if (nativeLanguage === targetLanguage) {
@@ -70,6 +76,7 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             proficiency_level: level}));
         if (data.errors) {
             setErrors(data.errors);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.success) {
             // const nativeData = await dispatch(createLanguage(native));
             // const targetData = await dispatch(createLanguage(target));
@@ -88,6 +95,7 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             //     setErrors(nativeData);
             // }
         } else setErrors(data);
+        document.querySelector('.basic-form-wide').scrollTop = 0;
     }
 
     // console.log('Errors is ', errors);
@@ -97,7 +105,17 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             <form
                 className='basic-form-inner'
                 onSubmit={handleSubmit}>
-
+                {showErrors && (
+                    <div className='basic-form-errors'>
+                        <ul className='basic-form-errors-ul'>
+                            {errors.map((error, ind) => (
+                            <li key={ind} className='basic-form-errors-li'>
+                                {error}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <h2>Hello, {user.username}!</h2>
                 {/* <p>What is your native language?</p> */}
                 <div className='basic-form-field'>
@@ -188,11 +206,6 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
                     >
                         Next
                     </button>
-                </div>
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
                 </div>
             </form>
         </div>
