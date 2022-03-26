@@ -651,3 +651,22 @@ export const levelsWithValues = {
     'C2: Proficient': 6,
     'Native': 7
 }
+
+export const hellos = [
+    'Hello',
+    'Nǐ hǎo',
+    'Privet',
+    'Guten tag',
+    'Shalom',
+    'Ciao',
+    'Namaste',
+    'Kamusta',
+    'Konnichiwa',
+    'Hola',
+    'Jambo',
+    'Bonjour',
+    'Salam',
+    'Annyeong',
+    'Yá\'át\'ééh',
+    'Marhaba'
+]
