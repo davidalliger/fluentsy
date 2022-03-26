@@ -40,6 +40,9 @@ const Messages = () => {
             <div id='message-container'>
                 {correspondents && (
                     <div id='correspondent-list'>
+                        <div id='message-conversation-title'>
+                            My Conversations
+                        </div>
                         {correspondents.map((correspondentId, ind) => {
                             const correspondentMessageState = messageState[correspondentId];
                             // const correspondentMessageIds = Object.keys(correspondentMessageState);

@@ -23,6 +23,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
     const messageState = useSelector(state=> state.messages);
 
     const [selectedName, setSelectedName] = useState('');
+    const [selectedProfile, setSelectedProfile] = useState(null);
     const [showEditMessageModal, setShowEditMessageModal] = useState(false);
     const [errorsReceived, setErrorsReceived] = useState([]);
     const [messageToEdit, setMessageToEdit] = useState(null);
@@ -143,6 +144,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
                 return profileMatch;
             }, null);
             setSelectedName(userProfile.username);
+            setSelectedProfile(userProfile);
             // console.log('in useEffect, selectedName is ', selectedName);
             if (messageState && Object.keys(messageState).length) {
 
@@ -286,7 +288,21 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
     return (
         <div id='selected-messages'>
             <div id='message-panel'>
-                <div id='message-header'></div>
+                <div id='message-header'>
+                    {selectedProfile && (
+                        <div id='message-selected-profile-info'>
+                            {selectedProfile.imgUrl && (
+                                <div id='message-selected-profile-image' style={{backgroundImage: `url(${selectedProfile.imgUrl})`}} />
+                            )}
+                            {(!selectedProfile.imgUrl) && (
+                                <i className="fa-solid fa-circle-user message-selected-no-profile-image"></i>
+                            )}
+                            <div id='message-selected-profile-username'>
+                                {selectedProfile.username}
+                            </div>
+                        </div>
+                    )}
+                </div>
                 <div id='message-display'>
                     {errors.map((error, ind) => (
                         <div key={ind} className='message-error'>
@@ -375,7 +391,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
                         <textarea
                             id='message-input'
                             wrap='soft'
-                            placeholder='Type your message here'
+                            placeholder='Type your message here, then hit send'
                             value={chatInput}
                             onChange={updateChatInput}
                         />
