@@ -257,6 +257,8 @@ def validate_birthday(form, field):
         field.errors.append(f'Per regulations handed down by the Time Council, time travelers are not permitted to use this app (Please enter a year between 1900 and {thirteen_years_ago})')
     if year <= current_year and year > thirteen_years_ago:
         field.errors.append('Must be at least 13 years of age to use this app')
+    if year == thirteen_years_ago and month > current_month:
+        field.errors.append('Must be at least 13 years of age to use this app')
     if year == thirteen_years_ago and month == current_month and day > current_day:
         field.errors.append('Must be at least 13 years of age to use this app')
 
