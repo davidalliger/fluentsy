@@ -54,6 +54,19 @@ option {
     align-items: center;
 }
 
+#menu-title {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: normal;
+    color: darkgray
+}
+
+#menu-title-username {
+    font-weight: bold;
+}
+
 .basic-form-wide {
     width: 500px;
     box-sizing: border-box;
@@ -70,6 +83,7 @@ option {
     font-size: 12px;
     text-align: center;
     background-color: #F5F6F9;
+    margin-top: 15px;
 }
 
 .basic-form-small {
@@ -113,6 +127,26 @@ option {
     margin: 0;
     padding-left: 15px;
 }
+
+.fa-solid.fa-earth-americas {
+    margin-right: 12px;
+    margin-left: 1px;
+    color: #F14052;
+    font-size: 22px;
+    /* padding-top: 10px; */
+}
+/* .home-earth-icon {
+
+} */
+
+#landing-page-list-1,
+#landing-page-list-2,
+#landing-page-list-3 {
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+}
+
 
 .basic-form-button-div {
     width: 100%;

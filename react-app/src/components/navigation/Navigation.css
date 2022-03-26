@@ -1,6 +1,6 @@
 #nav-bar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    /* grid-template-columns: repeat(3, 1fr); */
     justify-content: space-between;
     background-color: #F14052;
     color: black;
@@ -20,10 +20,69 @@
     z-index: 1;
 }
 
+.nav-home {
+    /* margin-right: 20px; */
+    color: #ffeaea;
+    font-size: 20px;
+}
+
+/* #nav-home:active,
+#nav-users:active,
+#nav-messages:active {
+    color:white;
+    font-size: 25px;
+} */
+
+/* .active {
+    color:white;
+    font-size: 25px;
+} */
+
+.nav-users {
+    /* margin-right: 20px; */
+    color: #ffeaea;
+    font-size: 20px;
+}
+
+.nav-messages {
+    /* margin-right: 24px; */
+    color: #ffeaea;
+    font-size: 21px;
+}
+
+#session-icons {
+    display: flex;
+    align-items: center;
+    /* font-size: 20px; */
+}
+
 #nav-title-column {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+.nav-icon-section {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile-button-icon {
+    margin-left: 15px;
+}
+
+.nav-selected {
+    color: white;
+    font-size: 24px;
+    /* margin-right: 18px; */
+}
+
+.nav-selected-messages {
+    color: white;
+    font-size: 25px;
+    margin-right: 22px;
 }
 
 #nav-center-column {
@@ -31,6 +90,7 @@
     justify-content: center;
     align-items: center;
 }
+
 
 #nav-right-column {
     display: flex;
@@ -105,7 +165,7 @@
     top: 83px;
     right: 40px;
     display: flex;
-    width: 280px;
+    width: 220px;
     flex-direction: column;
     align-items: center;
     padding: 10px 0;
@@ -123,11 +183,18 @@
     cursor: pointer;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
 
 }
 
 .menu-item:hover {
     background-color: rgb(231, 231, 231);
+}
+
+#footer-about {
+    margin-right: 5px;
+    /* font-weight: bold; */
+    color: gray;
+    font-size: 14px;
 }

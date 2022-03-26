@@ -14,6 +14,16 @@
     font-weight: bold;
 }
 
+#message-conversation-title {
+    height: 60px;
+    border-bottom: 1px solid lightgray;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
 .message-bubble {
     background-color: white;
     width: 300px;
@@ -110,7 +120,7 @@
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 60px;
-    height: 30px;
+    height: 40px;
 }
 
 #message-input {
@@ -147,13 +157,41 @@
 }
 
 #message-header {
-    min-height: 50px;
+    min-height: 60px;
     border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
 }
 
 #selected-messages {
     min-width: 400px;
 
+}
+
+#message-selected-profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+}
+
+#message-selected-profile-info {
+    display: flex;
+    align-items: center;
+}
+
+#message-selected-profile-username {
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+.message-selected-no-profile-image {
+    margin-left: 5px;
+    font-size: 50px;
+    color: lightgray
 }
 
 .message-display-title-div {

@@ -23,15 +23,24 @@ const LandingPage = () => {
                     <div id='landing-page-intro-text-div'>
                         <h1>Meet language learners around the world!</h1>
                         <div id='landing-page-list'>
-                            <p id='landing-page-list-1'>
+                            <div id='landing-page-list-1'>
+                                <div className='home-earth-icon'>
+                                    <i class="fa-solid fa-earth-americas"></i>
+                                </div>
                                 Practice your conversation skills with native speakers
-                            </p>
-                            <p id='landing-page-list-2'>
+                            </div>
+                            <div id='landing-page-list-2'>
+                                <div className='home-earth-icon'>
+                                    <i class="fa-solid fa-earth-americas"></i>
+                                </div>
                                 Connect instantly with other users via live chat
-                            </p>
-                            <p id='landing-page-list-3'>
+                            </div>
+                            <div id='landing-page-list-3'>
+                                <div className='home-earth-icon'>
+                                    <i class="fa-solid fa-earth-americas"></i>
+                                </div>
                                 Have fun while broadening your cultural horizons
-                            </p>
+                            </div>
                         </div>
                         <button id='landing-page-get-started' onClick={() => setShowSignUpModal(true)}>Get Started</button>
                         <SignUpModal showSignUpModal={showSignUpModal} setShowSignUpModal={setShowSignUpModal} />

@@ -67,6 +67,9 @@ const ProfileButton = () => {
             </div>
             {showMenu && (
                 <div id='menu'>
+                    <div id='menu-title'>
+                        Logged in as: <span id='menu-title-username'>{user.username}</span>
+                    </div>
                     <div className='menu-item' onClick={handleProfile}>
                         My Profile
                     </div>

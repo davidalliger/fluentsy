@@ -3,6 +3,9 @@
 const Footer = () => {
     return (
         <div id="footer">
+            <div id='footer-about'>
+                About:
+            </div>
             <a className='footer-links' href='https://github.com/davidalliger/' target='_blank'>
                 <i class="fa-brands fa-github"></i>
             </a>
