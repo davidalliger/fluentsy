@@ -52,10 +52,10 @@ def handle_chat(data):
     room = data['recipient_id']
     self = data['sender_id']
     if not data['content']:
-        error_message = {'message': 'Message cannot be empty', 'recipient_id': data['recipient_id'], 'content': data['content']}
+        error_message = {'message': 'Message cannot be empty', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)
     elif len(data['content']) > 255:
-        error_message = {'message': 'Message must be 255 characters or less', 'recipient_id': data['recipient_id'], 'content': data['content']}
+        error_message = {'message': 'Message must be 255 characters or less', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)
     else:
         new_message = Message()
@@ -66,8 +66,10 @@ def handle_chat(data):
         db.session.commit()
         # for room in rooms:
         response = new_message.to_dict()
+        error_message = {'none': 'none'}
         emit('chat', response, to=room)
         emit('chat', response, to=self)
+        emit('error', error_message, to=self)
 
 
 @socketio.on('edit_chat')
@@ -75,10 +77,10 @@ def edit_chat(data):
     room = data['recipient_id']
     self = data['sender_id']
     if not data['content']:
-        error_message = {'message': 'Message cannot be empty', 'recipient_id': data['recipient_id']}
+        error_message = {'message': 'Message cannot be empty', 'type': 'edit', 'content': data['content']}
         emit('error', error_message, to=self)
     elif len(data['content']) > 255:
-        error_message = {'message': 'Message must be 255 characters or less', 'recipient_id': data['recipient_id']}
+        error_message = {'message': 'Message must be 255 characters or less', 'type': 'edit', 'content': data['content']}
         emit('error', error_message, to=self)
     else:
         message_id = data['id']
@@ -88,8 +90,10 @@ def edit_chat(data):
         # response = {'id': edit_message.id, 'recipient_id': edit_message.recipient_id, 'content': edit_message.content, 'sender_id': edit_message.sender_id}
         # response_dict = dict(response)
         response = edit_message.to_dict()
+        error_message = {'none': 'none'}
         emit('edit_chat', response, to=room)
         emit('edit_chat', response, to=self)
+        emit('error', error_message, to=self)
 
 
 @socketio.on('delete_chat')

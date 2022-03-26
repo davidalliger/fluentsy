@@ -54,9 +54,6 @@ function App() {
         socket.on('delete_chat', payload => {
             dispatch(removeMessage(payload, +user.id));
         })
-        socket.on('error', error_message => {
-            dispatch(errorMessage(error_message, error_message.recipient_id));
-        })
       } else {
         dispatch(clearMessages());
       }

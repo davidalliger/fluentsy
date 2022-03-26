@@ -12,9 +12,9 @@ const Messages = () => {
     const { currentCorrespondent } = location.state;
     // console.log(currentCorrespondent);
     // const { currentCorrespondentId } = location.state;
-    const localMessageState = {...messageState};
-    delete localMessageState['errors'];
-    const correspondents = Object.keys(localMessageState);
+    // const localMessageState = {...messageState};
+    // delete localMessageState['errors'];
+    const correspondents = Object.keys(messageState);
     const [selected, setSelected] = useState(currentCorrespondent ? currentCorrespondent.userId : null);
     // console.log('in messages, currentCorrespondent is ', currentCorrespondent);
     // console.log('in messages, selected is ', selected);
@@ -41,7 +41,7 @@ const Messages = () => {
                 {correspondents && (
                     <div id='correspondent-list'>
                         {correspondents.map((correspondentId, ind) => {
-                            const correspondentMessageState = localMessageState[correspondentId];
+                            const correspondentMessageState = messageState[correspondentId];
                             // const correspondentMessageIds = Object.keys(correspondentMessageState);
                             const correspondentMessages = Object.values(correspondentMessageState);
                             const mostRecent = correspondentMessages[correspondentMessages?.length -1]
