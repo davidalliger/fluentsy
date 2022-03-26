@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import SignUpModal from "../../auth/signup/SignUpModal";
 import ProfilesFeed from "../../profiles/ProfilesFeed";
 import './LandingPage.css'
-import myImage from '../../../images/landing-page_small_good.jpg'
+import myImage from '../../../images/landing-page_small.jpeg'
 
 const LandingPage = () => {
     const [showSignUpModal, setShowSignUpModal] = useState(false);

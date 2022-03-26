@@ -111,7 +111,7 @@ option {
 .basic-form-errors-ul {
 
     margin: 0;
-    /* padding-left: 15px; */
+    padding-left: 15px;
 }
 
 .basic-form-button-div {
