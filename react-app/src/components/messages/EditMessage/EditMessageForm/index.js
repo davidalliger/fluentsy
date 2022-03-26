@@ -6,11 +6,12 @@ let messageForm;
 const EditMessageForm = ({user, editPayload, sendEditMessage, messageToEdit, showEditMessageModal, setShowEditMessageModal, setEditPayload, selected, editErrors, setEditErrors}) => {
     // const {about, id, username, userId, imgUrl, country, state, timezone, birthday, displayAge} = userProfile;
     // const [editErrors, setEditErrors] = useState([]);
-    const [currentErrors, setCurrentErrors] = useState([]);
+    // const [currentErrors, setCurrentErrors] = useState([]);
     const [content, setContent] = useState(messageToEdit.content);
-    const [editAttempt, setEditAttempt] = useState(false);
-    const [editHandled, setEditHandled] = useState(false);
-    const messageState = useSelector(state=> state.messages);
+    const [showEditErrors, setShowEditErrors] = useState(false);
+    // const [editAttempt, setEditAttempt] = useState(false);
+    // const [editHandled, setEditHandled] = useState(false);
+    // const messageState = useSelector(state=> state.messages);
     console.log('showing editmessagemodal form, showEditMessageModal is ', showEditMessageModal);
 
     // useEffect(() => {
@@ -101,22 +102,42 @@ const EditMessageForm = ({user, editPayload, sendEditMessage, messageToEdit, sho
         setContent(e.target.value);
         if (e.target.value.length > 0 && e.target.value.length <= 255) {
             setEditErrors([]);
+            setShowEditErrors(false);
         }
         if (e.target.value.length > 255) {
             setEditErrors(['Message must be 255 characters or less']);
         }
+        console.log(editErrors);
+        if (e.target.value.length === 0) {
+            if (editErrors.pop() === 'Message must be 255 characters or less') {
+            setEditErrors([]);
+            setShowEditErrors(false);
+            }
+        }
     }
+
+    useEffect(() => {
+        if (editErrors?.length) {
+            setShowEditErrors(true);
+        }
+    }, [editErrors]);
 
     return (
         <form
             onSubmit={handleSubmit}
             className='basic-form-wide'
         >
-            <div>
-                {editErrors && editErrors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
-                ))}
-            </div>
+            {showEditErrors && (
+                    <div className='basic-form-errors'>
+                        <ul className='basic-form-errors-ul'>
+                            {editErrors.map((error, ind) => (
+                            <li key={ind} className='basic-form-errors-li'>
+                                {error}
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             <h2>Edit your message</h2>
             <div className='basic-form-field'>
                 <textarea
@@ -148,5 +169,6 @@ const EditMessageForm = ({user, editPayload, sendEditMessage, messageToEdit, sho
         </form>
     )
 }
+
 
 export default EditMessageForm;
