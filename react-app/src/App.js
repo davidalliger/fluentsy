@@ -18,6 +18,7 @@ import {io} from 'socket.io-client';
 import { getLanguages } from './store/languages';
 import LanguagesPage from './components/languages/LanguagesPage'
 import Footer from './components/navigation/Footer'
+import HomePage from './components/home/HomePage';
 
 let socket;
 
@@ -106,7 +107,12 @@ function App() {
               <LanguagesPage />
             </ProtectedRoute>
             <Route path='/' exact={true} >
-              <LandingPage />
+              {user && (
+                <HomePage />
+              )}
+              {!user && (
+                <LandingPage />
+              )}
             </Route>
           </Switch>
           <Footer />

@@ -17,6 +17,7 @@ const ProfilesFeed = () => {
         if (profile.userId === +user.id) profileMatch = profile;
         return profileMatch;
     }, null);
+    const showProfiles = profiles.filter(profile => profile.id !== userProfile.id);
 
     useEffect(() => {
 
@@ -36,7 +37,7 @@ const ProfilesFeed = () => {
 
     return (
         <div id='profiles-feed-page'>
-            {profiles.map(profile => (
+            {showProfiles.map(profile => (
                 <Link  className='profiles-feed-link' key={profile.id} to={`/users/${profile.userId}`}>
                     <div className='profiles-feed-container'>
                         <div className='profiles-feed-image'>

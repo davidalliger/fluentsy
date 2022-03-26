@@ -1,0 +1,164 @@
+#homepage {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: auto;
+}
+
+#greetings {
+    font-size: 70px;
+    font-weight: bold;
+    font-style: italic;
+    animation-duration:3.3s;
+    animation-name: fadeinfadeout;
+    animation-iteration-count: infinite;
+    margin-bottom: 40px;
+}
+
+@keyframes fadeinfadeout {
+    0% {
+        color: transparent
+    }
+
+    5% {
+        color: transparent;
+    }
+    50% {
+        color: #313140;
+    }
+
+    70% {
+        color: #313140;
+    }
+
+    95% {
+        color: transparent;
+    }
+
+    100% {
+        color: transparent;
+    }
+}
+
+#homepage-new-users-title-div {
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 900px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.homepage-user-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100px;
+    height: 100%;
+    padding-right: 10px;
+    border-right: 1px solid lightgray
+}
+
+.homepage-user-link {
+    text-decoration: none;
+    color: black;
+}
+
+.homepage-user-container {
+    padding: 20px;
+    margin: 5px;
+    /* width: 900px; */
+    height: 200px;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.homepage-user-container p {
+    margin: 5px 0;
+}
+
+.homepage-image {
+    display: flex;
+    align-items: flex-start;
+    /* height: 100%; */
+    box-sizing: border-box;
+}
+
+.homepage-user-image {
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    overflow: hidden;
+    /* display: flex;
+    justify-content: center; */
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-clip: border-box;
+
+}
+
+.homepage-user-no-image {
+    font-size: 60px;
+    color: lightgray;
+}
+
+.homepage-user-basic-info {
+    margin-top: 10px;
+    margin-left: 3px;
+    display: flex;
+    /* height: 100%; */
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.homepage-username h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+#homepage-about-section {
+    width: 920px;
+    margin-bottom: 40px;
+    /* font-weight: bold; */
+    line-height: 30px;
+    /* color: gray; */
+    font-size: 18px;
+    font-style: italic;
+}
+
+.homepage-location,
+.homepage-age {
+    font-size: 12px;
+}
+
+.homepage-user-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 150px;
+    height: 100%;
+    box-sizing: border-box;
+    /* padding-right: 10px; */
+}
+
+#home-page-new-users-area {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
