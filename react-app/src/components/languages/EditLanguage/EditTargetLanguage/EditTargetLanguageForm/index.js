@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import{ updateLanguage } from '../../../../../store/languages'
 import { languages, levelsWithDescriptions, levels } from '../../../../../utils';
 
 const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
     const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
     const [targetLanguage, setTargetLanguage] = useState(editTargetLanguage.name);
     const [level, setLevel] = useState(editTargetLanguage.level);
     const dispatch = useDispatch();
@@ -22,12 +23,20 @@ const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
         const data = await dispatch(updateLanguage(payload));
         if (data.errors) {
             setErrors(data.errors);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.name) {
             setShowModal(false);
         } else {
             setErrors(data);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         }
     }
+
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors]);
 
     // console.log('Errors is ', errors);
 
@@ -36,6 +45,17 @@ const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
             onSubmit={handleSubmit}
             className='basic-form-wide'
         >
+            {showErrors && (
+                <div className='basic-form-errors'>
+                    <ul className='basic-form-errors-ul'>
+                        {errors.map((error, ind) => (
+                        <li key={ind} className='basic-form-errors-li'>
+                            {error}
+                        </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             <h2>Edit Target Language</h2>
             {/* <p>What is your native language?</p> */}
             <div className='basic-form-field'>
@@ -97,11 +117,6 @@ const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
                 >
                     Submit
                 </button>
-            </div>
-            <div>
-                {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
-                ))}
             </div>
         </form>
     )

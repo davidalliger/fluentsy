@@ -99,12 +99,12 @@ function App() {
             <Route path='/chat' exact={true} >
               <Chat />
             </Route>
-            <Route path='/messages' exact={true} >
+            <ProtectedRoute path='/messages' exact={true} >
               <Messages />
-            </Route>
-            <Route path='/languages' exact={true} >
+            </ProtectedRoute>
+            <ProtectedRoute path='/languages' exact={true} >
               <LanguagesPage />
-            </Route>
+            </ProtectedRoute>
             <Route path='/' exact={true} >
               <LandingPage />
             </Route>

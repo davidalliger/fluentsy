@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../../../store/profiles";
 
 const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
     const {about, id, username, userId, imgUrl, country, state, timezone, birthday, displayAge} = userProfile;
     const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
     const [aboutInfo, setAboutInfo] = useState(about);
     const dispatch = useDispatch();
 
@@ -26,19 +27,38 @@ const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
         const data = await dispatch(updateProfile(editProfile));
         if (data.errors) {
             setErrors(data.errors);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.id) {
             setShowEditAboutModal(false);
             return;
         } else {
             setErrors(data);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         }
     }
+
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors]);
 
     return (
         <form
             onSubmit={handleSubmit}
             className='basic-form-wide'
         >
+            {showErrors && (
+                <div className='basic-form-errors'>
+                    <ul className='basic-form-errors-ul'>
+                        {errors.map((error, ind) => (
+                        <li key={ind} className='basic-form-errors-li'>
+                            {error}
+                        </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             <h2>Edit About</h2>
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
@@ -71,11 +91,6 @@ const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
                 >
                     Submit
                 </button>
-            </div>
-            <div>
-                {errors && errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
-                ))}
             </div>
         </form>
     )

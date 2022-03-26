@@ -15,6 +15,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
     const [day, setDay] = useState(findDay(birthday));
     const [displayAge, setDisplayAge] = useState(userProfile.displayAge);
     const [showState, setShowState] = useState(userProfile.state ? true : false);
+    const [showErrors, setShowErrors] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -55,19 +56,38 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
         const data = await dispatch(updateProfile(editProfile));
         if (data.errors) {
             setErrors(data.errors);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.id) {
             setShowEditHeaderModal(false);
             return;
         } else {
             setErrors(data);
+            document.querySelector('.basic-form-wide').scrollTop = 0;
         }
     }
+
+    useEffect(() => {
+        if (errors?.length) {
+            setShowErrors(true);
+        }
+    }, [errors]);
 
     return (
         <form
             className='basic-form-wide'
             onSubmit={handleSubmit}
         >
+            {showErrors && (
+                <div className='basic-form-errors'>
+                    <ul className='basic-form-errors-ul'>
+                        {errors.map((error, ind) => (
+                        <li key={ind} className='basic-form-errors-li'>
+                            {error}
+                        </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             <h2>Edit Basic Info</h2>
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
@@ -210,11 +230,6 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
                 >
                     Submit
                 </button>
-            </div>
-            <div>
-                {errors.map((error, ind) => (
-                    <div key={ind}>{error}</div>
-                ))}
             </div>
         </form>
     )

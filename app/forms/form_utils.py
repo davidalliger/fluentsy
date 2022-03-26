@@ -182,7 +182,19 @@ def validate_birthday(form, field):
     thirteen_years_ago = current_year - 13
     birthday = field.data
     parts = birthday.split(', ')
+    emptyErrors = 0
     intErrors = 0
+    if not parts[1]:
+        field.errors.append('Please enter a month')
+        emptyErrors += 1
+    if not parts[2]:
+        field.errors.append('Please enter a day')
+        emptyErrors += 1
+    if not parts[0]:
+        field.errors.append('Please enter a year')
+        emptyErrors += 1
+    if emptyErrors > 0:
+        return
     try:
         int(parts[1])
     except ValueError:
@@ -204,7 +216,7 @@ def validate_birthday(form, field):
     month = int(parts[1])
     day = int(parts[2])
     if month not in range(1,13):
-        field.errors.append('Month must be a number between')
+        field.errors.append('Month must be a number between 1 and 12')
     if month == 1:
         if day not in range(1,32):
             field.errors.append('Please select a valid date')
