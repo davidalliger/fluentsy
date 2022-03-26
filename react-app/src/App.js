@@ -9,7 +9,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import ProfilesFeed from './components/profiles/ProfilesFeed';
 import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
-import { getMessages, addMessage, editMessage, removeMessage, clearMessages } from './store/messages';
+import { getMessages, addMessage, editMessage, removeMessage, errorMessage, clearMessages } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
 import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
