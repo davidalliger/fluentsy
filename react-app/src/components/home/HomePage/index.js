@@ -52,7 +52,7 @@ const HomePage = () => {
             } else {
                 setShowNoProfileModal(false);
             }
-        }, 700)
+        }, 1500)
 
 
         return () => clearTimeout(timeOut);
