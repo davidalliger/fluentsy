@@ -24,12 +24,12 @@ def user(id):
 @user_routes.route('/<int:id>/profiles')
 @login_required
 def check_profile(id):
+
     profile = Profile.query.filter(Profile.user_id==id).first()
     if profile:
-        message = { 'exists': 'exists' }
+        return { 'exists': 'exists' }
     else:
-        message = { 'none': 'none' }
-    return message
+        return { 'none': 'none' }
 
 # Get messages for currently logged-in user
 
