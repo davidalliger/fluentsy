@@ -48,6 +48,7 @@
     /* margin-right: 24px; */
     color: #ffeaea;
     font-size: 21px;
+    cursor: pointer;
 }
 
 #session-icons {

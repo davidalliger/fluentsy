@@ -43,12 +43,15 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             } else {
                 setShowLevel(true);
                 setErrors([]);
+                setShowErrors(false);
             }
         } else if (targetLanguage) {
             setShowLevel(true);
             setErrors([]);
+            setShowErrors(false);
         } else {
             setErrors([]);
+            setShowErrors(false);
         }
     }, [targetLanguage])
 

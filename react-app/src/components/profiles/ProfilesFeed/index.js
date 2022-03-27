@@ -14,10 +14,10 @@ const ProfilesFeed = () => {
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [showNoProfileModal, setShowNoProfileModal] = useState(false);
     const userProfile = profiles?.reduce((profileMatch, profile) => {
-        if (profile.userId === +user.id) profileMatch = profile;
+        if (profile.userId === +user?.id) profileMatch = profile;
         return profileMatch;
     }, null);
-    const showProfiles = profiles.filter(profile => profile.id !== userProfile.id);
+    const showProfiles = profiles?.filter(profile => profile?.id !== userProfile?.id);
 
     useEffect(() => {
 

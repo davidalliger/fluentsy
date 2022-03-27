@@ -84,7 +84,7 @@ const PreviewLanguages = ({userProfile}) => {
     // }, [primaryNativeLanguage, primaryTargetLanguage])
 
     useEffect(() => {
-        if (nativeLanguages.length > 2) {
+        if (nativeLanguages.length > 1) {
             setNativeLimitMet(true);
         } else {
             setNativeLimitMet(false);
@@ -92,7 +92,7 @@ const PreviewLanguages = ({userProfile}) => {
     }, [nativeLanguages])
 
     useEffect(() => {
-        if (targetLanguages.length > 2) {
+        if (targetLanguages.length > 1) {
             setTargetLimitMet(true);
         } else {
             setTargetLimitMet(false);
@@ -122,7 +122,7 @@ const PreviewLanguages = ({userProfile}) => {
                             )}
                             {nativeLimitMet && (
                                 <>
-                                    {nativeLanguages?.slice(0,0).map((language, index) => (
+                                    {nativeLanguages?.slice(0,1).map((language, index) => (
                                         <div key={index} className='preview-language-level'>
                                             {language.name}
                                             <Level  level={language.level} />
@@ -150,7 +150,7 @@ const PreviewLanguages = ({userProfile}) => {
                             )}
                             {targetLimitMet && (
                                 <>
-                                    {targetLanguages?.slice(0,0).map((language, index) => (
+                                    {targetLanguages?.slice(0,1).map((language, index) => (
                                         <div key={index} className='preview-language-level'>
                                             {language.name}
                                             <Level  level={language.level} />
