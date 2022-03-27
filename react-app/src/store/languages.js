@@ -2,11 +2,13 @@ const LOAD = 'languages/LOAD';
 const ADD = 'languages/ADD';
 const EDIT = 'languages/EDIT';
 const REMOVE = 'languages/REMOVE';
+const CLEAR = '/languages/CLEAR';
 
 const loadLanguages = languages => ({type: LOAD, languages});
 const addLanguage = new_language => ({type: ADD, new_language});
 const editLanguage = edit_language => ({type: EDIT, edit_language});
 const removeLanguage = delete_language => ({type: REMOVE, delete_language});
+export const clearLanguages = id => ({type: CLEAR, id})
 
 export const getLanguages = () => async dispatch => {
     const response = await fetch('/api/languages/');
@@ -167,7 +169,10 @@ const languagesReducer = (state= {}, action) => {
             } else {
                 delete newState[action.delete_language.userId][target][action.delete_language.id];
             }
-            return newState
+            return newState;
+        case CLEAR:
+            delete newState[action.id];
+            return newState;
         default:
             return newState;
 

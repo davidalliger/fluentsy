@@ -2,14 +2,16 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deleteProfile } from "../../../../store/profiles";
+import {clearLanguages } from '../../../../store/languages'
 
-const DeleteProfileForm = ({setShowModal, id}) => {
+const DeleteProfileForm = ({setShowModal, id, user}) => {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const history = useHistory();
     const handleSubmit = async(e) => {
         e.preventDefault();
         const data = await dispatch(deleteProfile(id));
+        dispatch(clearLanguages(user.id))
         if (data.errors) {
             setErrors(data.errors);
         } else if (data.success) {
