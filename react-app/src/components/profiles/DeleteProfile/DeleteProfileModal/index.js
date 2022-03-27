@@ -1,12 +1,12 @@
 import Modal from '../../../other/Modal';
 import DeleteProfile from '../DeleteProfile'
 
-const DeleteProfileModal = ({showDeleteModal, setShowDeleteModal, id}) => {
+const DeleteProfileModal = ({showDeleteModal, setShowDeleteModal, id, user}) => {
     return (
         <>
             {showDeleteModal && (
                 <Modal onClose={()=> setShowDeleteModal(false)}>
-                    <DeleteProfile id={id} setShowModal={setShowDeleteModal} />
+                    <DeleteProfile user={user} id={id} setShowModal={setShowDeleteModal} />
                 </Modal>
             )}
         </>

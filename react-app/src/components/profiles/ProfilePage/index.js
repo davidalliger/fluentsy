@@ -168,7 +168,7 @@ const ProfilePage = () => {
                             <button className='profile-page-delete-button' onClick={handleDelete}>Delete Profile</button>
                         </div>
                     )}
-                    <DeleteProfileModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={userProfile?.id}/>
+                    <DeleteProfileModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={userProfile?.id} user={user}/>
                     {showNoProfileModal && (
                         <Modal onClose={()=> setShowNoProfileModal(false)}>
                             <NoProfile setShowModal={setShowNoProfileModal} setIgnore={setIgnore}/>
