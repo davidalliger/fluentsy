@@ -28,7 +28,7 @@ const ProfilesFeed = () => {
             } else {
                 setShowNoProfileModal(false);
             }
-        }, 1500)
+        }, 1800)
 
 
         return () => clearTimeout(timeOut);
