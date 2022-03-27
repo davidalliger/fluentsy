@@ -45,14 +45,16 @@ const ProfilePage = () => {
 
 
     useEffect(() => {
-        (async() => {
-            console.log('in useEffect, checking for profile')
-            const response = await dispatch(checkProfileExists(id));
-            console.log('response is ', response);
-            if (response.not_found) {
-                history.push('/404-not-found');
-            }
-        })()
+        if (id) {
+            (async() => {
+                console.log('in useEffect, checking for profile')
+                const response = await dispatch(checkProfileExists(+id));
+                console.log('response is ', response);
+                if (response.none) {
+                    history.push('/404-not-found');
+                }
+            })()
+        }
     }, [])
 
     useEffect(() => {

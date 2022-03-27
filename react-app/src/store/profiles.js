@@ -25,7 +25,7 @@ export const getProfiles = () => async dispatch => {
 }
 
 export const checkProfileExists = (id) => async dispatch => {
-    const response = await fetch(`api/users/${id}/profiles`);
+    const response = await fetch(`/api/users/${id}/profiles`);
     if (response.ok) {
         const message = await response.json();
         return message;

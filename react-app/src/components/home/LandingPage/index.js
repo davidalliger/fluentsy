@@ -50,7 +50,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className='attribution-link'>
+                <div id='attribution-link'>
                     <a  href="https://www.freepik.com/vectors/people">People vector created by pikisuperstar - www.freepik.com</a>
                 </div >
             </div>

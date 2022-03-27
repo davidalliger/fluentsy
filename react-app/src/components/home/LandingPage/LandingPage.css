@@ -81,7 +81,7 @@
     justify-content: center;
 }
 
-.attribution-link a {
+#attribution-link a {
     color: darkgray;
     text-decoration: none;
 }
