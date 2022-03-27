@@ -1,0 +1,67 @@
+#not-found-page {
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 50px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    background-color: white;
+    align-items: center;
+}
+
+#not-found-container {
+    /* width: 900px; */
+    width: auto;
+    margin-right: 40px;
+}
+
+#not-found-title {
+    color: #F14052;
+    font-size: 30px;
+}
+
+#not-found-message {
+    margin: 40px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: gray;
+    /* font-style: italic; */
+}
+
+#not-found-home {
+    text-decoration: none;
+}
+
+#not-found-home-button {
+    color: white;
+    background-color: #F14052;
+    padding: 7px 17px;
+    border-radius: 10px;
+    /* margin-left: 10px; */
+    border: none;
+    cursor: pointer;
+}
+
+#not-found-image {
+    height: 500px;
+    width: 500px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.attribution-link-404 {
+    margin-top: 10px;
+}
+
+.attribution-link-404 a {
+    color: darkgray;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+#not-found-image-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

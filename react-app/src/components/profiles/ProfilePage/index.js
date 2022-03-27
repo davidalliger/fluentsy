@@ -1,5 +1,5 @@
-import { useParams, Link, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useParams, Link, Redirect, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import './ProfilePage.css'
 import { getAge } from '../../../utils';
 import { useEffect, useState } from 'react';
@@ -12,10 +12,13 @@ import Loading from '../../other/Loading';
 import Languages from '../../languages/ProfileLanguages';
 import NoProfile from '../NoProfile';
 import Modal from '../../other/Modal';
+import { checkProfileExists } from '../../../store/profiles';
 
 
 const ProfilePage = () => {
     const { id } = useParams();
+    const dispatch = useDispatch();
+    const history = useHistory();
     const user = useSelector(state => state.session.user)
     const profileState = useSelector(state => state.profiles);
     const profiles = Object.values(profileState);
@@ -42,10 +45,15 @@ const ProfilePage = () => {
 
 
     useEffect(() => {
-        if (!userProfile) {
-            return <Redirect to='/users'/>
-        }
-    }, [userProfile])
+        (async() => {
+            console.log('in useEffect, checking for profile')
+            const response = await dispatch(checkProfileExists(id));
+            console.log('response is ', response);
+            if (response.not_found) {
+                history.push('/404-not-found');
+            }
+        })()
+    }, [])
 
     useEffect(() => {
         if (hasProfile) {

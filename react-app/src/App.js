@@ -19,6 +19,7 @@ import { getLanguages } from './store/languages';
 import LanguagesPage from './components/languages/LanguagesPage'
 import Footer from './components/navigation/Footer'
 import HomePage from './components/home/HomePage';
+import NotFound from './components/other/404'
 
 let socket;
 
@@ -113,6 +114,12 @@ function App() {
               {!user && (
                 <LandingPage />
               )}
+            </Route>
+            <Route path='/404-not-found'>
+              <NotFound />
+            </Route>
+            <Route>
+              <NotFound />
             </Route>
           </Switch>
           <Footer />
