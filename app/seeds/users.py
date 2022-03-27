@@ -6,13 +6,25 @@ def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='Marnie', email='marnie@aa.io', password='password')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='Bobbie', email='bobbie@aa.io', password='password')
+    tim = User(
+        username='Tim', email='tim@aa.io', password='password')
+    zack = User(
+        username='Zack', email='zack@aa.io', password='password')
+    lisa = User(
+        username='Lisa', email='lisa@aa.io', password='password')
+    carl = User(
+        username='Carl', email='carl@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(tim)
+    db.session.add(zack)
+    db.session.add(lisa)
+    db.session.add(carl)
 
     db.session.commit()
 

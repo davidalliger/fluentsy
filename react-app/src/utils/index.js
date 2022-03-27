@@ -89,7 +89,7 @@ export const countries = [
     'Finland',
     'France',
     'Gabon',
-    'The Gambia',
+    'Gambia',
     'Georgia',
     'Germany',
     'Ghana',
