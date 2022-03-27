@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CreateProfileForms from '../CreateProfile/CreateProfileForms';
 
-const NoProfile = ({setShowModal, setIgnore}) => {
+const NoProfile = ({setShowModal}) => {
     const [showNoProfile, setShowNoProfile] = useState(true);
     const [showCreateProfile, setShowCreateProfile] = useState(false);
 
@@ -11,7 +11,6 @@ const NoProfile = ({setShowModal, setIgnore}) => {
     }
 
     const handleIgnore = () => {
-        setIgnore(true);
         setShowModal(false);
     }
 

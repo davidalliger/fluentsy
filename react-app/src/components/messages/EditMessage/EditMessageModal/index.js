@@ -1,12 +1,8 @@
 import Modal from '../../../other/Modal';
 import EditMessageForm from '../EditMessageForm';
 
-const EditMessageModal = ({user, editPayload, sendEditMessage, messageToEdit, setEditPayload, showEditMessageModal, setShowEditMessageModal, editErrors, setErrors, setEditErrors, setErrorReceived}) => {
-    console.log('mounting editmessagemodal, showEditMessageModal is ', showEditMessageModal);
+const EditMessageModal = ({user, editPayload, sendEditMessage, messageToEdit, setEditPayload, showEditMessageModal, setShowEditMessageModal, editErrors, setEditErrors}) => {
     const handleClose = () => {
-        // setErrors([]);
-        // setEditErrors([]);
-        // setErrorReceived([])
         setShowEditMessageModal(false);
     }
 

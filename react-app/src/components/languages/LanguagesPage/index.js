@@ -1,14 +1,12 @@
-import { useLocation, Redirect, Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import './LanguagesPage.css'
 import AddNativeLanguageModal from "../AddLanguage/AddNativeLanguage/AddNativeLanguageModal";
 import AddTargetLanguageModal from "../AddLanguage/AddTargetLanguage/AddTargetLanguageModal";
-import { useSelector, useDispatch } from "react-redux";
-// import { getLanguages } from '../../../store/languages';
+import { useSelector } from "react-redux";
 import DeleteLanguageModal from "../DeleteLanguage/DeleteLanguageModal";
 import EditNativeLanguageModal from "../EditLanguage/EditNativeLanguage/EditNativeLanguageModal";
 import EditTargetLanguageModal from "../EditLanguage/EditTargetLanguage/EditTargetLanguageModal";
-import { updateLanguage } from "../../../store/languages";
 import UpdatePrimaryNativeModal from "../EditLanguage/UpdatePrimaryNative/UpdatePrimaryNativeModal";
 import UpdatePrimaryTargetModal from "../EditLanguage/UpdatePrimaryTarget/UpdatePrimaryTargetModal";
 
@@ -28,14 +26,10 @@ const LanguagesPage = () => {
     const [editNativeLanguage, setEditNativeLanguage] = useState('');
     const [editTargetLanguage, setEditTargetLanguage] = useState('');
     const [loggedOut, setLoggedOut] = useState(false);
-    // const [nativeErrors, setNativeErrors] = useState([]);
-    // const [targetErrors, setTargetErrors] = useState([]);
     const [newNativePrimaryPayload, setNewNativePrimaryPayload] = useState(null);
     const [oldNativePrimaryPayload, setOldNativePrimaryPayload] = useState(null);
     const [newTargetPrimaryPayload, setNewTargetPrimaryPayload] = useState(null);
     const [oldTargetPrimaryPayload, setOldTargetPrimaryPayload] = useState(null);
-    // let deleteLanguageId;
-    const [languagesLoaded, setLanguagesLoaded] = useState();
     const [nativeLanguages, setNativeLanguages] = useState('');
     const [targetLanguages, setTargetLanguages] = useState('');
     const [primaryNativeLanguage, setPrimaryNativeLanguage] = useState('');
@@ -44,46 +38,32 @@ const LanguagesPage = () => {
     const [targetLanguagesLength, setTargetLanguagesLength] = useState(false);
     const user = useSelector(state => state.session.user);
     const languages = useSelector(state => state.languages);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) {
-            console.log(languages);
             const userLanguages = languages[user.id];
-            console.log(userLanguages);
             if (userLanguages) {
 
                 const nativeLanguagesWithPrimary = Object.values(userLanguages?.native);
-                console.log(nativeLanguagesWithPrimary);
                 const targetLanguagesWithPrimary = Object.values(userLanguages?.target);
-                console.log(targetLanguagesWithPrimary);
                 const getNativeLanguages = nativeLanguagesWithPrimary?.filter(language => !language.primary);
-                console.log(getNativeLanguages);
                 const getTargetLanguages = targetLanguagesWithPrimary?.filter(language => !language.primary);
-                console.log(getTargetLanguages);
                 const getPrimaryNativeLanguage = nativeLanguagesWithPrimary?.reduce((primary, language) => {
                     if (language.primary) {
                         primary = language;
                     }
                     return primary;
                 }, null);
-                console.log(getPrimaryNativeLanguage);
                 const getPrimaryTargetLanguage = targetLanguagesWithPrimary?.reduce((primary, language) => {
                     if (language.primary) {
                         primary = language;
                     }
                     return primary;
                 }, null);
-                console.log(getPrimaryTargetLanguage);
                 setNativeLanguages(getNativeLanguages);
                 setTargetLanguages(getTargetLanguages);
                 setPrimaryNativeLanguage(getPrimaryNativeLanguage);
                 setPrimaryTargetLanguage(getPrimaryTargetLanguage);
-                setLanguagesLoaded(true);
-                console.log(nativeLanguages);
-                console.log(targetLanguages);
-                console.log(primaryNativeLanguage);
-                console.log(primaryTargetLanguage);
             }
         }
     }, [languages]);
@@ -95,16 +75,11 @@ const LanguagesPage = () => {
         if (targetLanguages?.length) {
             setTargetLanguagesLength(true);
         }
-        console.log(nativeLanguages);
-        console.log(targetLanguages);
-        console.log(primaryNativeLanguage);
-        console.log(primaryTargetLanguage);
     }, [nativeLanguages, targetLanguages]);
 
     useEffect(()=> {
         if (primaryNativeLanguage) {
             setPrimaryNative(primaryNativeLanguage);
-            // console.log(primar)
         }
         if (primaryTargetLanguage) {
             setPrimaryTarget(primaryTargetLanguage);
@@ -145,21 +120,6 @@ const LanguagesPage = () => {
         setNewNativePrimaryPayload(newPrimaryPayload);
         setOldNativePrimaryPayload(oldPrimaryPayload);
         setShowUpdatePrimaryNativeModal(true);
-        // const newData = await dispatch(updateLanguage(newPrimaryPayload));
-        // const oldData = await dispatch(updateLanguage(oldPrimaryPayload));
-        // if (newData.errors) {
-        //     if (oldData.errors) {
-        //         setNativeErrors([...newData.errors, ...oldData.errors]);
-        //     } else {
-        //         setNativeErrors(newData.errors);
-        //     }
-        // } else if (oldData.errors) {
-        //     setNativeErrors(oldData.errors);
-        // } else if (newData.name && oldData.name) {
-        //     setPrimaryNative(newData);
-        // } else {
-        //     setNativeErrors(newData);
-        // }
     }
 
     const handlePrimaryTarget = async(e) => {
@@ -184,28 +144,10 @@ const LanguagesPage = () => {
         setNewTargetPrimaryPayload(newPrimaryPayload);
         setOldTargetPrimaryPayload(oldPrimaryPayload);
         setShowUpdatePrimaryTargetModal(true);
-        // const newData = await dispatch(updateLanguage(newPrimaryPayload));
-        // const oldData = await dispatch(updateLanguage(oldPrimaryPayload));
-        // if (newData.errors) {
-        //     if (oldData.errors) {
-        //         setTargetErrors([...newData.errors, ...oldData.errors]);
-        //     } else {
-        //         setTargetErrors(newData.errors);
-        //     }
-        // } else if (oldData.errors) {
-        //     setTargetErrors(oldData.errors);
-        // } else if (newData.name && oldData.name) {
-        //     setPrimaryTarget(newData);
-        // } else {
-        //     setTargetErrors(newData);
-        // }
     }
 
     const handleDeleteLanguage = e => {
-        console.log(e.currentTarget.id);
-        // deleteLanguageId = +e.currentTarget.id;
         setDeleteLanguageId(+e.currentTarget.id);
-        console.log(deleteLanguageId);
         setShowDeleteLanguageModal(true)
     }
 
@@ -226,14 +168,8 @@ const LanguagesPage = () => {
 
     return (
         <div id='languages-page'>
-            {/* {languagesLoaded && ( */}
                 <div id='languages-page-card'>
                     <div id='languages-page-native-languages'>
-                        {/* <div>
-                            {nativeErrors.map((error, ind) => (
-                                <div key={ind}>{error}</div>
-                            ))}
-                        </div> */}
                         <h2 className='languages-page-title'>My Native Languages</h2>
                         <p className='languages-page-description'>I grew up speaking these every day.</p>
                         <div id='languages-page-native-message'>
@@ -275,13 +211,6 @@ const LanguagesPage = () => {
                                     >
                                         <i className="fa-solid fa-pen"></i>
                                     </div>
-                                    {/* <div
-                                        id={primaryNativeLanguage?.id}
-                                        className='languages-page-native-delete'
-                                        onClick={handleDeleteLanguage}
-                                    >
-                                        <i className="fa-solid fa-trash-can"></i>
-                                    </div> */}
                                 </div>
                                 {nativeLanguagesLength && (
                                     <div>
@@ -335,11 +264,6 @@ const LanguagesPage = () => {
                         </div>
                     </div>
                     <div id='languages-page-target-languages'>
-                        {/* <div>
-                            {targetErrors.map((error, ind) => (
-                                <div key={ind}>{error}</div>
-                            ))}
-                        </div> */}
                         <h2 className='languages-page-title'>My Target Languages</h2>
                         <p className='languages-page-description'>I'm still learning these.</p>
                         <div id='languages-page-target-message'>
@@ -387,13 +311,6 @@ const LanguagesPage = () => {
                                         >
                                         <i className="fa-solid fa-pen"></i>
                                     </div>
-                                    {/* <div
-                                        id={primaryTargetLanguage?.id}
-                                        className='languages-page-target-delete'
-                                        onClick={handleDeleteLanguage}
-                                    >
-                                        <i className="fa-solid fa-trash-can"></i>
-                                    </div> */}
                                 </div>
                                 {targetLanguagesLength && (
                                     <div>
@@ -456,7 +373,6 @@ const LanguagesPage = () => {
                         Go to Profile
                     </button>
                 </Link>
-            {/* )} */}
         </div>
     )
 }

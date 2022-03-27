@@ -1,6 +1,5 @@
 #nav-bar {
     display: flex;
-    /* grid-template-columns: repeat(3, 1fr); */
     justify-content: space-between;
     background-color: #F14052;
     color: black;
@@ -15,37 +14,20 @@
     padding: 0 40px;
     box-sizing: border-box;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
-    /* position: relative; */
-    /* overflow: visible; */
     z-index: 1;
 }
 
 .nav-home {
-    /* margin-right: 20px; */
     color: #ffeaea;
     font-size: 20px;
 }
 
-/* #nav-home:active,
-#nav-users:active,
-#nav-messages:active {
-    color:white;
-    font-size: 25px;
-} */
-
-/* .active {
-    color:white;
-    font-size: 25px;
-} */
-
 .nav-users {
-    /* margin-right: 20px; */
     color: #ffeaea;
     font-size: 20px;
 }
 
 .nav-messages {
-    /* margin-right: 24px; */
     color: #ffeaea;
     font-size: 21px;
     cursor: pointer;
@@ -54,7 +36,6 @@
 #session-icons {
     display: flex;
     align-items: center;
-    /* font-size: 20px; */
 }
 
 #nav-title-column {
@@ -77,7 +58,6 @@
 .nav-selected {
     color: white;
     font-size: 24px;
-    /* margin-right: 18px; */
 }
 
 .nav-selected-messages {
@@ -97,14 +77,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /* position: relative;
-    z-index: 1000;
-    overflow: visible; */
 }
 
 #app-title-nav {
     font-size:25px;
-    /* font-weight: bolder; */
     color: white;
     font-family: 'Roboto Slab', sans-serif;
     display: flex;
@@ -137,21 +113,16 @@
     justify-content: center;
     align-items: center;
     color: #ffdddd;
-    /* background-color: rgb(200, 200, 200); */
     border-radius: 60%;
     font-size: 42px;
     cursor: pointer;
 }
 
 #profile-button:hover {
-    /* background-color: rgb(228, 228, 228); */
     color: #ffeaea
-    /* border-radius: 50%; */
-    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 #find-conversation-partners {
-    /* font-weight: normal; */
     font-size: 14px;
     color: white;
 }
@@ -174,12 +145,10 @@
     box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
     background-color: white;
     font-size: 14px;
-    /* overflow: show; */
 }
 
 .menu-item {
     color: black;
-    /* margin: 10px; */
     text-decoration: none;
     cursor: pointer;
     width: 100%;
@@ -195,7 +164,6 @@
 
 #footer-about {
     margin-right: 5px;
-    /* font-weight: bold; */
     color: gray;
     font-size: 14px;
 }
@@ -205,8 +173,6 @@
     width: 42px;
     border-radius: 50%;
     overflow: hidden;
-    /* display: flex;
-    justify-content: center; */
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

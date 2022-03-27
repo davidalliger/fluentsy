@@ -38,8 +38,6 @@ const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
         }
     }, [errors]);
 
-    // console.log('Errors is ', errors);
-
     return (
         <form
             onSubmit={handleSubmit}
@@ -57,7 +55,6 @@ const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
                 </div>
             )}
             <h2>Edit Target Language</h2>
-            {/* <p>What is your native language?</p> */}
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
                     <label htmlFor='native-language'>

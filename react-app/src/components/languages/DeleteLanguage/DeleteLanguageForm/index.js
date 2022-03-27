@@ -3,12 +3,10 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 const DeleteLanguageForm = ({setShowModal, id}) => {
-    console.log(' in delete form, deleteLanguageId is ', id)
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log('deleteLanguageId is ', id);
         const data = await dispatch(deleteLanguage(id));
         if (data.errors) {
             setErrors(data.errors);

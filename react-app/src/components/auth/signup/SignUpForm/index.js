@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../../../store/session';
-import NoProfile from '../../../profiles/NoProfile';
-import Modal from '../../../other/Modal';
 import LoginForm from '../../login/LoginForm'
 
 const SignUpForm = ({setShowSignUpModal}) => {
@@ -21,7 +19,6 @@ const SignUpForm = ({setShowSignUpModal}) => {
   const onSignUp = async (e) => {
     e.preventDefault();
     const data = await dispatch(signUp(username, email, password, repeatPassword));
-    // setShowForm(true);
     if (data) {
       setErrors(data)
       document.querySelector('.basic-form').scrollTop = 0;

@@ -5,12 +5,9 @@ import { Link } from 'react-router-dom';
 import './PreviewLanguages.css';
 
 const PreviewLanguages = ({userProfile}) => {
-    const user = useSelector(state => state.session.user);
     const languages = useSelector(state => state.languages);
     const [nativeLimitMet, setNativeLimitMet] = useState(false);
     const [targetLimitMet, setTargetLimitMet] = useState(false);
-    const [showEditLanguagesModal, setShowEditLanguagesModal] = useState(false);
-    // const languageState = useSelector(state => state.languages);
 
     const [nativeLanguages, setNativeLanguages] = useState('');
     const [targetLanguages, setTargetLanguages] = useState('');
@@ -22,40 +19,28 @@ const PreviewLanguages = ({userProfile}) => {
     useEffect(() => {
         if (userProfile) {
             const userLanguages = languages[userProfile.userId];
-            console.log(userLanguages);
             if (userLanguages) {
 
                 const nativeLanguagesWithPrimary = Object.values(userLanguages?.native);
-                console.log(nativeLanguagesWithPrimary);
                 const targetLanguagesWithPrimary = Object.values(userLanguages?.target);
-                console.log(targetLanguagesWithPrimary);
                 const getNativeLanguages = nativeLanguagesWithPrimary?.filter(language => !language.primary);
-                console.log(getNativeLanguages);
                 const getTargetLanguages = targetLanguagesWithPrimary?.filter(language => !language.primary);
-                console.log(getTargetLanguages);
                 const getPrimaryNativeLanguage = nativeLanguagesWithPrimary?.reduce((primary, language) => {
                     if (language.primary) {
                         primary = language;
                     }
                     return primary;
                 }, null);
-                console.log(getPrimaryNativeLanguage);
                 const getPrimaryTargetLanguage = targetLanguagesWithPrimary?.reduce((primary, language) => {
                     if (language.primary) {
                         primary = language;
                     }
                     return primary;
                 }, null);
-                console.log(getPrimaryTargetLanguage);
                 setNativeLanguages(getNativeLanguages);
                 setTargetLanguages(getTargetLanguages);
                 setPrimaryNativeLanguage(getPrimaryNativeLanguage);
                 setPrimaryTargetLanguage(getPrimaryTargetLanguage);
-                        // setLanguagesLoaded(true);
-                        // console.log(nativeLanguages);
-                        // console.log(targetLanguages);
-                        // console.log(primaryNativeLanguage);
-                        // console.log(primaryTargetLanguage);
             }
         }
     }, [languages]);
@@ -67,21 +52,7 @@ const PreviewLanguages = ({userProfile}) => {
         if (targetLanguages?.length) {
             setTargetLanguagesLength(true);
         }
-        console.log(nativeLanguages);
-        console.log(targetLanguages);
-        console.log(primaryNativeLanguage);
-        console.log(primaryTargetLanguage);
     }, [nativeLanguages, targetLanguages]);
-
-    // useEffect(()=> {
-    //     if (primaryNativeLanguage) {
-    //         setPrimaryNative(primaryNativeLanguage);
-    //         // console.log(primar)
-    //     }
-    //     if (primaryTargetLanguage) {
-    //         setPrimaryTarget(primaryTargetLanguage);
-    //     }
-    // }, [primaryNativeLanguage, primaryTargetLanguage])
 
     useEffect(() => {
         if (nativeLanguages.length > 1) {

@@ -36,7 +36,6 @@ export const createLanguage = (payload) => async dispatch => {
     });
     if (response.ok) {
         const new_language = await response.json();
-        console.log('in thunk, new language is ', new_language);
         dispatch(addLanguage(new_language))
         return new_language;
     } else if (response.status < 500) {
@@ -129,8 +128,6 @@ const languagesReducer = (state= {}, action) => {
             if (newState[action.new_language.userId]) {
                 if (action.new_language.native) {
                     if (newState[action.new_language.userId][native]){
-                        console.log('in reducer!!!')
-                        // newState[language.userId][native][language.id] = language;
                         newState[action.new_language.userId][native][action.new_language.id] = action.new_language;
                     } else {
                         newState[action.new_language.userId][native] = {}
@@ -154,7 +151,6 @@ const languagesReducer = (state= {}, action) => {
                     newState[action.new_language.userId][target][action.new_language.id] = action.new_language;
                 }
             }
-            // newState[action.new_language.id] = action.new_language;
             return newState;
         case EDIT:
             if (action.edit_language.native) {

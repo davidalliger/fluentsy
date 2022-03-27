@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
-import{ createLanguage } from '../../../store/languages'
 import { addProfileLanguages } from '../../../store/profiles';
 import { languages, levels, levelsWithDescriptions } from '../../../utils';
 import '../../../index.css'
@@ -15,31 +14,11 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             setShowErrors(true);
         }
     }, [errors])
-    // useEffect(() => {
-    //     if (targetLanguage && nativeLanguage) {
-    //         if (nativeLanguage === targetLanguage) {
-    //             // setTargetLanguage('');
-    //             setErrors(['Error: Native language and target language cannot be the same.'])
-    //             if (showLevel) {
-                    // setShowLevel(true);
-    //             }
-    //         } else {
-    //             setShowLevel(true);
-    //             setErrors([]);
-    //         }
-    //     } else {
-    //         setErrors([]);
-    //     }
-    // }, [nativeLanguage])
 
     useEffect(() => {
         if (targetLanguage && nativeLanguage) {
             if (nativeLanguage === targetLanguage) {
-                // setTargetLanguage('');
-                // setErrors(['Error: Native language and target language cannot be the same.'])
-                // if (showLevel) {
                     setShowLevel(true);
-                // }
             } else {
                 setShowLevel(true);
                 setErrors([]);
@@ -53,26 +32,11 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             setErrors([]);
             setShowErrors(false);
         }
-    }, [targetLanguage])
+    }, [targetLanguage, nativeLanguage])
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        // const native = {
-        //     name: nativeLanguage,
-        //     user_id: user.id,
-        //     level: 'Native',
-        //     native: true,
-        //     primary: true
-        // };
-        // const target = {
-        //     name: targetLanguage,
-        //     user_id: user.id,
-        //     level: level,
-        //     native: false,
-        //     primary: true
-        // };
-        // console.log(native);
-        // console.log(target);
+
         const data = await dispatch(addProfileLanguages({
             native_language: nativeLanguage,
             learning_language: targetLanguage,
@@ -81,27 +45,11 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
             setErrors(data.errors);
             document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.success) {
-            // const nativeData = await dispatch(createLanguage(native));
-            // const targetData = await dispatch(createLanguage(target));
-            // if (nativeData.errors) {
-            //     if (targetData.errors) {
-            //         setErrors([...nativeData.errors, ...targetData.errors]);
-            //     } else {
-            //         setErrors(nativeData.errors);
-            //     }
-            // } else if (targetData.errors) {
-            //     setErrors(targetData.errors);
-            // } else if (nativeData.name && targetData.name) {
                 setShowLocationForm(true);
                 setShowLanguageForm(false);
-            // } else {
-            //     setErrors(nativeData);
-            // }
         } else setErrors(data);
         document.querySelector('.basic-form-wide').scrollTop = 0;
     }
-
-    // console.log('Errors is ', errors);
 
     return (
         <div className='basic-form-inner'>
@@ -120,7 +68,6 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
                     </div>
                 )}
                 <h2>Hello, {user.username}!</h2>
-                {/* <p>What is your native language?</p> */}
                 <div className='basic-form-field'>
                     <div className='basic-form-label'>
                         <label htmlFor='native-language'>

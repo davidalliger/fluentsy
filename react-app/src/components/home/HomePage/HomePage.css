@@ -72,7 +72,6 @@
 .homepage-user-container {
     padding: 20px;
     margin: 5px;
-    /* width: 900px; */
     height: 200px;
     background-color: white;
     border-radius: 10px;
@@ -89,7 +88,6 @@
 .homepage-image {
     display: flex;
     align-items: flex-start;
-    /* height: 100%; */
     box-sizing: border-box;
 }
 
@@ -98,8 +96,6 @@
     width: 60px;
     border-radius: 50px;
     overflow: hidden;
-    /* display: flex;
-    justify-content: center; */
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -116,7 +112,6 @@
     margin-top: 10px;
     margin-left: 3px;
     display: flex;
-    /* height: 100%; */
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
@@ -135,9 +130,7 @@
 #homepage-about-section {
     width: 920px;
     margin-bottom: 40px;
-    /* font-weight: bold; */
     line-height: 30px;
-    /* color: gray; */
     font-size: 18px;
     font-style: italic;
 }
@@ -159,7 +152,6 @@
     width: 150px;
     height: 100%;
     box-sizing: border-box;
-    /* padding-right: 10px; */
 }
 
 #home-page-new-users-area {

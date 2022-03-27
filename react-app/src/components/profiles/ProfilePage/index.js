@@ -1,4 +1,4 @@
-import { useParams, Link, Redirect, useHistory } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './ProfilePage.css'
 import { getAge } from '../../../utils';
@@ -7,7 +7,6 @@ import DeleteProfileModal from '../DeleteProfile/DeleteProfileModal';
 import EditProfileAboutModal from '../EditProfile/EditProfileModals/EditProfileAboutModal';
 import EditProfileHeaderModal from '../EditProfile/EditProfileModals/EditProfileHeaderModal';
 import EditProfilePictureModal from '../EditProfile/EditProfileModals/EditProfilePictureModal';
-import SendMessageModal from '../../messages/SendMessage/SendMessageModal';
 import Loading from '../../other/Loading';
 import Languages from '../../languages/ProfileLanguages';
 import NoProfile from '../NoProfile';
@@ -34,11 +33,8 @@ const ProfilePage = () => {
     const [showEditAboutModal, setShowEditAboutModal] = useState(false);
     const [showEditHeaderModal, setShowEditHeaderModal] = useState(false);
     const [showEditPictureModal, setShowEditPictureModal] = useState(false);
-    const [showMessageModal, setShowMessageModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [userHasProfile, setUserHasProfile] = useState(false);
-    const [ignore, setIgnore] = useState(false);
-    // const history = useHistory();
     const handleDelete = () => {
         setShowDeleteModal(true);
     }
@@ -47,15 +43,13 @@ const ProfilePage = () => {
     useEffect(() => {
         if (id) {
             (async() => {
-                console.log('in useEffect, checking for profile')
                 const response = await dispatch(checkProfileExists(+id));
-                console.log('response is ', response);
                 if (response.none) {
                     history.push('/404-not-found');
                 }
             })()
         }
-    }, [])
+    }, [dispatch, id, history])
 
     useEffect(() => {
         if (hasProfile) {
@@ -63,10 +57,6 @@ const ProfilePage = () => {
         }
     }, [hasProfile])
 
-    // const handleMessage = () => {
-    //     history.push(`/messages/${userProfile.userId}`)
-    //     // setShowMessageModal(true);
-    // }
 
 
     return (
@@ -79,8 +69,6 @@ const ProfilePage = () => {
                     <div id='profile-page-card'>
                         <div id='profile-page-heading'>
                             <div id='profile-page-heading-image'
-                                // onMouseEnter={handleHover}
-                                // onMouseLeave={handleLeave}
                             >
                                 {userProfile.imgUrl && (
                                     <div className='profile-page-user-image' style={{backgroundImage: `url(${userProfile.imgUrl})`}} />
@@ -141,7 +129,6 @@ const ProfilePage = () => {
                                             )}
                                         </>
                                     )}
-                                    {/* <SendMessageModal showMessageModal={showMessageModal} setShowMessageModal={setShowMessageModal} userProfile={userProfile} user={user}/> */}
                                 </div>
                                 {(user.id === +id) && (
                                     <div
@@ -181,7 +168,7 @@ const ProfilePage = () => {
                     <DeleteProfileModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={userProfile?.id} user={user}/>
                     {showNoProfileModal && (
                         <Modal onClose={()=> setShowNoProfileModal(false)}>
-                            <NoProfile setShowModal={setShowNoProfileModal} setIgnore={setIgnore}/>
+                            <NoProfile setShowModal={setShowNoProfileModal} />
                         </Modal>
                     )}
                 </div>

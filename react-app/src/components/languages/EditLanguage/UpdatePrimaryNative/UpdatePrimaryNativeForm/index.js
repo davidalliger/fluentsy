@@ -30,9 +30,7 @@ const UpdatePrimaryNativeForm = ({setShowModal, newNativePrimaryPayload, oldNati
             onSubmit={handleSubmit}
             className='basic-form'
         >
-            {/* <div className="basic-form-field"> */}
                 <h2>Update Primary Language</h2>
-            {/* </div> */}
             <div className="basic-form-label-question">
                 Make this your new primary native language?
             </div>

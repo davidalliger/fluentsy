@@ -40,14 +40,6 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
         }
     }, [errors]);
 
-    // const handleSkip = () => {
-    //         setShowAboutForm(false);
-    //         setShowPictureForm(true);
-    //         if (!about) {
-    //             setAbout('Hi! I\'m a new user!')
-    //         }
-    // }
-
     return (
         <div className='basic-form-inner'>
             <form onSubmit={handleSubmit} className='basic-form-inner'>
@@ -63,19 +55,14 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                     </div>
                 )}
                 <h2>About</h2>
-                {/* <div className='basic-form-label-question'>
-                    Tell us a bit more about yourself...
-                </div> */}
                 <div className='basic-form-label-question'>
                     What is your birthday?
                 </div>
                 <div className='basic-form-field-multi'>
                     <span className='basic-form-inline'>
-                        {/* <span className='basic-form-label'> */}
                             <label htmlFor='month'>
                                 Month
                             </label>
-                        {/* </span> */}
                         <input
                             type='number'
                             id='month'
@@ -86,11 +73,9 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                         />
                     </span>
                     <span className='basic-form-inline'>
-                        {/* <span className='basic-form-label'> */}
                             <label htmlFor='day'>
                                 Day
                             </label>
-                        {/* </span> */}
                         <input
                             type='number'
                             id='day'
@@ -160,14 +145,6 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                         Next
                     </button>
                 </div>
-                {/* <button
-                    onClick={handleSkip}
-                    type='button'
-                    id='skip'
-                    className='form-button'
-                >
-                    Skip this step
-                </button> */}
             </form>
         </div>
     )

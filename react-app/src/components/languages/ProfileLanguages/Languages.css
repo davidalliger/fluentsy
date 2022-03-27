@@ -1,13 +1,8 @@
 #profile-page-native-languages,
 #profile-page-target-languages {
-    /* display: flex;
-    align-items: center; */
     width: 100%;
     box-sizing: border-box;
-    /* background-color: aquamarine; */
-    /* padding-bottom: 20px; */
     padding: 10px;
-    /* padding-top: 20px; */
     border-bottom: 1px solid lightgray;
     display: flex;
     justify-content: space-between;
@@ -18,7 +13,6 @@
 #profile-language-list {
     display: flex;
     flex-wrap: wrap;
-    /* padding-top: 3px; */
 }
 
 #profile-native-languages-title,
@@ -46,14 +40,12 @@
     margin-bottom: 10px;
     font-size: 13px;
     padding: 0 10px;
-    /* padding: 5px; */
 }
 
 #profile-languages-container {
     padding: 10px;
     display: flex;
     justify-content: space-between;
-    /* margin-bottom: 10px; */
 }
 
 #profile-languages {

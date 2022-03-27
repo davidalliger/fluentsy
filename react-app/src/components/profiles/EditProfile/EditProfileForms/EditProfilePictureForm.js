@@ -63,7 +63,7 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
                     <label htmlFor='img-url'>
-                        Image URL
+                        Image URL (optional)
                     </label>
                 </div>
                 <div className='basic-form-input-container'>

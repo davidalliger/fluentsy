@@ -31,8 +31,6 @@ const EditNativeLanguageForm = ({ editNativeLanguage, setShowModal, user }) => {
         }
     }
 
-    // console.log('Errors is ', errors);
-
     useEffect(() => {
         if (errors?.length) {
             setShowErrors(true);
@@ -56,7 +54,6 @@ const EditNativeLanguageForm = ({ editNativeLanguage, setShowModal, user }) => {
                     </div>
                 )}
             <h2>Edit Native Language</h2>
-            {/* <p>What is your native language?</p> */}
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
                     <label htmlFor='native-language'>

@@ -14,7 +14,6 @@ const HomePage = () => {
     const profiles = Object.values(profileState).reverse();
     const user = useSelector(state => state.session.user);
     const [showNoProfileModal, setShowNoProfileModal] = useState(false);
-    const [ignore, setIgnore] = useState(false);
     const [element, setElement] = useState(null);
     const userProfile = profiles?.reduce((profileMatch, profile) => {
         if (profile.userId === +user.id) profileMatch = profile;
@@ -80,7 +79,6 @@ const HomePage = () => {
             </div>
             <div id='home-page-new-users-area'>
                 {showProfiles.map(profile => (
-                    // <Link  className='homepage-user-link' key={profile.id} to={`/users/${profile.userId}`}>
                         <div className='homepage-user-container'>
                             <div className='homepage-user-left'>
 
@@ -115,12 +113,12 @@ const HomePage = () => {
                                 <PreviewLanguages userProfile={profile} id={profile.id} />
                             </div>
                         </div>
-                    // </Link>
+
                 ))}
             </div>
             {showNoProfileModal && (
                 <Modal onClose={()=> setShowNoProfileModal(false)}>
-                    <NoProfile setShowModal={setShowNoProfileModal} setIgnore={setIgnore}/>
+                    <NoProfile setShowModal={setShowNoProfileModal} />
                 </Modal>
             )}
         </div>

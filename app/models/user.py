@@ -30,6 +30,5 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email,
-            # 'languages': [language.to_dict() for language in self.languages]
+            'email': self.email
         }

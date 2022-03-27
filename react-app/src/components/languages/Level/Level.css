@@ -1,8 +1,6 @@
 #progress-bar {
     width: 40px;
     height: 15px;
-    /* padding: 10px; */
-    /* background-color: lightgray; */
     box-sizing: border-box;
 }
 
@@ -23,6 +21,5 @@
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    /* margin-right: 10px; */
     background-color: rgb(61, 153, 61);
 }

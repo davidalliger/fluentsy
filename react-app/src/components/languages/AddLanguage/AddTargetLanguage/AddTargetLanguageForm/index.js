@@ -37,8 +37,6 @@ const AddTargetLanguageForm = ({ user, setShowModal }) => {
         }
     }, [errors]);
 
-    // console.log('Errors is ', errors);
-
     return (
         <form
             onSubmit={handleSubmit}
@@ -56,7 +54,6 @@ const AddTargetLanguageForm = ({ user, setShowModal }) => {
                 </div>
             )}
             <h2>Add Target Language</h2>
-            {/* <p>What is your native language?</p> */}
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
                     <label htmlFor='native-language'>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProfileLocation } from "../../../../store/profiles";
 import { states, countries, timezones, statesDefaultTimezones, countriesDefaultTimezones } from '../../../../utils';
 
@@ -8,7 +8,6 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
     const [showErrors, setShowErrors] = useState(false);
     const [showState, setShowState] = useState(false);
     const dispatch = useDispatch();
-    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         if (country === 'United States') {
@@ -77,7 +76,6 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                     </div>
                 )}
                 <h2>Location</h2>
-                {/* <p>Where are you located?</p> */}
                 <div className='basic-form-field'>
                     <div className='basic-form-label'>
                         <label htmlFor='country'>

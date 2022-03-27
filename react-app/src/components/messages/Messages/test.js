@@ -24,7 +24,6 @@ const MessagesWindow = () => {
 
     useEffect(() => {
         if (user) {
-        //     (async()=>{
             socket = io();
             socket.on('join', chat => {
                 setMessageHistory(chat)
@@ -39,13 +38,6 @@ const MessagesWindow = () => {
                     setMessages(messages => [...messages, chat]);
                 }
             })
-            // setJoined(true);
-
-
-            //         const messageState = await dispatch(getMessages(+user.id));
-            //         const messageHistory = messageState.filter(message => (message.sender_id === recipient || message.recipient_id === recipient));
-            //         setMessages([messages, ...messageHistory]);
-        //     })()
         return (() => {
                     socket.disconnect()
             })
@@ -55,14 +47,7 @@ const MessagesWindow = () => {
     useEffect(() => {
         if (user) {
             socket2 = io();
-            // socket2.on('join', chat => {
-            //     setMessageHistory(chat)
-
-            //     console.log(chat);
-            // })
             socket2.emit('join2', {sender_id: user.id, recipient_id: recipient2})
-            // console.log(user.id)
-            // console.log(recipient2)
 
             socket2.on('chat', chat => {
                 if (chat.sender_id === +recipient2) {
@@ -74,11 +59,6 @@ const MessagesWindow = () => {
             })
         }
     }, [user]);
-
-    // useEffect(() => {
-    //     if (joined) {
-    //     }
-    // })
 
     const updateChatInput = (e) => {
         setChatInput(e.target.value);
@@ -93,14 +73,6 @@ const MessagesWindow = () => {
         }
         setMessages(messages => [...messages, payload]);
         socket.emit('chat', payload);
-        // const data = await dispatch(recordMessage(payload));
-        // if (data.errors) {
-        //     setErrors(data.errors);
-        // } else if (data.content) {
-            // } else {
-                //     console.log("data ", data);
-                //     setErrors(data);
-                // }
                     setChatInput('');
             }
 
@@ -146,7 +118,6 @@ const MessagesWindow = () => {
                     </div>
                     <form onSubmit={sendChat}>
                         <input
-                            // type='text'
                             value={chatInput}
                             onChange={updateChatInput}
                             />
