@@ -1,4 +1,4 @@
-import { useLocation, Redirect } from "react-router-dom";
+import { useLocation, Redirect, Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import './LanguagesPage.css'
 import AddNativeLanguageModal from "../AddLanguage/AddNativeLanguage/AddNativeLanguageModal";
@@ -11,6 +11,8 @@ import EditTargetLanguageModal from "../EditLanguage/EditTargetLanguage/EditTarg
 import { updateLanguage } from "../../../store/languages";
 import UpdatePrimaryNativeModal from "../EditLanguage/UpdatePrimaryNative/UpdatePrimaryNativeModal";
 import UpdatePrimaryTargetModal from "../EditLanguage/UpdatePrimaryTarget/UpdatePrimaryTargetModal";
+
+
 
 const LanguagesPage = () => {
     const [primaryNative, setPrimaryNative] = useState('');
@@ -234,6 +236,9 @@ const LanguagesPage = () => {
                         </div> */}
                         <h2 className='languages-page-title'>My Native Languages</h2>
                         <p className='languages-page-description'>I grew up speaking these every day.</p>
+                        <div id='languages-page-native-message'>
+                            User must display at least one native language on profile
+                        </div>
                         <div className='languages-page-lower'>
                             <div id='languages-page-native-grid'>
                                 <div className='languages-page-native-header-row'>
@@ -337,6 +342,9 @@ const LanguagesPage = () => {
                         </div> */}
                         <h2 className='languages-page-title'>My Target Languages</h2>
                         <p className='languages-page-description'>I'm still learning these.</p>
+                        <div id='languages-page-target-message'>
+                            User must display at least one target language on profile
+                        </div>
                         <div className='languages-page-lower'>
                             <div id='languages-page-target-grid'>
                                 <div className='languages-page-target-header-row'>
@@ -443,6 +451,11 @@ const LanguagesPage = () => {
                         </div>
                     </div>
                 </div>
+                <Link to={`/users/${user?.id}`}>
+                    <button id='languages-page-profile-button'>
+                        Go to Profile
+                    </button>
+                </Link>
             {/* )} */}
         </div>
     )

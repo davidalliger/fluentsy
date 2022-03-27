@@ -12,8 +12,8 @@ const NavBar = () => {
   const user = useSelector(state => state.session.user);
   const profileState = useSelector(state => state.profiles);
   const profiles = Object.values(profileState);
-  const userProfile = profiles.reduce((profileMatch,profile) => {
-      if (profile.userId === user.id) profileMatch = profile;
+  const userProfile = profiles?.reduce((profileMatch,profile) => {
+      if (profile?.userId === user?.id) profileMatch = profile;
       return profileMatch;
   }, null);
   const [showNoProfileModal, setShowNoProfileModal] = useState(false);
@@ -86,6 +86,8 @@ const NavBar = () => {
   useEffect(() => {
     if (userProfile) {
         setProfile(true);
+    } else {
+      setProfile(false);
     }
   }, [userProfile])
 

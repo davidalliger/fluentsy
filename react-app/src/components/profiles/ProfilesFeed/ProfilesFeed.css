@@ -2,6 +2,7 @@
     padding: 20px;
     margin-bottom: 20px;
     width: 900px;
+    height: 150px;
     background-color: white;
     border-radius: 10px;
     box-sizing: border-box;
@@ -41,9 +42,22 @@
 }
 
 .profiles-feed-basic-info {
-    margin-left: 20px;
+    margin-left: 25px;
+    margin-right: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    width: 200px;
+    border-right: 1px solid lightgray;
+    font-size: 14px;
 }
 
 .profiles-feed-username h2 {
     margin-top: 0;
+    margin-bottom: 10px;
+}
+.profiles-feed-location p {
+    margin: 5px 0;
 }

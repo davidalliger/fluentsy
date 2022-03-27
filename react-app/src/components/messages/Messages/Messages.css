@@ -169,13 +169,13 @@
 }
 
 #message-selected-profile-image {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 #message-selected-profile-info {
@@ -184,13 +184,13 @@
 }
 
 #message-selected-profile-username {
-    margin-left: 15px;
+    margin-left: 12px;
     font-weight: bold;
 }
 
 .message-selected-no-profile-image {
-    margin-left: 5px;
-    font-size: 50px;
+    margin-left: 10px;
+    font-size: 40px;
     color: lightgray
 }
 
