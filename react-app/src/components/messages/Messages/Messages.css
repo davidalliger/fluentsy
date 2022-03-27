@@ -1,6 +1,7 @@
 #correspondent-list{
     border-right: 1px solid lightgray;
     min-width: 200px;
+    max-height: 372px;
     overflow: auto;
 }
 
