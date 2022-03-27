@@ -96,6 +96,11 @@ const HomePage = () => {
                                     <div className='homepage-username'>
                                         <h2>{profile.username}</h2>
                                     </div>
+                                    {(profile.birthday && profile.displayAge) && (
+                                        <div className='homepage-age'>
+                                            {getAge(profile.birthday)} years old
+                                        </div>
+                                    )}
                                     <div className='homepage-location'>
                                         <p>
                                             {profile.state && (
@@ -104,11 +109,6 @@ const HomePage = () => {
                                             {profile.country}
                                         </p>
                                     </div>
-                                    {(profile.birthday && profile.displayAge) && (
-                                        <div className='homepage-age'>
-                                            {getAge(profile.birthday)} years old
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                             <div className='homepage-user-right'>

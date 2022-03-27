@@ -31,12 +31,12 @@
 
 #profile-page-heading-info h1 {
     margin: 0;
-    margin-top: 20px;
+    margin-top: 15px;
     font-family: 'Noto Sans', sans-serif;
 }
 #profile-page-location p {
     margin: 0;
-    margin-top: 20px;
+
 }
 
 .profile-page-user-image {
@@ -160,11 +160,29 @@
 }
 
 .profile-section-heading {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 30px;
 }
 
 #profile-page-about {
     overflow-wrap: normal;
     word-break: break-word;
+}
+
+#profile-page-username {
+    margin-bottom: 15px;
+
+}
+
+#profile-page-age,
+#profile-page-location {
+    font-size: 14px;
+}
+
+#profile-page-timezone {
+    font-size: 12px;
+    color: darkgray;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

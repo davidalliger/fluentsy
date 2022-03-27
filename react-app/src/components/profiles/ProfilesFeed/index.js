@@ -53,6 +53,11 @@ const ProfilesFeed = () => {
                             <div className='profiles-feed-username'>
                                 <h2>{profile.username}</h2>
                             </div>
+                            {(profile.birthday && profile.displayAge) && (
+                                <div className='profiles-feed-age'>
+                                    {getAge(profile.birthday)} years old
+                                </div>
+                            )}
                             <div className='profiles-feed-location'>
                                 <p>
                                     {profile.state && (
@@ -61,11 +66,6 @@ const ProfilesFeed = () => {
                                     {profile.country}
                                 </p>
                             </div>
-                            {(profile.birthday && profile.displayAge) && (
-                                <div className='profiles-feed-age'>
-                                    {getAge(profile.birthday)} years old
-                                </div>
-                            )}
                         </div>
                         <FeedLanguages userProfile={profile} id={profile.id} />
                     </div>
