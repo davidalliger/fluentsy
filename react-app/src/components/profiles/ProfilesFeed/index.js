@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import Modal from "../../other/Modal";
 import NoProfile from "../NoProfile";
+import FeedLanguages from '../../languages/FeedLanguages'
 
 const ProfilesFeed = () => {
     const profileState = useSelector(state => state.profiles);
@@ -66,6 +67,7 @@ const ProfilesFeed = () => {
                                 </div>
                             )}
                         </div>
+                        <FeedLanguages userProfile={profile} id={profile.id} />
                     </div>
                 </Link>
             ))}

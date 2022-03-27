@@ -108,21 +108,21 @@ const Languages = ({userProfile, id}) => {
     //     }
     // }, [primaryNativeLanguage, primaryTargetLanguage])
 
-    useEffect(() => {
-        if (nativeLanguages.length > 5) {
-            setNativeLimitMet(true);
-        } else {
-            setNativeLimitMet(false);
-        }
-    }, [nativeLanguages])
+    // useEffect(() => {
+    //     if (nativeLanguages.length > 5) {
+    //         setNativeLimitMet(true);
+    //     } else {
+    //         setNativeLimitMet(false);
+    //     }
+    // }, [nativeLanguages])
 
-    useEffect(() => {
-        if (targetLanguages.length > 4) {
-            setTargetLimitMet(true);
-        } else {
-            setTargetLimitMet(false);
-        }
-    }, [targetLanguages])
+    // useEffect(() => {
+    //     if (targetLanguages.length > 4) {
+    //         setTargetLimitMet(true);
+    //     } else {
+    //         setTargetLimitMet(false);
+    //     }
+    // }, [targetLanguages])
 
     return (
         <div id='profile-languages'>
@@ -145,7 +145,7 @@ const Languages = ({userProfile, id}) => {
                         </div>
                         {nativeLanguagesLength && (
                             <>
-                                {!nativeLimitMet && (
+                                {/* {!nativeLimitMet && ( */}
                                     <>
                                         {nativeLanguages?.map((language, index) => (
                                             <div key={index} className='language-level'>
@@ -154,8 +154,8 @@ const Languages = ({userProfile, id}) => {
                                             </div>
                                         ))}
                                     </>
-                                )}
-                                {nativeLimitMet && (
+                                {/* // )} */}
+                                {/* {nativeLimitMet && (
                                     <>
                                         {nativeLanguages?.slice(0,4).map((language, index) => (
                                             <div key={index} className='language-level'>
@@ -164,7 +164,7 @@ const Languages = ({userProfile, id}) => {
                                             </div>
                                         ))}
                                     </>
-                                )}
+                                )} */}
                             </>
                         )}
                                     {/* </ul> */}
@@ -195,7 +195,7 @@ const Languages = ({userProfile, id}) => {
                         </div>
                         {targetLanguagesLength && (
                             <>
-                                {!targetLimitMet && (
+                                {/* {!targetLimitMet && ( */}
                                     <>
                                         {targetLanguages?.map((language, index) => (
                                             <div key={index} className='language-level'>
@@ -204,8 +204,8 @@ const Languages = ({userProfile, id}) => {
                                             </div>
                                         ))}
                                     </>
-                                )}
-                                {targetLimitMet && (
+                                {/* // )} */}
+                                {/* {targetLimitMet && (
                                     <>
                                         {targetLanguages?.slice(0,5).map((language, index) => (
                                             <div key={index} className='language-level'>
@@ -214,7 +214,7 @@ const Languages = ({userProfile, id}) => {
                                             </div>
                                         ))}
                                     </>
-                                )}
+                                )} */}
                             </>
                         )}
                                     {/* </ul> */}
