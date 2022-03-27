@@ -83,7 +83,7 @@
 }
 
 .homepage-user-container p {
-    margin: 5px 0;
+    margin: 0;
 }
 
 .homepage-image {
@@ -145,6 +145,10 @@
 .homepage-location,
 .homepage-age {
     font-size: 12px;
+}
+
+.homepage-age {
+    margin: 5px 0;
 }
 
 .homepage-user-right {

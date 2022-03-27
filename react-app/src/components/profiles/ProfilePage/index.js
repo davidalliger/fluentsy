@@ -104,6 +104,11 @@ const ProfilePage = () => {
                                     <div id='profile-page-username'>
                                         <h1>{userProfile.username}</h1>
                                     </div>
+                                    {(userProfile.birthday && userProfile.displayAge) && (
+                                        <div id='profile-page-age'>
+                                            {getAge(userProfile.birthday)} years old
+                                        </div>
+                                    )}
                                     <div id='profile-page-location'>
                                         <p>
                                             {userProfile.state && (
@@ -113,13 +118,8 @@ const ProfilePage = () => {
                                         </p>
                                     </div>
                                     <div id='profile-page-timezone'>
-                                        {/* {userProfile.timezone} */}
+                                        {userProfile.timezone}
                                     </div>
-                                    {(userProfile.birthday && userProfile.displayAge) && (
-                                        <div id='profile-page-timezone'>
-                                            {getAge(userProfile.birthday)} years old
-                                        </div>
-                                    )}
                                     {(user.id !== +id) && (
                                         <>
                                             {userHasProfile && (
