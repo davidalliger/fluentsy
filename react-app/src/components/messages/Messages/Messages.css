@@ -1,8 +1,15 @@
 #correspondent-list{
-    border-right: 1px solid lightgray;
+    /* border-right: 1px solid lightgray; */
     min-width: 200px;
-    max-height: 372px;
+    max-height: 310px;
     overflow: auto;
+}
+
+#messages-sidebar {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid lightgray;
+    /* max-height: 598px; */
 }
 
 .correspondent{

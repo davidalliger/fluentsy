@@ -21,33 +21,35 @@ const Messages = () => {
         <div id='messages-page'>
             <div id='message-container'>
                 {correspondents && (
-                    <div id='correspondent-list'>
+                    <div id='messages-sidebar'>
                         <div id='message-conversation-title'>
                             My Conversations
                         </div>
-                        {correspondents.map((correspondentId, ind) => {
-                            const correspondentMessageState = messageState[correspondentId];
-                            const correspondentMessages = Object.values(correspondentMessageState);
-                            const mostRecent = correspondentMessages[correspondentMessages?.length -1]
-                            let correspondent;
-                            if (mostRecent) {
-                                if (mostRecent.sender_id === user.id) {
-                                    correspondent = mostRecent.recipient;
-                                } else {
-                                    correspondent = mostRecent.sender;
-                                }
-                                return (
-                                    <div key={ind} className='correspondent' id={(correspondentId === selected) ? 'selected' : ind} onClick={()=>setSelected(correspondentId)}>
-                                            <div className='correspondent-name'>
-                                                {correspondent}
-                                            </div>
-                                            <div className='correspondent-message'>
-                                                {mostRecent.sender}: {mostRecent.content.length > 15 ? mostRecent.content.slice(0,15) + '...' : mostRecent.content}
-                                            </div>
-                                    </div>
-                                )
-                            } else return null;
-                        })}
+                        <div id='correspondent-list'>
+                            {correspondents.map((correspondentId, ind) => {
+                                const correspondentMessageState = messageState[correspondentId];
+                                const correspondentMessages = Object.values(correspondentMessageState);
+                                const mostRecent = correspondentMessages[correspondentMessages?.length -1]
+                                let correspondent;
+                                if (mostRecent) {
+                                    if (mostRecent.sender_id === user.id) {
+                                        correspondent = mostRecent.recipient;
+                                    } else {
+                                        correspondent = mostRecent.sender;
+                                    }
+                                    return (
+                                        <div key={ind} className='correspondent' id={(correspondentId === selected) ? 'selected' : ind} onClick={()=>setSelected(correspondentId)}>
+                                                <div className='correspondent-name'>
+                                                    {correspondent}
+                                                </div>
+                                                <div className='correspondent-message'>
+                                                    {mostRecent.sender}: {mostRecent.content.length > 15 ? mostRecent.content.slice(0,15) + '...' : mostRecent.content}
+                                                </div>
+                                        </div>
+                                    )
+                                } else return null;
+                            })}
+                        </div>
                     </div>
                 )}
                 {(!correspondents) && (
