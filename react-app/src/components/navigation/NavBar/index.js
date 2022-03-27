@@ -5,11 +5,22 @@ import ProfileButton from '../ProfileButton';
 import '../Navigation.css';
 import LoginModal from '../../auth/login/LoginModal';
 import SignUpModal from '../../auth/signup/SignUpModal';
+import NoProfile from '../../profiles/NoProfile';
+import Modal from '../../other/Modal';
 
 const NavBar = () => {
   const user = useSelector(state => state.session.user);
+  const profileState = useSelector(state => state.profiles);
+  const profiles = Object.values(profileState);
+  const userProfile = profiles.reduce((profileMatch,profile) => {
+      if (profile.userId === user.id) profileMatch = profile;
+      return profileMatch;
+  }, null);
+  const [showNoProfileModal, setShowNoProfileModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [profile, setProfile] = useState(false);
+  const [ignore, setIgnore] = useState(false);
   let sessionLinks;
   if (user) {
     sessionLinks = (
@@ -24,14 +35,28 @@ const NavBar = () => {
             <i class="fa-solid fa-globe"></i>
           </NavLink>
         </div>
-        <div className='nav-icon-section'>
-          <NavLink to={{pathname: "/messages", state:{currentCorrespondent: null}}} exact={true} className='nav-messages'  activeClassName='nav-selected'>
-            <i class="fa-solid fa-envelope"></i>
-          </NavLink>
-        </div>
+        {profile && (
+          <div className='nav-icon-section'>
+            <NavLink to={{pathname: "/messages", state:{currentCorrespondent: null}}} exact={true} className='nav-messages'  activeClassName='nav-selected'>
+              <i class="fa-solid fa-envelope"></i>
+            </NavLink>
+          </div>
+        )}
+        {!profile && (
+          <div className='nav-icon-section'>
+            <div className='nav-messages'  activeClassName='nav-selected' onClick={() =>setShowNoProfileModal(true)}>
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+          </div>
+        )}
         <div id="profile-button-icon">
           <ProfileButton user={user}/>
         </div>
+        {showNoProfileModal && (
+          <Modal onClose={()=> setShowNoProfileModal(false)}>
+              <NoProfile setShowModal={setShowNoProfileModal} setIgnore={setIgnore}/>
+          </Modal>
+        )}
       </div>
     )
   } else {
@@ -57,6 +82,12 @@ const NavBar = () => {
     setShowSignUpModal(false);
     setShowLoginModal(false);
   }, [user])
+
+  useEffect(() => {
+    if (userProfile) {
+        setProfile(true);
+    }
+  }, [userProfile])
 
   return (
     <nav id="nav-bar">

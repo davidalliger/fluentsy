@@ -20,7 +20,7 @@ const HomePage = () => {
         if (profile.userId === +user.id) profileMatch = profile;
         return profileMatch;
     }, null);
-    const showProfiles = profiles.filter(profile => profile.id !== userProfile.id).slice(0,3);
+    const showProfiles = profiles?.filter(profile => profile?.id !== userProfile?.id).slice(0,3);
 
     useEffect(()=> {
         setRendered(true);
