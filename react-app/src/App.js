@@ -9,7 +9,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import ProfilesFeed from './components/profiles/ProfilesFeed';
 import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
-import { getMessages, addMessage, editMessage, removeMessage, errorMessage, clearMessages } from './store/messages';
+import { getMessages, addMessage, editMessage, removeMessage, clearMessages } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
 import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
@@ -27,7 +27,6 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [ready, setReady] = useState(false);
-  const [errors, setErrors] = useState([]);
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
@@ -46,7 +45,6 @@ function App() {
         await dispatch(getLanguages());
         socket = io();
         socket.emit('join', {room_id: +user.id});
-        // console.log('app level socket connected.')
         socket.on('chat', chat => {
           dispatch(addMessage(chat, +user.id));
         })
@@ -62,11 +60,9 @@ function App() {
       setLoaded(true);
       if (socket && !user) {
         socket.disconnect()
-        // console.log('app level socket disconnected.')
       }
       return (() => {
         socket.disconnect()
-        // console.log('app level socket disconnected.')
     })
     })();
   }, [dispatch, user]);

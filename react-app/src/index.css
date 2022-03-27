@@ -1,6 +1,5 @@
 /* TODO Add site wide styles */
 html {
-    /* padding: 100px 0; */
     box-sizing: border-box;
     margin: 0;
     background-color: #F5F6F9;
@@ -133,11 +132,8 @@ option {
     margin-left: 1px;
     color: #F14052;
     font-size: 22px;
-    /* padding-top: 10px; */
 }
-/* .home-earth-icon {
 
-} */
 
 #landing-page-list-1,
 #landing-page-list-2,
@@ -200,7 +196,6 @@ option {
     margin-top: 10px;
     width: 100px;
     box-sizing: border-box;
-    /* margin-left: 20px; */
 }
 
 .basic-form-field {
@@ -208,7 +203,6 @@ option {
     box-sizing: border-box;
     margin-bottom: 10px;
     display: inline-block;
-    /* flex-direction: column; */
 }
 
 .basic-form-field-multi {
@@ -217,7 +211,6 @@ option {
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
-    /* flex-direction: column; */
 }
 
 .basic-form-text-area {
@@ -281,10 +274,6 @@ select {
 select {
     width: 100%;
     display: inline;
-    /* -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none; */
-    /* background-color:#e93329; */
     box-sizing: border-box;
     text-align: center;
     cursor: pointer;

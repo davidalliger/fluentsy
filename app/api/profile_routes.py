@@ -41,7 +41,6 @@ def add_profile_about():
     if form.validate_on_submit():
         return {'success': 'Success'}
     else:
-        # print('form raw data is ', form.raw_data)
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @profile_routes.route('/picture', methods=['POST'])

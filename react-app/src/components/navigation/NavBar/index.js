@@ -20,7 +20,6 @@ const NavBar = () => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [profile, setProfile] = useState(false);
-  const [ignore, setIgnore] = useState(false);
   let sessionLinks;
   if (user) {
     sessionLinks = (
@@ -54,7 +53,7 @@ const NavBar = () => {
         </div>
         {showNoProfileModal && (
           <Modal onClose={()=> setShowNoProfileModal(false)}>
-              <NoProfile setShowModal={setShowNoProfileModal} setIgnore={setIgnore}/>
+              <NoProfile setShowModal={setShowNoProfileModal} />
           </Modal>
         )}
       </div>
@@ -101,15 +100,7 @@ const NavBar = () => {
             Fluentsy
           </NavLink>
       </div>
-      {/* <div id='nav-center-column'>
-          <NavLink className='nav-link' id='find-conversation-partners' to='/users' exact={true} activeClassName='active'>
-            Find Conversation Partners
-          </NavLink>
-          <SignUpModal showModal={showSignUpModal} setShowModal={setShowSignUpModal} />
-      </div> */}
-      {/* <div id='nav-right-column'> */}
         {sessionLinks}
-      {/* </div> */}
     </nav>
   );
 }

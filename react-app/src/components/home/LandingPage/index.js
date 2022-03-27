@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import SignUpModal from "../../auth/signup/SignUpModal";
 import ProfilesFeed from "../../profiles/ProfilesFeed";
@@ -13,8 +13,6 @@ const LandingPage = () => {
     if (user) {
         return <ProfilesFeed />
     }
-
-    // const landingPageImg = '../../../../public/images/landing-page_small_good.png';
 
     return (
         <div id='landing-page'>

@@ -58,7 +58,7 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
                 )}
                 <h2>Picture</h2>
                 <div className='basic-form-label-question'>
-                    Select your profile picture
+                    Select your profile picture (optional)
                 </div>
                 <div className='basic-form-field'>
                     <div className='basic-form-label'>

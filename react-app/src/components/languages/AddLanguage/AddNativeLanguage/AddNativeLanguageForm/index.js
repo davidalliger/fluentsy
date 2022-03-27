@@ -30,8 +30,6 @@ const AddNativeLanguageForm = ({ user, setShowModal }) => {
         }
     }
 
-    // console.log('Errors is ', errors);
-
     useEffect(() => {
         if (errors?.length) {
             setShowErrors(true);
@@ -55,7 +53,6 @@ const AddNativeLanguageForm = ({ user, setShowModal }) => {
                 </div>
             )}
             <h2>Add Native Language</h2>
-            {/* <p>What is your native language?</p> */}
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
                     <label htmlFor='native-language'>

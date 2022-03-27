@@ -7,7 +7,6 @@ const NotFound = () => {
         <div id='not-found-page'>
             <div id='not-found-image-div'>
                 <div id='not-found-image' style={{backgroundImage: `url(${notFound})`}}>
-                    {/* <img src={notFound} alt='Confused woman with laptop'></img> */}
                 </div>
             </div>
             <div id='not-found-container'>

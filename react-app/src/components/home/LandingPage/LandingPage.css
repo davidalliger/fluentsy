@@ -21,8 +21,6 @@
     box-sizing: border-box;
     border-radius: 20px;
     color: #313140;
-    /* padding-top: 32px; */
-    /* box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25); */
 }
 
 #landing-page-intro-text-div {
@@ -30,7 +28,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    /* padding-top: 20px; */
 }
 
 #landing-page-intro-text-div h1 {
@@ -54,7 +51,6 @@
 #landing-page-img-div {
     height: auto;
     width: 100%;
-    /* padding-right: 40px; */
     box-sizing: border-box;
 }
 

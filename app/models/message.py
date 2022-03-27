@@ -21,6 +21,5 @@ class Message(db.Model):
             'recipient_id': self.recipient_id,
             'content': self.content,
             'sender': self.sender.username,
-            'recipient': self.recipient.username,
-            # 'updated_at': self.updated_at
+            'recipient': self.recipient.username
         }

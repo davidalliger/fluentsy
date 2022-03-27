@@ -91,7 +91,7 @@ const CreateProfileForms = ({setShowModal}) => {
                 }
             }
         })()
-    }, [allStepsCompleted])
+    }, [allStepsCompleted, dispatch, user.id])
 
     useEffect(()=> {
         if (languagesAdded) {

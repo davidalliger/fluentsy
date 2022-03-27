@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import LogoutButton from '../../auth/LogoutButton';
-import { useHistory, Link, Redirect } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Modal from '../../other/Modal';
 import NoProfile from '../../profiles/NoProfile';
 import '../Navigation.css'
@@ -9,19 +9,15 @@ import '../Navigation.css'
 const ProfileButton = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [ignore, setIgnore] = useState(false);
     const [profile, setProfile] = useState(false)
     const history = useHistory();
     const user = useSelector(state => state.session.user)
     const profileState = useSelector(state => state.profiles);
-    console.log('in nav, profileState is ', profileState);
     const profiles = Object.values(profileState);
-    console.log('in nav, profiles is ', profiles);
     const userProfile = profiles.reduce((profileMatch,profile) => {
         if (profile.userId === user.id) profileMatch = profile;
         return profileMatch;
     }, null);
-    console.log('in nav, userProfile is ', userProfile);
 
     useEffect(() => {
         if (userProfile) {
@@ -50,14 +46,12 @@ const ProfileButton = () => {
 
     const openMenu = (e) => {
         if (showMenu) return;
-        // e.currentTarget.classList.add('profile-button-active');
         setShowMenu(true);
     };
 
     useEffect(() => {
         const closeMenu = () => {
             setShowMenu(false);
-            // document.getElementById('profile-button').classList.remove('profile-button-active');
         }
         if (showMenu) {
             document.addEventListener('click', closeMenu);
@@ -74,7 +68,6 @@ const ProfileButton = () => {
                 {(!userProfile?.imgUrl) && (
                     <i className="fa-solid fa-circle-user" id='profile-button'></i>
                 )}
-                {/* <i id='profile-button' className="fa-solid fa-circle-user"></i> */}
             </div>
             {showMenu && (
                 <div id='menu'>
@@ -104,7 +97,7 @@ const ProfileButton = () => {
             )}
             {showModal && (
                 <Modal onClose={()=> setShowModal(false)}>
-                    <NoProfile setShowModal={setShowModal} setIgnore={setIgnore}/>
+                    <NoProfile setShowModal={setShowModal} />
                 </Modal>
             )}
         </>

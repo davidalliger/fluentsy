@@ -3,14 +3,12 @@
     box-sizing: border-box;
     padding-top: 50px;
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
     background-color: white;
     align-items: center;
 }
 
 #not-found-container {
-    /* width: 900px; */
     width: auto;
     margin-right: 40px;
 }
@@ -25,7 +23,6 @@
     font-size: 18px;
     font-weight: bold;
     color: gray;
-    /* font-style: italic; */
 }
 
 #not-found-home {
@@ -37,7 +34,6 @@
     background-color: #F14052;
     padding: 7px 17px;
     border-radius: 10px;
-    /* margin-left: 10px; */
     border: none;
     cursor: pointer;
 }
