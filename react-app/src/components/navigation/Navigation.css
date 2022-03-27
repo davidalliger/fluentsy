@@ -199,3 +199,17 @@
     color: gray;
     font-size: 14px;
 }
+
+.nav-bar-user-image {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* display: flex;
+    justify-content: center; */
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    cursor: pointer;
+}

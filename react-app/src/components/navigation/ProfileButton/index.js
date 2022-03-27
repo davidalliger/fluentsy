@@ -14,15 +14,20 @@ const ProfileButton = () => {
     const history = useHistory();
     const user = useSelector(state => state.session.user)
     const profileState = useSelector(state => state.profiles);
+    console.log('in nav, profileState is ', profileState);
     const profiles = Object.values(profileState);
+    console.log('in nav, profiles is ', profiles);
     const userProfile = profiles.reduce((profileMatch,profile) => {
         if (profile.userId === user.id) profileMatch = profile;
         return profileMatch;
     }, null);
+    console.log('in nav, userProfile is ', userProfile);
 
     useEffect(() => {
         if (userProfile) {
             setProfile(true);
+        } else {
+            setProfile(false);
         }
     }, [userProfile])
 
@@ -63,7 +68,13 @@ const ProfileButton = () => {
     return (
         <>
             <div onClick={openMenu}>
-                <i id='profile-button' className="fa-solid fa-circle-user"></i>
+                {userProfile?.imgUrl && (
+                    <div className='nav-bar-user-image' style={{backgroundImage: `url(${userProfile.imgUrl})`}} />
+                )}
+                {(!userProfile?.imgUrl) && (
+                    <i className="fa-solid fa-circle-user" id='profile-button'></i>
+                )}
+                {/* <i id='profile-button' className="fa-solid fa-circle-user"></i> */}
             </div>
             {showMenu && (
                 <div id='menu'>

@@ -49,6 +49,9 @@ def edit_profile(id):
 def delete_language(id):
     delete_language = Language.query.get(id)
 
+    if delete_language.primary:
+        return {'errors': ['Cannot delete primary language.']}
+
     db.session.delete(delete_language)
     db.session.commit()
     return delete_language.to_dict()
