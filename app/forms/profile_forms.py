@@ -36,6 +36,9 @@ def validate_img_url(form, field):
         raise ValidationError('Please enter a valid image URL beginning with either "http://" or "https://"')
     try:
         response = requests.get(url)
+        print(response)
+        if not response.ok:
+            raise ValidationError('Please enter a valid URL')
     except:
         raise ValidationError('Please enter a valid URL')
 
