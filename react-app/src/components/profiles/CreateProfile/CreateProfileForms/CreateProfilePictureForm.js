@@ -30,7 +30,8 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
     }
 
     const handleSkip = () => {
-            setAllStepsCompleted(true);
+        setImgUrl('');
+        setAllStepsCompleted(true);
     }
 
     useEffect(() => {
