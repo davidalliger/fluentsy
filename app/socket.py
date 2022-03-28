@@ -2,7 +2,7 @@ from flask import jsonify
 from flask_socketio import SocketIO, emit, send, join_room
 import os
 
-from app.models import db, Message
+from app.models import db, Message, User
 from app.forms.message_form import MessageForm
 
 if os.environ.get('FLASK_ENV') == 'production':
@@ -24,6 +24,10 @@ def on_join(data):
 def handle_chat(data):
     room = data['recipient_id']
     self = data['sender_id']
+    recipient = User.query.get(room)
+    if not recipient:
+        error_message = {'message': 'Please select a recipient', 'type': 'chat', 'content': data['content']}
+        emit('error', error_message, to=self)
     if not data['content']:
         error_message = {'message': 'Message cannot be empty', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)
