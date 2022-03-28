@@ -107,6 +107,10 @@ class IsValidDate(object):
         num = int(field.data)
         if not month.data:
             raise StopValidation()
+        try:
+            int(month.data)
+        except:
+            raise StopValidation()
         if int(month.data) == 1:
             if num not in range(1,32):
                 raise StopValidation(message)
@@ -161,8 +165,16 @@ class IsValidYear(object):
         thirteen_years_ago = current_year - 13
         year = int(field.data)
         if form[self.fieldname1].data:
+            try:
+                int(form[self.fieldname1].data)
+            except:
+                raise StopValidation()
             month = int(form[self.fieldname1].data)
         if form[self.fieldname2].data:
+            try:
+                int(form[self.fieldname2].data)
+            except:
+                raise StopValidation()
             day = int(form[self.fieldname2].data)
         if not form[self.fieldname1].data or not form[self.fieldname2].data:
             raise StopValidation()
