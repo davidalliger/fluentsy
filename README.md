@@ -1,5 +1,5 @@
 # Fluentsy
-Fluentsy is a social network for language learners, inspired in part by language exchange apps like Hello Talk and language tutoring apps like italki. Users can create attractive and informative profiles, list which languages they speak, and message other users in real time. 
+Fluentsy is a social network app for language learners, inspired in part by language exchange apps like Hello Talk and language tutoring apps like italki. Users can create attractive and informative profiles, list which languages they speak, and message other users in real time. 
 
 Fluentsy makes it easy to find suitable conversation partners for practice with writing and speaking skills in a target language. Using Fluentsy, someone learning Spanish may find a native speaker in search of a language exchange or a fellow student who's looking for a chance to put their knowledge to use.
 
