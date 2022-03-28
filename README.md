@@ -39,7 +39,7 @@ Clicking the envelope icon in the navigation bar, selecting "My Messages" from t
 
 ## Languages
 
-On the languages pages, users can view, add, update or delete languages. Languages are divided into native languages and target languages. Each user with a profile is required to display at least one native language and at least one target language. Therefore, a user may not delete a primary native language or a primary target language. However, it is easy to update which languages are listed as primary.
+On the languages page, users can view, add, update or delete languages. Languages are divided into native languages and target languages. Each user with a profile is required to display at least one native language and at least one target language. Therefore, a user may not delete a primary native language or a primary target language. However, it is easy to update which languages are listed as primary.
 
 ![screenshots-7](https://user-images.githubusercontent.com/88861592/160310366-62b3d166-71f0-46da-938e-65d2bfaaf02d.PNG)
 
