@@ -21,7 +21,7 @@ Once a user has logged in, they will be directed to a home page that displays an
 
 ## Profiles
 
-A registered and logged-in user can preview user profiles in the users feed or view the details of their own or another user's profile. When viewing one's own profile, the user can see edit buttons to the right which provide the ability to update or change the information previously entered. At the bottom of the page, there is also a button which allows the user to delete their profile.
+A registered and logged-in user can preview user profiles in the users feed or view the details of their own or another user's profile. When viewing one's own profile, one can see edit buttons to the right which provide the ability to update or change the information that was previously entered. At the bottom of the page, there is also a button which allows the user to delete the profile.
 
 ![screenshots-3](https://user-images.githubusercontent.com/88861592/160309510-1444bfb5-8d98-4c6c-9a8c-68fdab437e70.PNG)
 
