@@ -42,7 +42,7 @@ const Languages = ({userProfile, id}) => {
                 setPrimaryTargetLanguage(getPrimaryTargetLanguage);
             }
         }
-    }, [languages]);
+    }, [languages, userProfile]);
 
     useEffect(() => {
         if (nativeLanguages?.length) {
