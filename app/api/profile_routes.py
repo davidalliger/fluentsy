@@ -88,9 +88,11 @@ def edit_profile(id):
 @login_required
 def delete_profile(id):
     delete_profile = Profile.query.filter(Profile.id == id).first()
+    print('profile to delete is ', delete_profile)
     delete_languages = Language.query.filter(Language.user_id == delete_profile.user_id).all()
+    print('languages to delete are ', delete_languages)
     delete_messages = Message.query.filter((Message.sender_id == delete_profile.user_id) | (Message.recipient_id == delete_profile.user_id)).all()
-
+    print('messages to delete are ', delete_messages)
 
     if delete_languages:
         for language in delete_languages:

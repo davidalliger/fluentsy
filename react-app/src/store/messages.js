@@ -3,12 +3,15 @@ const ADD = 'messages/ADD';
 const EDIT = 'messages/EDIT';
 const REMOVE = 'messages/REMOVE';
 const CLEAR = 'messages/CLEAR';
+const CLEAR_DELETED_PROFILE = 'messages/CLEAR_DELETED_PROFILE';
 
 const loadMessages = (messages, id) => ({type: LOAD, messages, id});
 export const addMessage = (new_message, id) => ({type: ADD, new_message, id});
 export const editMessage = (payload, id) => ({type: EDIT, payload, id});
 export const removeMessage = (payload, id) => ({type: REMOVE, payload, id});
 export const clearMessages = () => ({type: CLEAR});
+export const clearDeletedProfile = payload => ({type: CLEAR_DELETED_PROFILE, payload})
+
 
 export const getMessages = (id) => async dispatch => {
     const response = await fetch(`/api/users/${id}/messages`);
@@ -84,6 +87,11 @@ const messagesReducer = (state= {}, action) => {
         case CLEAR:
             newState = {}
             return newState
+        case CLEAR_DELETED_PROFILE:
+            if(newState[action.payload.id]) {
+                delete newState[action.payload.id]
+            }
+            return newState;
         default:
             return newState;
 
