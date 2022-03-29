@@ -5,6 +5,17 @@ Fluentsy makes it easy to find suitable conversation partners for practice with 
 
 The app was created using a React frontend, a Flask backend, and a PostgreSQL database. At the time of this writing, Fluentsy has three full-CRUD features, but I plan on implementing additional features like search and calendar invites in the future. I would also like to utilize S3 for uploading and storing images.
 
+## Technologies
+This app utilizes the following technologies:
+- PostgreSQL
+- Flask
+- Flask-SQLAlchemy
+- WTForms
+- React
+- Redux
+- Flask-SocketIO
+- Socket.IO
+
 ## Screenshots
 
 ### Splash Page
@@ -91,17 +102,6 @@ On the languages page, users can view, add, update or delete languages. Language
 ### Translation
 - Change settings to view app's interface in your primary native language
 - Click a button to translate a message into your primary native language
-
-## Technologies
-This app utilizes the following technologies:
-- PostgreSQL
-- Flask
-- Flask-SQLAlchemy
-- WTForms
-- React
-- Redux
-- Flask-SocketIO
-- Socket.IO
 
 ## Functionality
 
