@@ -2,7 +2,7 @@ from flask import jsonify
 from flask_socketio import SocketIO, emit, send, join_room
 import os
 
-from app.models import db, Message, User
+from app.models import db, Message, User, Profile
 from app.forms.message_form import MessageForm
 
 if os.environ.get('FLASK_ENV') == 'production':
@@ -27,6 +27,11 @@ def handle_chat(data):
     recipient = User.query.get(room)
     if not recipient:
         error_message = {'message': 'Please select a recipient', 'type': 'chat', 'content': data['content']}
+        emit('error', error_message, to=self)
+    recipient_profile = Profile.query.filter(Profile.user_id == room)
+    print(recipient_profile)
+    if not recipient_profile:
+        error_message = {'message': 'Recipient is not able to receive messages', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)
     if not data['content']:
         error_message = {'message': 'Message cannot be empty', 'type': 'chat', 'content': data['content']}
@@ -81,3 +86,10 @@ def delete_chat(data):
     self = response['sender_id']
     emit('delete_chat', response, to=room)
     emit('delete_chat', response, to=self)
+
+@socketio.on('delete_profile')
+def handle_profile_deletion(data):
+    id = data['id']
+    id_to_delete = User.query.get(id)
+    response = {'id': id_to_delete.id}
+    emit('delete_profile_event', response, broadcast=True)

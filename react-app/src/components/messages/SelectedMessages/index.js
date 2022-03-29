@@ -61,7 +61,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
                 if (profile.userId === +selected) profileMatch = profile;
                 return profileMatch;
             }, null);
-            setSelectedName(userProfile.username);
+            setSelectedName(userProfile?.username);
             setSelectedProfile(userProfile);
             if (messageState && Object.keys(messageState).length) {
 

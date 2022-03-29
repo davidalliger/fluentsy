@@ -1,17 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { deleteProfile } from "../../../../store/profiles";
 import {clearLanguages } from '../../../../store/languages'
+import { clearMessages } from "../../../../store/messages";
+import {io} from 'socket.io-client';
+
+let deleteSocket;
 
 const DeleteProfileForm = ({setShowModal, id, user}) => {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const history = useHistory();
+
+    useEffect(() => {
+        deleteSocket = io();
+        deleteSocket.emit('join', {room_id: +user.id});
+
+        return () => deleteSocket.disconnect();
+    }, [])
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         const data = await dispatch(deleteProfile(id));
+        console.log('emitting delete profile with id ', id);
+        deleteSocket.emit('delete_profile', {'id': +user.id });
         dispatch(clearLanguages(user.id))
+        dispatch(clearMessages())
         if (data.errors) {
             setErrors(data.errors);
         } else if (data.success) {
