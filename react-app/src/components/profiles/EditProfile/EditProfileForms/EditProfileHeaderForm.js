@@ -45,7 +45,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
             id: +userProfile.id,
             username,
             user_id: +userProfile.userId,
-            img_url: userProfile.imgUrl,
+            image: userProfile.imgUrl,
             country,
             state,
             timezone,

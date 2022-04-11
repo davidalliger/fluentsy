@@ -16,7 +16,7 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
             id: +id,
             username,
             user_id: +userId,
-            img_url: imgUrl,
+            image: imgUrl,
             country,
             state,
             timezone,

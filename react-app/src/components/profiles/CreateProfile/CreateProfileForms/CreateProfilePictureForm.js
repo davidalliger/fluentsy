@@ -2,23 +2,35 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { addProfilePicture } from "../../../../store/profiles";
 
-const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl, setImgUrl, setAllStepsCompleted}) => {
+const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, setImage, setAllStepsCompleted}) => {
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
+    const [imageLoading, setImageLoading] = useState(false);
     const dispatch = useDispatch();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const picture = {
-            img_url: imgUrl
-        };
-        const data = await dispatch(addProfilePicture(picture));
+
+        const formData = new FormData();
+        formData.append('image', image);
+
+        setImageLoading(true);
+        console.log(formData)
+
+
+
+        // const picture = {
+        //     img_url: imgUrl
+        // };
+        const data = await dispatch(addProfilePicture(formData));
         if (data.errors) {
+            setImageLoading(false);
             setErrors(data.errors);
             document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.success) {
             setAllStepsCompleted(true);
         } else {
+            setImageLoading(false);
             setErrors(data);
             document.querySelector('.basic-form-wide').scrollTop = 0;
         }
@@ -30,7 +42,7 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
     }
 
     const handleSkip = () => {
-        setImgUrl('');
+        setImage('');
         setAllStepsCompleted(true);
     }
 
@@ -39,6 +51,12 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
             setShowErrors(true);
         }
     }, [errors]);
+
+    const updateImage = e => {
+        const file = e.target.files[0];
+        setImage(file);
+        console.log(image);
+    }
 
     return (
         <div className='basic-form-inner'>
@@ -67,14 +85,16 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, imgUrl,
                             Image URL
                         </label>
                     </div>
+                    {imageLoading && <p>Loading...</p>}
                     <div className='basic-form-input-container'>
                         <input
-                            type='text'
+                            type='file'
                             id='img-url'
                             name='imgUrl'
                             className='basic-form-input'
-                            onChange={e => setImgUrl(e.target.value)}
-                            value={imgUrl}
+                            accept='image/*'
+                            onChange={updateImage}
+                            // value={imgUrl}
                         />
                     </div>
                 </div>

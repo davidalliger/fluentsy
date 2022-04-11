@@ -16,7 +16,7 @@ const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
             id: +id,
             username,
             user_id: +userId,
-            img_url: imgUrl,
+            image: imgUrl,
             country,
             state,
             timezone,

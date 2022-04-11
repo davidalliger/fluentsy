@@ -105,10 +105,7 @@ export const addProfileAbout = (payload) => async dispatch => {
 export const addProfilePicture = (payload) => async dispatch => {
     const response = await fetch('/api/profiles/picture', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        body: payload
     });
     if (response.ok) {
         const message = await response.json();
@@ -126,10 +123,7 @@ export const addProfilePicture = (payload) => async dispatch => {
 export const createProfile = (payload) => async dispatch => {
     const response = await fetch('/api/profiles/', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        body: payload
     });
     if (response.ok) {
         const new_profile = await response.json();
