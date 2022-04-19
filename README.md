@@ -30,13 +30,13 @@ When first visiting, users are greeted by a splash page that offers brief descri
 
 ![screenshots-1](https://user-images.githubusercontent.com/88861592/160306754-a41c59b1-832f-41ae-8433-dcaec5769d7c.PNG)
 
-## Home Page
+### Home Page
 
 Once a user has logged in, they will be directed to a home page that displays an animation that cycles through greetings in different languages. Below that is a paragraph describing the purpose of the app, followed by a section that displays new users.
 
 ![screenshots-2](https://user-images.githubusercontent.com/88861592/160309110-2942df6b-c2ed-483c-a1cb-496e6aec01ef.PNG)
 
-## Profiles
+### Profiles
 
 A registered and logged-in user can preview user profiles in the users feed or view the details of their own or another user's profile. When viewing one's own profile, one can see edit buttons to the right which provide the ability to update or change the information that was previously entered. At the bottom of the page, there is also a button which allows the user to delete the profile.
 
@@ -48,13 +48,13 @@ When viewing another person's profile, the user will notice a green button for s
 
 ![screenshots-5](https://user-images.githubusercontent.com/88861592/160309691-7c8930e5-164d-4e1e-918a-692b8f7d78b0.PNG)
 
-## Messages
+### Messages
 
 Clicking the envelope icon in the navigation bar, selecting "My Messages" from the user dropdown menu, or hitting the green "Message" button in another person's profile are all valid ways to access the messages page. Here, users can send and receive messages, as well as edit and delete messages they've sent. They can also toggle between different conversations they're engaged in with multiple users.
 
 ![screenshots-6](https://user-images.githubusercontent.com/88861592/160310231-c39444d0-6d89-4501-928a-0be9c40e0003.PNG)
 
-## Languages
+### Languages
 
 On the languages page, users can view, add, update or delete languages. Languages are divided into native languages and target languages. Each user with a profile is required to display at least one native language and at least one target language. Therefore, a user may not delete a primary native language or a primary target language. However, it is easy to update which languages are listed as primary.
 
