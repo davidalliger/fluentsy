@@ -5,6 +5,12 @@ Fluentsy makes it easy to find suitable conversation partners for practice with 
 
 The app was created using a React frontend, a Flask backend, and a PostgreSQL database. At the time of this writing, Fluentsy has three full-CRUD features, but I plan on implementing additional features like search and calendar invites in the future. I would also like to utilize S3 for uploading and storing images.
 
+## Implementation
+
+One aspect of this project that was initially challenging was learning how to implement web sockets for my live chat feature. To achieve the desired result, I used a combination of Flask-SocketIO on the backend and the socket.io-client package on the frontend. Rather than the api route handlers I am used to writing on the backend, I instead created an instance of the SocketIO object and created event handlers that listen for specific events being emitted from the frontend. I also had to learn about the concept of rooms, so that I could have the backend event handlers only emit responses to the appropriate parties. I'm glad I overcame the difficulty of learning something new, and I look forward to broadening my knowledge of web sockets, so that I can use them again in future projects.
+
+![screenshots-8](https://user-images.githubusercontent.com/88861592/160312702-715a270e-8dc6-4ca1-9018-e2ad2ec23e37.PNG)
+
 ## Technologies
 This app utilizes the following technologies:
 - PostgreSQL
@@ -102,9 +108,3 @@ On the languages page, users can view, add, update or delete languages. Language
 ### Translation
 - Change settings to view app's interface in your primary native language
 - Click a button to translate a message into your primary native language
-
-## Functionality
-
-One aspect of this project that was initially challenging was learning how to implement web sockets for my live chat feature. To achieve the desired result, I used a combination of Flask-SocketIO on the backend and the socket.io-client package on the frontend. Rather than the api route handlers I am used to writing on the backend, I instead created an instance of the SocketIO object and created event handlers that listen for specific events being emitted from the frontend. I also had to learn about the concept of rooms, so that I could have the backend event handlers only emit responses to the appropriate parties. I'm glad I overcame the difficulty of learning something new, and I look forward to broadening my knowledge of web sockets, so that I can use them again in future projects.
-
-![screenshots-8](https://user-images.githubusercontent.com/88861592/160312702-715a270e-8dc6-4ca1-9018-e2ad2ec23e37.PNG)
