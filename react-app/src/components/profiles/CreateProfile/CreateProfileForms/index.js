@@ -24,7 +24,7 @@ const CreateProfileForms = ({setShowModal}) => {
     const [year, setYear] = useState('');
     const [displayAge, setDisplayAge] = useState(false);
     const [about, setAbout] = useState('');
-    const [imgUrl, setImgUrl] = useState('');
+    const [image, setImage] = useState('');
     const [allStepsCompleted, setAllStepsCompleted] = useState(false);
     const [noProfile, setNoProfile] = useState(false);
     const [languagesAdded, setLanguagesAdded] = useState(false);
@@ -97,18 +97,26 @@ const CreateProfileForms = ({setShowModal}) => {
         if (languagesAdded) {
             (async() => {
                 const birthday = `${year}, ${month}, ${day}`;
-
-                const new_profile = {
-                    user_id: user.id,
-                    img_url: imgUrl,
-                    country,
-                    state,
-                    timezone,
-                    about: about ? about : 'Hi! I\'m a new user!',
-                    birthday: birthday,
-                    display_age: displayAge
-                };
-                const data = await dispatch(createProfile(new_profile));
+                const formData = new FormData();
+                formData.append('user_id', user.id);
+                formData.append('image', image);
+                formData.append('country', country);
+                formData.append('state', state);
+                formData.append('timezone', timezone);
+                formData.append('about', about);
+                formData.append('birthday', birthday);
+                formData.append('display_age', displayAge);
+                // const new_profile = {
+                //     user_id: user.id,
+                //     image: image,
+                //     country,
+                //     state,
+                //     timezone,
+                //     about: about ? about : 'Hi! I\'m a new user!',
+                //     birthday: birthday,
+                //     display_age: displayAge
+                // };
+                const data = await dispatch(createProfile(formData));
                 if (data.errors) {
                     setErrors(data.errors);
                     document.querySelector('.basic-form-wide').scrollTop = 0;
@@ -152,7 +160,7 @@ const CreateProfileForms = ({setShowModal}) => {
                 <CreateProfileAboutForm setShowLocationForm={setShowLocationForm} setShowAboutForm={setShowAboutForm} setShowPictureForm={setShowPictureForm} month={month} setMonth={setMonth} day={day} setDay={setDay} year={year} setYear={setYear} displayAge={displayAge} setDisplayAge={setDisplayAge} about={about} setAbout={setAbout}/>
             )}
             {showPictureForm && (
-                <CreateProfilePictureForm setShowAboutForm={setShowAboutForm} setShowPictureForm={setShowPictureForm} imgUrl={imgUrl} setImgUrl={setImgUrl} setAllStepsCompleted={setAllStepsCompleted} />
+                <CreateProfilePictureForm setShowAboutForm={setShowAboutForm} setShowPictureForm={setShowPictureForm} image={image} setImage={setImage} setAllStepsCompleted={setAllStepsCompleted} />
             )}
         </div>
     )

@@ -93,7 +93,7 @@ class ProfileAboutForm(FlaskForm):
     about = StringField('About', validators=[DataRequired('Please enter a brief description')])
 
 class ProfilePictureForm(FlaskForm):
-    img_url = StringField('Image', validators=[validate_img_url])
+    image = StringField('Image', validators=[validate_img_url])
 
 class ProfileForm(FlaskForm):
     country = StringField('Country', validators=[
@@ -111,5 +111,5 @@ class ProfileForm(FlaskForm):
     birthday = StringField('Birthday', validators=[DataRequired('Please enter your birthday'), validate_birthday])
     display_age = BooleanField('Display Age', validators=[validate_display_age])
     about = StringField('About', validators=[DataRequired('Please enter a brief description')])
-    img_url = StringField('Image', validators=[validate_img_url])
+    image = StringField('Image')
     user_id = IntegerField('User', validators=[user_exists])

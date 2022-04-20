@@ -6,7 +6,7 @@ class Profile(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    img_url = db.Column(db.String)
+    image = db.Column(db.String)
     country = db.Column(db.String)
     state = db.Column(db.String)
     timezone = db.Column(db.String)
@@ -25,7 +25,7 @@ class Profile(db.Model):
             'username': self.user.username,
             'languages': [language.to_dict() for language in self.user.languages],
             'userId': self.user_id,
-            'imgUrl': self.img_url,
+            'imgUrl': self.image,
             'country': self.country,
             'state': self.state,
             'timezone': self.timezone,
