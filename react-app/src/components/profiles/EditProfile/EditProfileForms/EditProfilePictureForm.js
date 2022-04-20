@@ -8,6 +8,7 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
     const [showErrors, setShowErrors] = useState(false);
     const [image, setImage] = useState(userProfile.imgUrl);
     const [imageLoading, setImageLoading] = useState(false);
+    const [fileName, setFileName] = useState('');
     const dispatch = useDispatch();
 
 
@@ -66,6 +67,8 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
     const updateImage = e => {
         const file = e.target.files[0];
         setImage(file);
+        const fileDisplay = file.name.length < 15 ? file.name : file.name.slice(0,15) + '...';
+        setFileName(fileDisplay);
         console.log(image);
     }
 
@@ -86,23 +89,31 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
                 </div>
             )}
             <h2>Update Picture</h2>
-            <div className='basic-form-field'>
-                <div className='basic-form-label-question'>
-                    <label htmlFor='img-url'>
-                        Image
-                    </label>
-                </div>
-                {imageLoading && <p>Loading...</p>}
-                <div className='basic-form-input-container'>
-                    <input
-                        type='file'
-                        id='img-url'
-                        name='image'
-                        className='basic-form-input'
-                        accept='image/*'
-                        onChange={updateImage}
-                        // value={imgUrl}
+            <div className='basic-form-file-label'>
+                <label htmlFor='img-url'>
+                    Update your profile picture
+                </label>
+            </div>
+            <div className='basic-form-file-field'>
+                <div className='basic-form-upload-field'>
+                    <input className='basic-form-upload-filename'
+                        placeholder='No File Selected'
+                        value={fileName}
+                        disabled='disabled'
                     />
+                    {imageLoading && <p>Loading...</p>}
+                    <div className='basic-form-file-upload-button'>
+                        <span>Upload</span>
+                        <input
+                            type='file'
+                            id='img-url'
+                            name='imgUrl'
+                            className='basic-form-file-input'
+                            accept='image/*'
+                            onChange={updateImage}
+                            // value={imgUrl}
+                        />
+                    </div>
                 </div>
             </div>
             <div className='basic-form-double-button-div'>

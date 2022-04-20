@@ -44,7 +44,7 @@ const LandingPage = () => {
                         <SignUpModal showSignUpModal={showSignUpModal} setShowSignUpModal={setShowSignUpModal} />
                     </div>
                     <div id='landing-page-img-div'>
-                        <div id='landing-page-img' style={{backgroundImage: `url(${myImage})`}}>
+                        <div id='landing-page-img' style={{backgroundImage: `url(https://fluentsy-bucket.s3.us-west-1.amazonaws.com/landing-page_small.png)`}}>
                         </div>
                     </div>
                 </div>
