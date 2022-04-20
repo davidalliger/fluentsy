@@ -1,31 +1,51 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { updateProfile } from "../../../../store/profiles";
+import { updateProfilePicture } from "../../../../store/profiles";
 
 const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
     const {about, id, username, userId, country, state, timezone, birthday, displayAge} = userProfile;
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
-    const [imgUrl, setImgUrl] = useState(userProfile.imgUrl);
+    const [image, setImage] = useState(userProfile.imgUrl);
+    const [imageLoading, setImageLoading] = useState(false);
     const dispatch = useDispatch();
 
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const editProfile = {
-            id: +id,
-            username,
-            user_id: +userId,
-            image: imgUrl,
-            country,
-            state,
-            timezone,
-            birthday,
-            display_age: displayAge,
-            about
-        };
-        const data = await dispatch(updateProfile(editProfile));
+        console.log(id);
+        console.log(image);
+        const formData = new FormData();
+        formData.append('id', +id);
+        formData.append('username', username);
+        formData.append('user_id', +userId);
+        formData.append('image', image);
+        formData.append('country', country);
+        formData.append('state', state);
+        formData.append('timezone', timezone);
+        formData.append('birthday', birthday);
+        formData.append('display_age', displayAge);
+        formData.append('about', about);
+        console.log(formData)
+
+        setImageLoading(true);
+
+        // const editProfile = {
+        //     id: +id,
+        //     username,
+        //     user_id: +userId,
+        //     image: imgUrl,
+        //     country,
+        //     state,
+        //     timezone,
+        //     birthday,
+        //     display_age: displayAge,
+        //     about
+        // };
+
+        const data = await dispatch(updateProfilePicture(formData, id));
         if (data.errors) {
+            setImageLoading(false);
             setErrors(data.errors);
             document.querySelector('.basic-form-wide').scrollTop = 0;
         } else if (data.id) {
@@ -42,6 +62,12 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
             setShowErrors(true);
         }
     }, [errors]);
+
+    const updateImage = e => {
+        const file = e.target.files[0];
+        setImage(file);
+        console.log(image);
+    }
 
     return (
         <form
@@ -63,17 +89,19 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
             <div className='basic-form-field'>
                 <div className='basic-form-label-question'>
                     <label htmlFor='img-url'>
-                        Image URL (optional)
+                        Image
                     </label>
                 </div>
+                {imageLoading && <p>Loading...</p>}
                 <div className='basic-form-input-container'>
                     <input
-                        type='text'
+                        type='file'
                         id='img-url'
-                        name='imgUrl'
+                        name='image'
                         className='basic-form-input'
-                        onChange={e => setImgUrl(e.target.value)}
-                        value={imgUrl}
+                        accept='image/*'
+                        onChange={updateImage}
+                        // value={imgUrl}
                     />
                 </div>
             </div>

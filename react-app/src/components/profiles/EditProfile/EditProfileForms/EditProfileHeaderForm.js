@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { updateProfile } from "../../../../store/profiles";
+import { updateProfileHeader } from "../../../../store/profiles";
 import { states, countries, timezones, statesDefaultTimezones, countriesDefaultTimezones } from '../../../../utils';
 import { findYear, findMonth, findDay } from '../../../../utils';
 
 const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
-    const {username, birthday, about} = userProfile;
+    const {username, birthday, about, imgUrl} = userProfile;
     const [errors, setErrors] = useState([]);
     const [country, setCountry] = useState(userProfile.country);
     const [state, setState] = useState(userProfile.state);
@@ -17,6 +17,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
     const [showState, setShowState] = useState(userProfile.state ? true : false);
     const [showErrors, setShowErrors] = useState(false);
     const dispatch = useDispatch();
+    console.log(imgUrl);
 
     useEffect(() => {
         if (country === 'United States') {
@@ -45,7 +46,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
             id: +userProfile.id,
             username,
             user_id: +userProfile.userId,
-            image: userProfile.imgUrl,
+            image: imgUrl,
             country,
             state,
             timezone,
@@ -53,7 +54,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
             display_age: displayAge,
             about
         };
-        const data = await dispatch(updateProfile(editProfile));
+        const data = await dispatch(updateProfileHeader(editProfile));
         if (data.errors) {
             setErrors(data.errors);
             document.querySelector('.basic-form-wide').scrollTop = 0;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { updateProfile } from "../../../../store/profiles";
+import { updateProfileAbout } from "../../../../store/profiles";
 
 const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
     const {about, id, username, userId, imgUrl, country, state, timezone, birthday, displayAge} = userProfile;
@@ -24,7 +24,7 @@ const EditProfileAboutForm = ({userProfile, setShowEditAboutModal}) => {
             display_age: displayAge,
             about: aboutInfo
         };
-        const data = await dispatch(updateProfile(editProfile));
+        const data = await dispatch(updateProfileAbout(editProfile));
         if (data.errors) {
             setErrors(data.errors);
             document.querySelector('.basic-form-wide').scrollTop = 0;

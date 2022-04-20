@@ -77,12 +77,12 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
                 )}
                 <h2>Picture</h2>
                 <div className='basic-form-label-question'>
-                    Select your profile picture (optional)
+                    Select your profile picture
                 </div>
                 <div className='basic-form-field'>
                     <div className='basic-form-label'>
                         <label htmlFor='img-url'>
-                            Image URL
+                            Image
                         </label>
                     </div>
                     {imageLoading && <p>Loading...</p>}
@@ -115,14 +115,14 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
                         Next
                     </button>
                 </div>
-                <div
+                {/* <div
                     onClick={handleSkip}
                     type='div'
                     id='skip'
                     className='basic-form-extra-link'
                 >
                     Skip this step
-                </div>
+                </div> */}
             </form>
         </div>
     )
