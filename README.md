@@ -3,7 +3,7 @@
 
 Fluentsy makes it easy to find suitable conversation partners for practice with writing and speaking skills in a target language. Using Fluentsy, someone learning Spanish may find a native speaker in search of a language exchange or a fellow student who's looking for a chance to put their knowledge to use.
 
-The app was created using a React frontend, a Flask backend, and a PostgreSQL database. At the time of this writing, Fluentsy has three full-CRUD features, but I plan on implementing additional features like search and calendar invites in the future.
+The app was created using a React frontend, a Flask backend, and a PostgreSQL database. At the time of this writing, Fluentsy has three full-CRUD features plus a search feature, but I plan on implementing additional features like calendar invites in the future.
 
 ## Implementation
 
@@ -85,13 +85,12 @@ On the languages page, users can view, add, update or delete languages. Language
 - A registered and logged-in user with a profile can edit a language.
 - A registered and logged-in user with a profile can delete a language.
 
-## Possible Future Features
-
 ### Search
-- Search by language
 - Search by username
+- Search by language
 - Search by country
-- Search by who's currently online
+
+## Possible Future Features
 
 ### Availability
 - Set availability time slots on a personal calendar
