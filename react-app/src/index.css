@@ -202,6 +202,9 @@ option {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     display: inline-block;
 }
 
@@ -226,7 +229,7 @@ option {
 }
 
 .basic-form-input {
-    width: 600px;
+    width: 100%;
     box-sizing: border-box;
     display: flex;
     justify-content: center;

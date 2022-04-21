@@ -33,7 +33,7 @@ def handle_chat(data):
     if not recipient_profile:
         error_message = {'message': 'Recipient is not able to receive messages', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)
-    if not data['content']:
+    if not data['content'] or len(data['content'].strip()) < 1:
         error_message = {'message': 'Message cannot be empty', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)
     elif len(data['content']) > 255:
@@ -43,7 +43,7 @@ def handle_chat(data):
         new_message = Message()
         new_message.sender_id = data['sender_id']
         new_message.recipient_id = data['recipient_id']
-        new_message.content = data['content']
+        new_message.content = data['content'].strip()
         db.session.add(new_message)
         db.session.commit()
         response = new_message.to_dict()
