@@ -102,7 +102,7 @@ const CreateProfileAboutForm = ({month, setMonth, day, setDay, year, setYear, di
                 <div className='basic-form-field'>
                     <label htmlFor='displayAge'>
                         <input
-                        type='checkbox'
+                            type='checkbox'
                             id='displayAge'
                             name='displayAge'
                             className='form-input'

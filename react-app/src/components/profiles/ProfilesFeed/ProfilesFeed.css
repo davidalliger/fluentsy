@@ -12,7 +12,7 @@
 }
 
 #profiles-feed-page {
-    padding: 100px 0;
+    padding: 180px 0 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,4 +58,62 @@
 }
 .profiles-feed-location p {
     margin: 5px 0;
+}
+
+#search-bar {
+    width: 100%;
+    position: fixed;
+    margin-top: 72px;
+    background-color: white;
+    /* padding: 10px; */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+#search-form {
+    padding: 30px 80px;
+}
+
+input.search-input {
+    font-size: 15px;
+    color: #313140;
+    max-width: 150px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+select.search-input {
+    color: #313140;
+    font-size: 15px;
+    min-width: 150px;
+    border: 1px solid gray;
+    padding: 1px;
+    border-radius: 5px;
+}
+
+select.search-input option::selection {
+    color: gray;
+}
+
+.search-input {
+    margin: 0 5px;
+}
+
+.native-off {
+    /* font-style: italic; */
+    /* text-decoration: line-through; */
+    color: darkgray;
+}
+
+.native-on {
+    font-style: normal;
+    color: #313140;
+}
+
+#no-profiles-matched {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
