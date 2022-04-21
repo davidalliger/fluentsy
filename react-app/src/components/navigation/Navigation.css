@@ -24,7 +24,14 @@
 
 .nav-users {
     color: #ffeaea;
-    font-size: 20px;
+    font-size: 18px;
+    /* margin-bottom: 1px; */
+}
+
+.nav-selected-users {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 2px;
 }
 
 .nav-messages {
@@ -60,10 +67,16 @@
     font-size: 24px;
 }
 
+.nav-selected-home {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 2px;
+}
+
 .nav-selected-messages {
     color: white;
     font-size: 25px;
-    margin-right: 22px;
+    /* margin-right: 22px; */
 }
 
 #nav-center-column {

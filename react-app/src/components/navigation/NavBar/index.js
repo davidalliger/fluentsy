@@ -25,26 +25,26 @@ const NavBar = () => {
     sessionLinks = (
       <div id='session-icons'>
         <div className='nav-icon-section'>
-          <NavLink to='/' exact={true} className='nav-home' activeClassName='nav-selected'>
-            <i class="fa-solid fa-house"></i>
+          <NavLink to='/' exact={true} className='nav-home' activeClassName='nav-selected-home'>
+            <i className="fa-solid fa-house"></i>
           </NavLink>
         </div>
         <div className='nav-icon-section'>
-          <NavLink to='/users' exact={true} className='nav-users'  activeClassName='nav-selected'>
-            <i class="fa-solid fa-globe"></i>
+          <NavLink to='/users' exact={true} className='nav-users'  activeClassName='nav-selected-users'>
+            <i className="fa-solid fa-magnifying-glass"></i>
           </NavLink>
         </div>
         {profile && (
           <div className='nav-icon-section'>
-            <NavLink to={{pathname: "/messages", state:{currentCorrespondent: null}}} exact={true} className='nav-messages'  activeClassName='nav-selected'>
-              <i class="fa-solid fa-envelope"></i>
+            <NavLink to={{pathname: "/messages", state:{currentCorrespondent: null}}} exact={true} className='nav-messages'  activeClassName='nav-selected-messages'>
+              <i className="fa-solid fa-envelope"></i>
             </NavLink>
           </div>
         )}
         {!profile && (
           <div className='nav-icon-section'>
             <div className='nav-messages'  activeClassName='nav-selected' onClick={() =>setShowNoProfileModal(true)}>
-              <i class="fa-solid fa-envelope"></i>
+              <i className="fa-solid fa-envelope"></i>
             </div>
           </div>
         )}
