@@ -65,7 +65,7 @@ const EditTargetLanguageForm = ({ user, setShowModal, editTargetLanguage }) => {
                     <select
                         id='native-language'
                         name='nativeLanguage'
-                        className='basic-form-input'
+                        className='basic-form-input-select-wide'
                         onChange={e => setTargetLanguage(e.target.value)}
                         value={targetLanguage}
                     >

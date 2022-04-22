@@ -238,6 +238,28 @@ option {
     background-color: transparent;
 }
 
+.basic-form-input-select-wide {
+    width: 100%;
+    min-width: 400px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+}
+
+.basic-form-input-select {
+    width: 100%;
+    min-width: 250px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+}
+
 .basic-form-file-input {
     width: 600px;
     box-sizing: border-box;

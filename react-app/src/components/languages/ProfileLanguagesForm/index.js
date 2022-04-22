@@ -76,7 +76,7 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
                     </div>
                     <div className='basic-form-input-container'>
                         <select
-                            className='basic-form-input'
+                            className='basic-form-input-select-wide'
                             id='native-language'
                             name='nativeLanguage'
                             onChange={e => setNativeLanguage(e.target.value)}
@@ -97,7 +97,7 @@ const CreateProfileLanguagesForm = ({ user, setShowModal, nativeLanguage, setNat
                     </div>
                     <div className='basic-form-input-container'>
                         <select
-                            className='basic-form-input'
+                            className='basic-form-input-select-wide'
                             id='target-language'
                             name='targetLanguage'
                             onChange={e => setTargetLanguage(e.target.value)}

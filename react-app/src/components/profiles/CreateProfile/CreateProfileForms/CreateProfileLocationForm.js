@@ -84,7 +84,7 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                     </div>
                     <div className='basic-form-input-container'>
                         <select
-                            className='basic-form-input'
+                            className='basic-form-input-select-wide'
                             id='country'
                             name='country'
                             onChange={e => setCountry(e.target.value)}
@@ -108,7 +108,7 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                             <select
                                 id='state'
                                 name='state'
-                                className='basic-form-input'
+                                className='basic-form-input-select-wide'
                                 onChange={e => setState(e.target.value)}
                                 value={state}
                             >
@@ -130,7 +130,7 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
                         <select
                             id='timezone'
                             name='timezone'
-                            className='basic-form-input'
+                            className='basic-form-input-select-wide'
                             onChange={e => setTimezone(e.target.value)}
                             value={timezone}
                         >
