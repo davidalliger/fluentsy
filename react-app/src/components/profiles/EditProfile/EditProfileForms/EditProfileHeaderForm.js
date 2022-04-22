@@ -100,7 +100,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
                     <select
                         id='country'
                         name='country'
-                        className='basic-form-input'
+                        className='basic-form-input-select-wide'
                         onChange={e => setCountry(e.target.value)}
                         value={country}
                     >
@@ -122,7 +122,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
                         <select
                             id='state'
                             name='state'
-                            className='form-select'
+                            className='basic-form-input-select-wide'
                             onChange={e => setState(e.target.value)}
                             value={state}
                         >
@@ -144,7 +144,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
                     <select
                         id='timezone'
                         name='timezone'
-                        className='form-select'
+                        className='basic-form-input-select-wide'
                         onChange={e => setTimezone(e.target.value)}
                         value={timezone}
                     >
