@@ -16,7 +16,6 @@ const LandingPage = () => {
 
     return (
         <div id='landing-page'>
-            <div>
                 <div id='landing-page-card'>
                     <div id='landing-page-intro-text-div'>
                         <h1>Meet language learners around the world!</h1>
@@ -51,7 +50,6 @@ const LandingPage = () => {
                 <div id='attribution-link'>
                     <a  href="https://www.freepik.com/vectors/people">People vector created by pikisuperstar - www.freepik.com</a>
                 </div >
-            </div>
         </div>
     );
 
