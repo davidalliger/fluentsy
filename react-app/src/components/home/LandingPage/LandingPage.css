@@ -90,3 +90,103 @@
 #landing-page-list-3 {
     margin: 0 0 36px;
 }
+
+@media (max-width: 500px) {
+    #landing-page {
+        margin-top:0px;
+        /* margin-bottom:30px; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: sans-serif;
+        max-width: 100%;
+        word-wrap: break-word;
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        box-sizing: border-box;
+        padding: 20px;
+    }
+    #landing-page-card {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        word-wrap: normal;
+        /* display: block; */
+        background-color: white;
+        min-height: 100%;
+        max-width: 100%;
+        height: fit-content;
+        margin: 0;
+        /* box-sizing: border-box; */
+        border-radius: 20px;
+        color: #313140;
+    }
+    #landing-page-intro-text-div {
+        display: inline-flex;
+        flex-direction: column;
+        max-width: 100%;
+        justify-content:center;
+        align-items:center;
+        word-wrap: break-word;
+    }
+
+    #landing-page-intro-text-div h1 {
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 20px;
+        word-wrap: break-word;
+        margin: 0 0 20px 0;
+        max-width: 100%;
+    }
+    #landing-page-list {
+        font-family: 'Noto Sans';
+        font-size: 13px;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+    #landing-page-list-1,
+    #landing-page-list-2 {
+        margin: 0 0 8px;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+    #landing-page-list-3 {
+        margin: 0 0 20px;
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+
+    #landing-page-img-div {
+        height: 40%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #landing-page-img {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        background-position: center center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        box-sizing: border-box;
+    }
+
+    #landing-page-get-started {
+        background-color: #F14052;
+        color: white;
+        font-size: 14px;
+        border: none;
+        border-radius: 12px;
+        font-family: 'Noto Sans', sans-serif;
+        font-weight: 700;
+        padding: 15px 64px;
+        cursor: pointer;
+        justify-self: center;
+    }
+
+}
