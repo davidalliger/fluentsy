@@ -483,3 +483,26 @@ select {
     justify-content: right;
     align-items: center;
 }
+
+
+@media screen and (max-width: 500px) {
+    html,
+    body,
+    #root,
+    #app {
+        width: 100%;
+    }
+    #footer {
+        position: fixed;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        bottom: 0;
+        height: 40px;
+        background-color: rgb(231, 231, 231);
+        padding: 0 40px;
+        display: flex;
+        justify-content: right;
+        align-items: center;
+    }
+}

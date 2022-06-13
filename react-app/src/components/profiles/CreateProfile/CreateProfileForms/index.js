@@ -106,16 +106,6 @@ const CreateProfileForms = ({setShowModal}) => {
                 formData.append('about', about);
                 formData.append('birthday', birthday);
                 formData.append('display_age', displayAge);
-                // const new_profile = {
-                //     user_id: user.id,
-                //     image: image,
-                //     country,
-                //     state,
-                //     timezone,
-                //     about: about ? about : 'Hi! I\'m a new user!',
-                //     birthday: birthday,
-                //     display_age: displayAge
-                // };
                 const data = await dispatch(createProfile(formData));
                 if (data.errors) {
                     setErrors(data.errors);
