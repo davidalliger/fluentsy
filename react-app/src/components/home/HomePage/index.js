@@ -57,6 +57,20 @@ const HomePage = () => {
         return () => clearTimeout(timeOut);
     }, [userProfile]);
 
+    const expand = () => {
+        const about1 =document.getElementById('homepage-about-section-1');
+        const about2 = document.getElementById('homepage-about-section-2');
+        about1.classList.add('expanded');
+        about2.classList.add('hidden');
+    }
+
+    const truncate = () => {
+        const about1 =document.getElementById('homepage-about-section-1');
+        const about2 = document.getElementById('homepage-about-section-2');
+        about1.classList.remove('expanded');
+        about2.classList.remove('hidden');
+    }
+
     return (
         <div id='homepage'>
             <div id='greetings'>
@@ -68,6 +82,29 @@ const HomePage = () => {
                 partner who's learning the same language you are. Connect in real time via live chat or plan a call
                 using your preferred third-party video conferencing platform. With Fluentsy in your tool belt, you'll
                 be fluent in no time!
+            </div>
+            <div id='homepage-about-section-1' className='hidden'>
+                Fluentsy is a community of language learners from all walks of life and every corner of the world.
+                Level up your language skills by practicing with a native speaker or team up with a conversation
+                partner who's learning the same language you are. Connect in real time via live chat or plan a call
+                using your preferred third-party video conferencing platform. With Fluentsy in your tool belt, you'll
+                be fluent in no time!
+                <span
+                    className="collapsible"
+                    onClick={truncate}
+                >
+                    Less
+                </span>
+            </div>
+            <div id='homepage-about-section-2' className='truncated'>
+                Fluentsy is a community of language learners from all walks of life and every corner of the world.
+                Level up your language skills...
+                <span
+                    className="collapsible"
+                    onClick={expand}
+                >
+                    Expand
+                </span>
             </div>
             <div id='homepage-new-users-title-div'>
                 New Users:

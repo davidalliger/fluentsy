@@ -135,6 +135,30 @@
     font-style: italic;
 }
 
+#homepage-about-section-1 {
+    width: 920px;
+    margin-bottom: 40px;
+    line-height: 30px;
+    font-size: 18px;
+    font-style: italic;
+}
+
+#homepage-about-section-2 {
+    width: 920px;
+    margin-bottom: 40px;
+    line-height: 30px;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.hidden {
+    display: none;
+}
+
+.truncated {
+    display: none;
+}
+
 .homepage-location,
 .homepage-age {
     font-size: 12px;
@@ -158,4 +182,93 @@
     display: flex;
     width: 100%;
     justify-content: center;
+}
+
+@media (max-width: 500px) {
+    #homepage {
+        box-sizing: border-box;
+        padding-top: 90px;
+        padding-bottom: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        height: auto;
+    }
+
+    #homepage-about-section {
+        width: 80%;
+        display: none;
+    }
+
+    #homepage-about-section-1 {
+        width: 80%;
+    }
+
+    .truncated {
+        display: block;
+    }
+
+    .hidden {
+        display: none;
+    }
+    .expanded {
+        display: block;
+    }
+
+    #homepage-about-section-2 {
+        width: 80%;
+    }
+
+    .collapsible {
+        margin-left: 12px;
+        font-weight: bold;
+        font-style: normal;
+        color: #f14052;
+        font-size: 15px;
+    }
+
+    #home-page-new-users-area {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .homepage-user-container {
+        padding: 20px;
+        margin: 5px;
+        height: 200px;
+        width: 85%;
+        background-color: white;
+        border-radius: 10px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-start;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #greetings {
+        font-size: 60px;
+        font-weight: bold;
+        font-style: italic;
+        animation-duration:3.3s;
+        animation-name: fadeinfadeout;
+        animation-iteration-count: infinite;
+        margin-bottom: 40px;
+        margin-top: 40px;
+        /* padding-top: 300px; */
+        box-sizing: border-box;
+    }
+    #homepage-new-users-title-div {
+        font-weight: bold;
+        margin-bottom: 5px;
+        width: 80%;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+    }
 }
