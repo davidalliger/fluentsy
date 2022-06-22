@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import '../Messages/Messages.css';
 import EditMessageModal from '../EditMessage/EditMessageModal';
 
@@ -147,7 +148,9 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
                                 <i className="fa-solid fa-circle-user message-selected-no-profile-image"></i>
                             )}
                             <div id='message-selected-profile-username'>
-                                {selectedProfile.username}
+                                <Link to={`users/${selectedProfile.id}`} className='profile-link'>
+                                    {selectedProfile.username}
+                                </Link>
                             </div>
                         </div>
                     )}

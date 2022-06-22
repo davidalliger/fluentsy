@@ -175,7 +175,6 @@
     justify-content: flex-start;
     width: 150px;
     height: 100%;
-    box-sizing: border-box;
 }
 
 #home-page-new-users-area {
@@ -235,7 +234,6 @@
         width: 100%;
         justify-content: center;
         align-items: center;
-        box-sizing: border-box;
     }
 
     .homepage-user-container {
@@ -245,7 +243,6 @@
         width: 85%;
         background-color: white;
         border-radius: 10px;
-        box-sizing: border-box;
         display: flex;
         align-items: flex-start;
         box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
@@ -261,7 +258,6 @@
         margin-bottom: 40px;
         margin-top: 40px;
         /* padding-top: 300px; */
-        box-sizing: border-box;
     }
     #homepage-new-users-title-div {
         font-weight: bold;
