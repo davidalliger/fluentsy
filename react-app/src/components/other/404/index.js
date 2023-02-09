@@ -6,7 +6,7 @@ const NotFound = () => {
     return (
         <div id='not-found-page'>
             <div id='not-found-image-div'>
-                <div id='not-found-image' style={{backgroundImage: `url(https://fluentsy-bucket.s3.us-west-1.amazonaws.com/not-found.jpg)`}}>
+                <div id='not-found-image' style={{backgroundImage: `url(https://fluentsy-s3.s3.us-east-2.amazonaws.com/not-found.jpg)`}}>
                 </div>
             </div>
             <div id='not-found-container'>
