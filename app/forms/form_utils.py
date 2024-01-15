@@ -193,7 +193,7 @@ def validate_birthday(form, field):
     current_day = today.day
     thirteen_years_ago = current_year - 13
     birthday = field.data
-    parts = birthday.split(', ')
+    parts = birthday.split('/')
     emptyErrors = 0
     intErrors = 0
     if not parts[1]:

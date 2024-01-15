@@ -66,7 +66,7 @@ const LanguagesPage = () => {
                 setPrimaryTargetLanguage(getPrimaryTargetLanguage);
             }
         }
-    }, [languages]);
+    }, [languages, user]);
 
     useEffect(() => {
         if (nativeLanguages?.length) {

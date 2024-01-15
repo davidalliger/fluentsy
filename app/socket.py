@@ -29,7 +29,6 @@ def handle_chat(data):
         error_message = {'message': 'Please select a recipient', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)
     recipient_profile = Profile.query.filter(Profile.user_id == room)
-    print(recipient_profile)
     if not recipient_profile:
         error_message = {'message': 'Recipient is not able to receive messages', 'type': 'chat', 'content': data['content']}
         emit('error', error_message, to=self)

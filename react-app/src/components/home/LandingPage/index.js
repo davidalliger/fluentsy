@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import SignUpModal from "../../auth/signup/SignUpModal";
 import ProfilesFeed from "../../profiles/ProfilesFeed";
 import './LandingPage.css'
-import myImage from '../../../images/landing-page_small.jpeg'
 
 const LandingPage = () => {
     const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -22,19 +21,19 @@ const LandingPage = () => {
                         <div id='landing-page-list'>
                             <div id='landing-page-list-1'>
                                 <div className='home-earth-icon'>
-                                    <i class="fa-solid fa-earth-americas"></i>
+                                    <i className="fa-solid fa-earth-americas"></i>
                                 </div>
                                 Practice your conversation skills with native speakers
                             </div>
                             <div id='landing-page-list-2'>
                                 <div className='home-earth-icon'>
-                                    <i class="fa-solid fa-earth-americas"></i>
+                                    <i className="fa-solid fa-earth-americas"></i>
                                 </div>
                                 Connect instantly with other users via live chat
                             </div>
                             <div id='landing-page-list-3'>
                                 <div className='home-earth-icon'>
-                                    <i class="fa-solid fa-earth-americas"></i>
+                                    <i className="fa-solid fa-earth-americas"></i>
                                 </div>
                                 Have fun while broadening your cultural horizons
                             </div>
@@ -43,7 +42,7 @@ const LandingPage = () => {
                         <SignUpModal showSignUpModal={showSignUpModal} setShowSignUpModal={setShowSignUpModal} />
                     </div>
                     <div id='landing-page-img-div'>
-                        <div id='landing-page-img' style={{backgroundImage: `url(https://fluentsy-bucket.s3.us-west-1.amazonaws.com/landing-page_small.png)`}}>
+                        <div id='landing-page-img' style={{backgroundImage: `url(https://fluentsy-s3.s3.us-east-2.amazonaws.com/landing-page_small.png)`}}>
                         </div>
                     </div>
                 </div>

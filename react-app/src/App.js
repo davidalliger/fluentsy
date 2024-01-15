@@ -11,7 +11,6 @@ import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
 import { getMessages, addMessage, editMessage, removeMessage, clearMessages, clearDeletedProfile } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
-import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
 import Messages from './components/messages/Messages';
 import {io} from 'socket.io-client';
@@ -55,7 +54,6 @@ function App() {
             dispatch(removeMessage(payload, +user.id));
         })
         socket.on('delete_profile_event', payload => {
-            console.log('received delete_profile_event, dispatching clearDeletedProfile.')
             dispatch(clearDeletedProfile(payload));
         })
       } else {
@@ -98,9 +96,6 @@ function App() {
             <ProtectedRoute path='/users/:id' exact={true} >
               <ProfilePage />
             </ProtectedRoute>
-            <Route path='/chat' exact={true} >
-              <Chat />
-            </Route>
             <ProtectedRoute path='/messages' exact={true} >
               <Messages />
             </ProtectedRoute>

@@ -23,7 +23,6 @@ def user_exists(form, field):
 def validate_img_url(form, field):
     # Checking if image url is valid
     url = field.data
-    print(url)
     if not url:
         raise StopValidation()
     extensions = re.compile(r'\.jpg$|\.jpeg$|\.png$|\.gif$|\.svg$|.bmp$', re.IGNORECASE)
@@ -36,7 +35,6 @@ def validate_img_url(form, field):
         raise ValidationError('Please enter a valid image URL beginning with either "http://" or "https://"')
     try:
         response = requests.get(url)
-        print(response)
         if not response.ok:
             raise ValidationError('Please enter a valid URL')
     except:

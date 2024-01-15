@@ -24,7 +24,7 @@ const CreateProfileForms = ({setShowModal}) => {
     const [year, setYear] = useState('');
     const [displayAge, setDisplayAge] = useState(false);
     const [about, setAbout] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState();
     const [allStepsCompleted, setAllStepsCompleted] = useState(false);
     const [noProfile, setNoProfile] = useState(false);
     const [languagesAdded, setLanguagesAdded] = useState(false);
@@ -74,7 +74,7 @@ const CreateProfileForms = ({setShowModal}) => {
             }
         })()
 
-    }, [noProfile]);
+    }, [noProfile, dispatch, level, nativeLanguage, targetLanguage, user.id]);
 
     useEffect(() => {
         (async() => {
@@ -96,7 +96,7 @@ const CreateProfileForms = ({setShowModal}) => {
     useEffect(()=> {
         if (languagesAdded) {
             (async() => {
-                const birthday = `${year}, ${month}, ${day}`;
+                const birthday = `${year}/${month}/${day}`;
                 const formData = new FormData();
                 formData.append('user_id', user.id);
                 formData.append('image', image);

@@ -48,7 +48,6 @@ def add_profile_about():
 @profile_routes.route('/picture', methods=['POST'])
 @login_required
 def add_profile_picture():
-    # print(dict(request))
 
     if 'image' not in request.files:
         return {'errors': ['Please provide an image']}, 400
@@ -61,23 +60,6 @@ def add_profile_picture():
     else:
         return {'success': 'Success'}
 
-    # image.filename = get_unique_filename(image.filename)
-
-    # upload = upload_file_to_s3(image)
-
-    # if 'url' not in upload:
-    #     return upload, 400
-
-    # url = upload['url']
-
-
-    # form = ProfilePictureForm()
-    # form['csrf_token'].data = request.cookies['csrf_token']
-    # if form.validate_on_submit():
-    #     return {'success': 'Success'}
-    # else:
-    #     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
-
 @profile_routes.route('/', methods=['POST'])
 @login_required
 def create_profile():
@@ -85,18 +67,15 @@ def create_profile():
         return {'errors': ['Please provide an image']}, 400
 
     image = request.files['image']
-    print(image)
 
     if not allowed_file(image.filename):
         return {'errors': ['File type not permitted']}, 400
 
     image.filename = get_unique_filename(image.filename)
-    print(image.filename)
 
     upload = upload_file_to_s3(image)
 
     if 'url' not in upload:
-        print('unable to upload???')
         return upload, 400
 
     url = upload['url']
@@ -105,31 +84,9 @@ def create_profile():
     form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        # if 'image' not in request.files:
-        #     return {'errors': ['Please provide an image']}, 400
-
-        # image = request.files['image']
-
-        # if not allowed_file(image.filename):
-        #     return {'errors': ['File type not permitted']}, 400
-
-
 
         new_profile = Profile()
-        print(new_profile)
         form.populate_obj(new_profile)
-        print(new_profile)
-
-        # image = new_profile.image
-
-        # image.filename = get_unique_filename(image.filename)
-
-        # upload = upload_file_to_s3(image)
-
-        # if 'url' not in upload:
-        #     return upload, 400
-
-        # url = upload['url']
         new_profile.image = url
 
         db.session.add(new_profile)
@@ -137,31 +94,24 @@ def create_profile():
 
         return new_profile.to_dict()
     else:
-        print('error occured')
         return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @profile_routes.route('/<int:id>/picture', methods=['PUT'])
 @login_required
 def edit_profile_picture(id):
-    print('REQUEST IS ', request)
-    print('REQUEST FILES ', request.files)
     if 'image' not in request.files:
         return {'errors': ['Please provide an image']}, 400
 
     image = request.files['image']
-    print('THIS SHOULD BE THE IMAGE ', image)
 
     if not allowed_file(image.filename):
         return {'errors': ['File type not permitted']}, 400
 
     image.filename = get_unique_filename(image.filename)
-    print(image.filename)
-
     upload = upload_file_to_s3(image)
 
     if 'url' not in upload:
-        print('unable to upload???')
         return upload, 400
 
     url = upload['url']
@@ -179,27 +129,6 @@ def edit_profile_picture(id):
 @profile_routes.route('/<int:id>/header', methods=['PUT'])
 @login_required
 def edit_profile_header(id):
-    # print('REQUEST IS ', request)
-    # print('REQUEST FILES ', request.files)
-    # if 'image' not in request.files:
-    #     return {'errors': ['Please provide an image']}, 400
-
-    # image = request.files['image']
-    # print('THIS SHOULD BE THE IMAGE ', image)
-
-    # if not allowed_file(image.filename):
-    #     return {'errors': ['File type not permitted']}, 400
-
-    # image.filename = get_unique_filename(image.filename)
-    # print(image.filename)
-
-    # upload = upload_file_to_s3(image)
-
-    # if 'url' not in upload:
-    #     print('unable to upload???')
-    #     return upload, 400
-
-    # url = upload['url']
     form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -214,27 +143,6 @@ def edit_profile_header(id):
 @profile_routes.route('/<int:id>/about', methods=['PUT'])
 @login_required
 def edit_profile_about(id):
-    # print('REQUEST IS ', request)
-    # print('REQUEST FILES ', request.files)
-    # if 'image' not in request.files:
-    #     return {'errors': ['Please provide an image']}, 400
-
-    # image = request.files['image']
-    # print('THIS SHOULD BE THE IMAGE ', image)
-
-    # if not allowed_file(image.filename):
-    #     return {'errors': ['File type not permitted']}, 400
-
-    # image.filename = get_unique_filename(image.filename)
-    # print(image.filename)
-
-    # upload = upload_file_to_s3(image)
-
-    # if 'url' not in upload:
-    #     print('unable to upload???')
-    #     return upload, 400
-
-    # url = upload['url']
     form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -250,12 +158,8 @@ def edit_profile_about(id):
 @login_required
 def delete_profile(id):
     delete_profile = Profile.query.filter(Profile.id == id).first()
-    print('profile to delete is ', delete_profile)
     delete_languages = Language.query.filter(Language.user_id == delete_profile.user_id).all()
-    print('languages to delete are ', delete_languages)
     delete_messages = Message.query.filter((Message.sender_id == delete_profile.user_id) | (Message.recipient_id == delete_profile.user_id)).all()
-    print('messages to delete are ', delete_messages)
-
     if delete_languages:
         for language in delete_languages:
             db.session.delete(language)

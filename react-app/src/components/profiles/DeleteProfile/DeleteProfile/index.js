@@ -23,7 +23,6 @@ const DeleteProfileForm = ({setShowModal, id, user}) => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         const data = await dispatch(deleteProfile(id));
-        console.log('emitting delete profile with id ', id);
         deleteSocket.emit('delete_profile', {'id': +user.id });
         dispatch(clearLanguages(user.id))
         dispatch(clearMessages())

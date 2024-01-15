@@ -17,7 +17,6 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
     const [showState, setShowState] = useState(userProfile.state ? true : false);
     const [showErrors, setShowErrors] = useState(false);
     const dispatch = useDispatch();
-    console.log(imgUrl);
 
     useEffect(() => {
         if (country === 'United States') {
@@ -50,7 +49,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
             country,
             state,
             timezone,
-            birthday: `${year}, ${month}, ${day}`,
+            birthday: `${year}/${month}/${day}`,
             display_age: displayAge,
             about
         };

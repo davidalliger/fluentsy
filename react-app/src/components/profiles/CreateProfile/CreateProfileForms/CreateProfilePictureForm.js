@@ -16,8 +16,6 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
         formData.append('image', image);
 
         setImageLoading(true);
-        console.log(formData)
-
 
 
         // const picture = {
@@ -58,8 +56,6 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
         setImage(file);
         const fileDisplay = file.name.length < 15 ? file.name : file.name.slice(0,15) + '...';
         setFileName(fileDisplay);
-        console.log(file);
-        console.log(image);
     }
 
     return (
@@ -84,11 +80,6 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
                     Select your profile picture
                 </div>
                 <div className='basic-form-file-field'>
-                    {/* <div className='basic-form-label'>
-                        <label htmlFor='img-url'>
-                            Image
-                        </label>
-                    </div> */}
                     <div className='basic-form-upload-field'>
                         <input className='basic-form-upload-filename'
                             placeholder='No File Selected'
@@ -127,14 +118,14 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
                         Next
                     </button>
                 </div>
-                {/* <div
+                <div
                     onClick={handleSkip}
                     type='div'
                     id='skip'
                     className='basic-form-extra-link'
                 >
                     Skip this step
-                </div> */}
+                </div>
             </form>
         </div>
     )
