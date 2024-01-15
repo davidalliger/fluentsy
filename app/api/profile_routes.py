@@ -1,4 +1,3 @@
-import asyncio
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms.profile_forms import ProfileLanguagesForm, ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, ProfileForm
