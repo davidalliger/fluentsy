@@ -16,8 +16,6 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
         formData.append('image', image);
 
         setImageLoading(true);
-        console.log(formData)
-
 
 
         // const picture = {
@@ -58,8 +56,6 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
         setImage(file);
         const fileDisplay = file.name.length < 15 ? file.name : file.name.slice(0,15) + '...';
         setFileName(fileDisplay);
-        console.log(file);
-        console.log(image);
     }
 
     return (

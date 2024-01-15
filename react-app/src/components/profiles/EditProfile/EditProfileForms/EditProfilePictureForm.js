@@ -14,8 +14,6 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(id);
-        console.log(image);
         const formData = new FormData();
         formData.append('id', +id);
         formData.append('username', username);
@@ -27,7 +25,6 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
         formData.append('birthday', birthday);
         formData.append('display_age', displayAge);
         formData.append('about', about);
-        console.log(formData)
 
         setImageLoading(true);
 
@@ -69,7 +66,6 @@ const EditProfilePictureForm = ({userProfile, setShowEditPictureModal}) => {
         setImage(file);
         const fileDisplay = file.name.length < 15 ? file.name : file.name.slice(0,15) + '...';
         setFileName(fileDisplay);
-        console.log(image);
     }
 
     return (

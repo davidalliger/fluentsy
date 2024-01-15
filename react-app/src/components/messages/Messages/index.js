@@ -5,7 +5,6 @@ import SelectedMessages from "../SelectedMessages";
 
 const Messages = () => {
     const messageState = useSelector(state => state.messages);
-    console.log('messageState is ', messageState);
     const profileState = useSelector(state => state.profiles);
     const user = useSelector(state => state.session.user);
     const profiles = Object.values(profileState);
@@ -16,7 +15,6 @@ const Messages = () => {
 
     useEffect(() => {
         if (profileState && messageState) {
-            console.log('in useEffect, messageState is ', messageState);
             setCorrespondents(Object.keys(messageState))
         }
     }, [profileState, messageState])

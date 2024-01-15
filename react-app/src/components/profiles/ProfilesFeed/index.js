@@ -48,14 +48,10 @@ const ProfilesFeed = () => {
     }, [checked]);
 
     useEffect(()=> {
-        console.log("Inside useEffect");
         let filteredProfiles = showProfiles;
         if (username) {
-            console.log('username is ', username);
             const regex = new RegExp(username, 'i');
-            console.log('regex is ', regex);
             filteredProfiles = filteredProfiles.filter(profile => regex.test(profile.username));
-            console.log('filteredProfiles is ', filteredProfiles);
         }
         if (language) {
             filteredProfiles = filteredProfiles.filter(profile => {

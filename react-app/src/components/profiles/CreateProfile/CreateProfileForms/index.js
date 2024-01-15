@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { checkProfileExists, createProfile } from '../../../../store/profiles';
 import { createLanguage } from '../../../../store/languages';
-import { formatMonthOrDay } from '../../../../utils';
 
 const CreateProfileForms = ({setShowModal}) => {
     const [showLanguageForm, setShowLanguageForm] = useState(true);
@@ -22,7 +21,6 @@ const CreateProfileForms = ({setShowModal}) => {
     const [timezone, setTimezone] = useState('');
     const [month, setMonth] = useState('');
     const [day, setDay] = useState('');
-    console.log("day", day)
     const [year, setYear] = useState('');
     const [displayAge, setDisplayAge] = useState(false);
     const [about, setAbout] = useState('');

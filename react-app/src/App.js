@@ -54,7 +54,6 @@ function App() {
             dispatch(removeMessage(payload, +user.id));
         })
         socket.on('delete_profile_event', payload => {
-            console.log('received delete_profile_event, dispatching clearDeletedProfile.')
             dispatch(clearDeletedProfile(payload));
         })
       } else {

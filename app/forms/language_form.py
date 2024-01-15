@@ -28,7 +28,6 @@ class NoDuplicateLanguages(object):
         language_name = field.data
         user_id = form[self.fieldname].data
         dup_languages = Language.query.filter(Language.name==language_name, Language.user_id==user_id).all()
-        print(dup_languages)
         if len(dup_languages) > 0:
             raise ValidationError('User has already added this language')
 
@@ -46,7 +45,6 @@ class EditNoDuplicateLanguages(object):
         id = form[self.fieldname1].data
         user_id = form[self.fieldname2].data
         dup_languages = Language.query.filter(Language.name==language_name, Language.user_id==user_id, Language.id !=id).all()
-        print(dup_languages)
         if len(dup_languages) > 0:
             raise ValidationError('User has already added this language')
 
