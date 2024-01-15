@@ -98,9 +98,6 @@ function App() {
             <ProtectedRoute path='/users/:id' exact={true} >
               <ProfilePage />
             </ProtectedRoute>
-            <Route path='/chat' exact={true} >
-              <Chat />
-            </Route>
             <ProtectedRoute path='/messages' exact={true} >
               <Messages />
             </ProtectedRoute>

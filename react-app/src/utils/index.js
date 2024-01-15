@@ -1,10 +1,14 @@
-export const getAge = (date) => {
+export const getAge = (dateString) => {
     const today = new Date();
-    const birthday = new Date(date);
-    birthday.setDate(birthday.getUTCDate());
-    birthday.setMonth(birthday.getMonth() - 1);
+    const birthday = new Date(dateString);
+    
+    // Ensure consistent timezone handling
+    birthday.setUTCHours(0, 0, 0, 0);
+    
+    // Calculate age using timestamps
     const year = 1000 * 60 * 60 * 24 * 365;
-    const age = Math.floor((today - birthday)/year);
+    const age = Math.floor((today.getTime() - birthday.getTime()) / year);
+    
     return age;
 }
 

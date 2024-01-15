@@ -22,19 +22,19 @@ const LandingPage = () => {
                         <div id='landing-page-list'>
                             <div id='landing-page-list-1'>
                                 <div className='home-earth-icon'>
-                                    <i class="fa-solid fa-earth-americas"></i>
+                                    <i className="fa-solid fa-earth-americas"></i>
                                 </div>
                                 Practice your conversation skills with native speakers
                             </div>
                             <div id='landing-page-list-2'>
                                 <div className='home-earth-icon'>
-                                    <i class="fa-solid fa-earth-americas"></i>
+                                    <i className="fa-solid fa-earth-americas"></i>
                                 </div>
                                 Connect instantly with other users via live chat
                             </div>
                             <div id='landing-page-list-3'>
                                 <div className='home-earth-icon'>
-                                    <i class="fa-solid fa-earth-americas"></i>
+                                    <i className="fa-solid fa-earth-americas"></i>
                                 </div>
                                 Have fun while broadening your cultural horizons
                             </div>
