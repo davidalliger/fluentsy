@@ -1,3 +1,4 @@
+import asyncio
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms.profile_forms import ProfileLanguagesForm, ProfileLocationForm, ProfileAboutForm, ProfilePictureForm, ProfileForm
@@ -61,23 +62,6 @@ def add_profile_picture():
     else:
         return {'success': 'Success'}
 
-    # image.filename = get_unique_filename(image.filename)
-
-    # upload = upload_file_to_s3(image)
-
-    # if 'url' not in upload:
-    #     return upload, 400
-
-    # url = upload['url']
-
-
-    # form = ProfilePictureForm()
-    # form['csrf_token'].data = request.cookies['csrf_token']
-    # if form.validate_on_submit():
-    #     return {'success': 'Success'}
-    # else:
-    #     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
-
 @profile_routes.route('/', methods=['POST'])
 @login_required
 def create_profile():
@@ -94,6 +78,7 @@ def create_profile():
     print(image.filename)
 
     upload = upload_file_to_s3(image)
+    print(upload)
 
     if 'url' not in upload:
         print('unable to upload???')
@@ -159,27 +144,6 @@ def edit_profile_picture(id):
 @profile_routes.route('/<int:id>/header', methods=['PUT'])
 @login_required
 def edit_profile_header(id):
-    # print('REQUEST IS ', request)
-    # print('REQUEST FILES ', request.files)
-    # if 'image' not in request.files:
-    #     return {'errors': ['Please provide an image']}, 400
-
-    # image = request.files['image']
-    # print('THIS SHOULD BE THE IMAGE ', image)
-
-    # if not allowed_file(image.filename):
-    #     return {'errors': ['File type not permitted']}, 400
-
-    # image.filename = get_unique_filename(image.filename)
-    # print(image.filename)
-
-    # upload = upload_file_to_s3(image)
-
-    # if 'url' not in upload:
-    #     print('unable to upload???')
-    #     return upload, 400
-
-    # url = upload['url']
     form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -194,27 +158,6 @@ def edit_profile_header(id):
 @profile_routes.route('/<int:id>/about', methods=['PUT'])
 @login_required
 def edit_profile_about(id):
-    # print('REQUEST IS ', request)
-    # print('REQUEST FILES ', request.files)
-    # if 'image' not in request.files:
-    #     return {'errors': ['Please provide an image']}, 400
-
-    # image = request.files['image']
-    # print('THIS SHOULD BE THE IMAGE ', image)
-
-    # if not allowed_file(image.filename):
-    #     return {'errors': ['File type not permitted']}, 400
-
-    # image.filename = get_unique_filename(image.filename)
-    # print(image.filename)
-
-    # upload = upload_file_to_s3(image)
-
-    # if 'url' not in upload:
-    #     print('unable to upload???')
-    #     return upload, 400
-
-    # url = upload['url']
     form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

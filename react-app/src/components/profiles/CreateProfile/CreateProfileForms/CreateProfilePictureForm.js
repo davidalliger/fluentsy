@@ -84,11 +84,6 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
                     Select your profile picture
                 </div>
                 <div className='basic-form-file-field'>
-                    <div className='basic-form-label'>
-                        <label htmlFor='img-url'>
-                            Image
-                        </label>
-                    </div>
                     <div className='basic-form-upload-field'>
                         <input className='basic-form-upload-filename'
                             placeholder='No File Selected'

@@ -9,17 +9,17 @@ export const getAge = (date) => {
 }
 
 export const findYear = (date) => {
-    const birthday = date.split(", ");
+    const birthday = date.split("/");
     return birthday[0];
 }
 
 export const findMonth = (date) => {
-    const birthday = date.split(", ");
+    const birthday = date.split("/");
     return birthday[1];
 }
 
 export const findDay = (date) => {
-    const birthday = date.split(", ");
+    const birthday = date.split("/");
     return birthday[2];
 }
 

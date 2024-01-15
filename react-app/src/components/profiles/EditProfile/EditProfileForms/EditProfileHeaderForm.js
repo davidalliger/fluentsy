@@ -50,7 +50,7 @@ const EditProfileHeaderForm = ({userProfile, setShowEditHeaderModal}) => {
             country,
             state,
             timezone,
-            birthday: `${year}, ${month}, ${day}`,
+            birthday: `${year}/${month}/${day}`,
             display_age: displayAge,
             about
         };
