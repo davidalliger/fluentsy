@@ -22,7 +22,7 @@ const CreateProfileLocationForm = ({country, setCountry, state, setState, timezo
         return () => {
             setShowState(false);
         }
-    }, [country, setTimezone]);
+    }, [country, setTimezone, setState]);
 
     useEffect(() => {
         if (statesDefaultTimezones[state]) {

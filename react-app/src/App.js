@@ -11,7 +11,6 @@ import { authenticate } from './store/session';
 import { getProfiles } from './store/profiles';
 import { getMessages, addMessage, editMessage, removeMessage, clearMessages, clearDeletedProfile } from './store/messages';
 import ProfilePage from './components/profiles/ProfilePage';
-import Chat from './components/Chat/Chat';
 import Loading from './components/other/Loading';
 import Messages from './components/messages/Messages';
 import {io} from 'socket.io-client';

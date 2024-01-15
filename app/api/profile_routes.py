@@ -105,31 +105,11 @@ def create_profile():
     form = ProfileForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        # if 'image' not in request.files:
-        #     return {'errors': ['Please provide an image']}, 400
-
-        # image = request.files['image']
-
-        # if not allowed_file(image.filename):
-        #     return {'errors': ['File type not permitted']}, 400
-
-
 
         new_profile = Profile()
         print(new_profile)
         form.populate_obj(new_profile)
         print(new_profile)
-
-        # image = new_profile.image
-
-        # image.filename = get_unique_filename(image.filename)
-
-        # upload = upload_file_to_s3(image)
-
-        # if 'url' not in upload:
-        #     return upload, 400
-
-        # url = upload['url']
         new_profile.image = url
 
         db.session.add(new_profile)

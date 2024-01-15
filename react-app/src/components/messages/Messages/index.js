@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Redirect, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import SelectedMessages from "../SelectedMessages";
@@ -12,7 +12,6 @@ const Messages = () => {
     const [correspondents, setCorrespondents] = useState([]);
     const location = useLocation();
     const { currentCorrespondent } = location.state;
-    // const correspondents = Object.keys(messageState);
     const [selected, setSelected] = useState(currentCorrespondent ? currentCorrespondent.userId : null);
 
     useEffect(() => {
@@ -59,7 +58,10 @@ const Messages = () => {
                                             </div>
                                         )
                                 }
-                                } else return null;
+                                } else {
+                                    return <></>;
+                                }
+                                return <></>;
                             })}
                         </div>
                     </div>

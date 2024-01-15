@@ -84,11 +84,11 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
                     Select your profile picture
                 </div>
                 <div className='basic-form-file-field'>
-                    {/* <div className='basic-form-label'>
+                    <div className='basic-form-label'>
                         <label htmlFor='img-url'>
                             Image
                         </label>
-                    </div> */}
+                    </div>
                     <div className='basic-form-upload-field'>
                         <input className='basic-form-upload-filename'
                             placeholder='No File Selected'
@@ -127,14 +127,14 @@ const CreateProfilePictureForm = ({setShowAboutForm, setShowPictureForm, image, 
                         Next
                     </button>
                 </div>
-                {/* <div
+                <div
                     onClick={handleSkip}
                     type='div'
                     id='skip'
                     className='basic-form-extra-link'
                 >
                     Skip this step
-                </div> */}
+                </div>
             </form>
         </div>
     )

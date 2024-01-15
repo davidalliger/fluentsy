@@ -42,7 +42,7 @@ const FeedLanguages = ({userProfile}) => {
                 setPrimaryTargetLanguage(getPrimaryTargetLanguage);
             }
         }
-    }, [languages]);
+    }, [languages, userProfile]);
 
     useEffect(() => {
         if (nativeLanguages?.length) {

@@ -55,7 +55,7 @@ const HomePage = () => {
 
 
         return () => clearTimeout(timeOut);
-    }, [userProfile]);
+    }, [userProfile, user, profiles]);
 
     const expand = () => {
         const about1 =document.getElementById('homepage-about-section-1');
@@ -116,7 +116,7 @@ const HomePage = () => {
             </div>
             <div id='home-page-new-users-area'>
                 {showProfiles.map(profile => (
-                        <div className='homepage-user-container'>
+                        <div className='homepage-user-container' key={profile.id}>
                             <div className='homepage-user-left'>
 
                                 <div className='homepage-image'>

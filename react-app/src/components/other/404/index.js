@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import notFound from '../../../images/not-found.jpg'
 import './404.css'
 
 const NotFound = () => {

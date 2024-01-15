@@ -34,7 +34,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
             setYesMessages(false);
             setNoMessages(false);
         }
-    }, [messageState, selectedName])
+    }, [messageState, selectedName, selected])
 
     useEffect(()=> {
 
@@ -54,7 +54,7 @@ const SelectedMessages = ({selected, user, profiles, currentCorrenspondent}) => 
             messageSocket.disconnect();
         })
 
-    }, []);
+    }, [user.id]);
 
     useEffect(()=> {
         if (selected && profiles.length) {

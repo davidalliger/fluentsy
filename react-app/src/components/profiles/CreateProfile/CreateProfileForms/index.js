@@ -24,7 +24,7 @@ const CreateProfileForms = ({setShowModal}) => {
     const [year, setYear] = useState('');
     const [displayAge, setDisplayAge] = useState(false);
     const [about, setAbout] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState();
     const [allStepsCompleted, setAllStepsCompleted] = useState(false);
     const [noProfile, setNoProfile] = useState(false);
     const [languagesAdded, setLanguagesAdded] = useState(false);
